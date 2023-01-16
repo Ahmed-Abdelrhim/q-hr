@@ -93,7 +93,7 @@
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
                                             {{ Form::label('employees', __('Employees'),['class'=>'form-label'])}}
-                                            {{ Form::select('department', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}
+                                            {{ Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}
                                         </div>
                                     </div>
                                 @endif

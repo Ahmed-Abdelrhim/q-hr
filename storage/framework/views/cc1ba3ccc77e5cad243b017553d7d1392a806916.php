@@ -103,7 +103,7 @@
                                         <div class="btn-box">
                                             <?php echo e(Form::label('employees', __('Employees'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::select('department', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select'))); ?>
+                                            <?php echo e(Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select'))); ?>
 
                                         </div>
                                     </div>
