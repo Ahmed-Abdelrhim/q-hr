@@ -117,8 +117,8 @@
 
                                                 @foreach($emps as $key => $item)
 
-                                                    <option value="{{$item}}">
-                                                        {{$item}}
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->name}}
                                                     </option>
                                                 @endforeach
                                             </select>

@@ -175,8 +175,6 @@ class AttendanceEmployeeController extends Controller
 
                 if (!empty($request->department)) {
                     return $request;
-                    $dep = Department::query()->where('name', $request->department)->first();
-                    return $dep;
                     $employee->where('department_id', $request->department);
                 }
 

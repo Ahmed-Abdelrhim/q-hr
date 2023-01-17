@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('page-title'); ?>
     <?php echo e(__('Manage Attendance List')); ?>
 
@@ -120,9 +119,25 @@
 
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            <?php echo e(Form::label('employees', __('Employees'),['class'=>'form-label'])); ?>
+                                            <label class="form-label" for="Employees">
+                                                <?php echo e(__('Employees')); ?>
 
-                                            <?php echo e(Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select'))); ?>
+                                            </label>
+                                            <select class="form-control select" id="Employees" name="employees">
+
+                                                <?php $__currentLoopData = $emps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                                    <option value="<?php echo e($item->id); ?>">
+                                                        <?php echo e($item->name); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+
+
+
+
 
                                         </div>
                                     </div>
