@@ -85,15 +85,26 @@
                                 <?php if(\Auth::user()->type != 'employee'): ?>
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            <?php echo e(Form::label('branch', __('Branch'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::select('branch', $branch,isset($_GET['branch'])?$_GET['branch']:'', array('class' => 'form-control select'))); ?>
+                                            <label class="form-label" for="Branch">
+                                                <?php echo e(__('Branch')); ?>
 
+                                            </label>
+                                            <select class="form-control select" id="Branch" name="branch">
+                                                <?php $__currentLoopData = $branch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($item->id); ?>">
+                                                        <?php echo e($item->name); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+                                            
+                                            
                                         </div>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-
 
                                             <label class="form-label" for="Department">
                                                 <?php echo e(__('Department')); ?>
@@ -104,8 +115,8 @@
                                                 <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     
                                                     
-                                                    <option value="<?php echo e($item); ?>">
-                                                        <?php echo e($item); ?>
+                                                    <option value="<?php echo e($item->id); ?>">
+                                                        <?php echo e($item->name); ?>
 
                                                     </option>
                                                     
@@ -135,10 +146,8 @@
                                             </select>
 
 
-
-
-
-
+                                            
+                                            
                                         </div>
                                     </div>
                                 <?php endif; ?>

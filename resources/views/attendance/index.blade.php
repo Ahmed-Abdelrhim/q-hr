@@ -86,8 +86,8 @@
                                             </label>
                                             <select class="form-control select" id="Branch" name="branch">
                                                 @foreach($branch as $key => $item)
-                                                    <option value="{{$item}}">
-                                                        {{$item}}
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->name}}
                                                     </option>
                                                 @endforeach
                                             </select>
