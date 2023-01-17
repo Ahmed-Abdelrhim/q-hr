@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AttendanceEmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -639,6 +639,10 @@ Route::resource('attendanceemployee', 'AttendanceEmployeeController')->middlewar
         'XSS',
     ]
 );
+
+Route::get('attendance/employees',[AttendanceEmployeeController::class,'attendanceFilter'])->name('attendance.employees');
+
+
 Route::resource('timesheet', 'TimeSheetController')->middleware(
     [
         'auth',

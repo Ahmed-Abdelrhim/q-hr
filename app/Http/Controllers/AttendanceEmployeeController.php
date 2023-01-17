@@ -14,9 +14,121 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceEmployeeController extends Controller
 {
-    public function index(Request $request)
+
+    public function attendanceFilter(Request $request)
     {
         // return $request;
+        if ($request->get('branch') != null) {
+            $branch = Branch::query()->where('id', $request->get('branch'))->get(['id', 'name']);
+        } else {
+            $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+        }
+        if ($request->get('department') != null) {
+            $department = Department::query()->where('id', $request->get('department'))->get(['id', 'name']);
+        } else {
+            $department = Department::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+        }
+        if ($request->get('employees') != null) {
+            $emps = Employee::query()->where('id', $request->get('employees'))->get(['id', 'name']);
+        } else {
+            $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+        }
+        $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
+
+        $employee = $employee->get()->pluck('id');
+
+        $attendanceEmployee = AttendanceEmployee::query()->whereIn('employee_id', $employee);
+        $grand_total = 0;
+        return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
+    }
+
+//    public function index(Request $request)
+//    {
+//        if (Auth::user()->can('Manage Attendance')) {
+//            $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
+//            $branch->prepend('All', '');
+//            // $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+//
+//            $department = Department::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
+//            $department->prepend('All', '');
+//            // $department = Department::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+//
+//            $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
+//            $emps->prepend('All', '');
+//            // $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+//
+//
+//            if (Auth::user()->type == 'employee') {
+//
+//                $emp = !empty(Auth::user()->employee) ? Auth::user()->employee->id : 0;
+//
+//                $attendanceEmployee = AttendanceEmployee::query()->where('employee_id', $emp);
+//
+//                if ($request->type == 'monthly' && !empty($request->month)) {
+//                    $month = date('m', strtotime($request->month));
+//                    $year = date('Y', strtotime($request->month));
+//
+//                    $start_date = date($year . '-' . $month . '-01');
+//                    $end_date = date($year . '-' . $month . '-t');
+//
+//                    $attendanceEmployee->whereBetween('date', [$start_date, $end_date,]);
+//                } elseif ($request->type == 'daily' && !empty($request->date)) {
+//                    $attendanceEmployee->where('date', $request->date);
+//                } else {
+//                    $month = date('m');
+//                    $year = date('Y');
+//                    $start_date = date($year . '-' . $month . '-01');
+//                    $end_date = date($year . '-' . $month . '-t');
+//
+//                    $attendanceEmployee->whereBetween('date', [$start_date, $end_date,]);
+//                }
+//                $attendanceEmployee = $attendanceEmployee->get();
+//
+//            }
+//            else {
+//                $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
+//                if (!empty($request->branch)) {
+//                    $employee->where('branch_id', $request->branch);
+//                }
+//
+//                if (!empty($request->department)) {
+//                    $employee->where('department_id', $request->department);
+//                }
+//
+//                $employee = $employee->get()->pluck('id');
+//
+//                $attendanceEmployee = AttendanceEmployee::query()->whereIn('employee_id', $employee);
+//
+//                if ($request->type == 'monthly' && !empty($request->month)) {
+//                    $month = date('m', strtotime($request->month));
+//                    $year = date('Y', strtotime($request->month));
+//
+//                    $start_date = date($year . '-' . $month . '-01');
+//                    $end_date = date($year . '-' . $month . '-t');
+//
+//                    $attendanceEmployee->whereBetween('date', [$start_date, $end_date,]);
+//                } elseif ($request->type == 'daily' && !empty($request->date)) {
+//                    $attendanceEmployee->where('date', $request->date);
+//                } else {
+//                    $month = date('m');
+//                    $year = date('Y');
+//                    $start_date = date($year . '-' . $month . '-01');
+//                    $end_date = date($year . '-' . $month . '-t');
+//
+//                    $attendanceEmployee->whereBetween('date', [$start_date, $end_date,]);
+//                }
+//                $attendanceEmployee = $attendanceEmployee->get();
+//            }
+//            $grand_total = null;
+//
+//            return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
+//        } else {
+//            return redirect()->back()->with('error', __('Permission denied.'));
+//        }
+//    }
+    public function index(Request $request)
+    {
+         // return $request;
         if (Auth::user()->can('Manage Attendance')) {
             $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
             $branch->prepend('All', '');
@@ -54,13 +166,17 @@ class AttendanceEmployeeController extends Controller
                 }
                 $attendanceEmployee = $attendanceEmployee->get();
 
-            } else {
+            }
+            else {
                 $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
                 if (!empty($request->branch)) {
                     $employee->where('branch_id', $request->branch);
                 }
 
                 if (!empty($request->department)) {
+                    return $request;
+                    $dep = Department::query()->where('name', $request->department)->first();
+                    return $dep;
                     $employee->where('department_id', $request->department);
                 }
 
@@ -92,12 +208,15 @@ class AttendanceEmployeeController extends Controller
 
             }
             $grand_total = null;
-
+//            if (is_string( $department))
+//                return  'Yes';
+//            return var_dump($department);
             return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
+
 
     public function create()
     {

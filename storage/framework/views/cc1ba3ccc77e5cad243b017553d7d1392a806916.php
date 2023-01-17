@@ -44,6 +44,7 @@
                 <div class="card-body">
                     <?php echo e(Form::open(array('route' => array('attendanceemployee.index'),'method'=>'get','id'=>'attendanceemployee_filter'))); ?>
 
+                    
                     <div class="row align-items-center justify-content-end">
                         <div class="col-xl-10">
                             <div class="row">
@@ -92,10 +93,27 @@
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            <?php echo e(Form::label('department', __('Department'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::select('department', $department,isset($_GET['department'])?$_GET['department']:'', array('class' => 'form-control select'))); ?>
 
+                                            <label class="form-label" for="Department">
+                                                <?php echo e(__('Department')); ?>
+
+                                            </label>
+                                            <select class="form-control select" id="Department" name="department">
+
+                                                <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    
+                                                    
+                                                    <option value="<?php echo e($item); ?>">
+                                                        <?php echo e($item); ?>
+
+                                                    </option>
+                                                    
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                            
+                                            
+                                            
                                         </div>
                                     </div>
 
@@ -135,6 +153,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 <?php echo e(Form::close()); ?>
 
@@ -185,7 +204,7 @@
                                 <td><?php echo e($attendance->clock_out != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_out) : '00:00'); ?>
 
                                 </td>
-                                    <!-- Total Logged Hours-->
+                                <!-- Total Logged Hours-->
                                 <td>
                                     <?php echo e($attendance->clock_out != '00:00:00' ?
                                         gmdate('H:i',
@@ -195,8 +214,7 @@
 
                                     <?php
                                         $grand_total = gmdate('H:i',
-                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in)
-                                                 + strtotime($grand_total) )
+                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )
                                     ?>
                                 </td>
                                 <td><?php echo e($attendance->late); ?></td>
@@ -253,6 +271,380 @@
         </div>
     </div>
 <?php $__env->stopSection(); ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
