@@ -80,6 +80,18 @@
                                 @if(\Auth::user()->type != 'employee')
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
+
+                                            <label class="form-label" for="Branch">
+                                                {{__('Branch')}}
+                                            </label>
+                                            <select class="form-control select" id="Branch" name="branch">
+                                                @foreach($branch as $key => $item)
+                                                    <option value="{{$item}}">
+                                                        {{$item}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
                                             {{--{{ Form::label('branch', __('Branch'),['class'=>'form-label'])}}--}}
                                             {{-- {{ Form::select('branch', $branch,isset($_GET['branch'])?$_GET['branch']:'', array('class' => 'form-control select')) }}--}}
                                         </div>
