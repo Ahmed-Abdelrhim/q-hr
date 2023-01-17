@@ -80,13 +80,12 @@
                                 @if(\Auth::user()->type != 'employee')
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            {{ Form::label('branch', __('Branch'),['class'=>'form-label'])}}
-                                            {{ Form::select('branch', $branch,isset($_GET['branch'])?$_GET['branch']:'', array('class' => 'form-control select')) }}
+                                            {{--{{ Form::label('branch', __('Branch'),['class'=>'form-label'])}}--}}
+                                            {{-- {{ Form::select('branch', $branch,isset($_GET['branch'])?$_GET['branch']:'', array('class' => 'form-control select')) }}--}}
                                         </div>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-
 
                                             <label class="form-label" for="Department">
                                                 {{__('Department')}}
@@ -96,8 +95,8 @@
                                                 @foreach($department as $key => $item)
                                                     {{-- <optgroup>--}}
                                                     {{--<option value="{{$item}}"  @if(request()->input('department') == $item){{ 'selected' }}@endif>--}}
-                                                    <option value="{{$item}}">
-                                                        {{$item}}
+                                                    <option value="{{$item->id}}">
+                                                        {{$item->name}}
                                                     </option>
                                                     {{-- </optgroup>--}}
                                                 @endforeach
