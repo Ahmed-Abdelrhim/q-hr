@@ -128,7 +128,7 @@ class AttendanceEmployeeController extends Controller
 //    }
     public function index(Request $request)
     {
-         // return $request;
+        // return $request;
         if (Auth::user()->can('Manage Attendance')) {
             $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
             $branch->prepend('All', '');
@@ -137,9 +137,10 @@ class AttendanceEmployeeController extends Controller
             $department->prepend('All', '');
             // return auth()->user()->employee->id;
 
-            $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
-            $emps->prepend('All', '');
-
+            // $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
+            $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+            // $emps->prepend('All', '');
+            // return $emps;
             if (Auth::user()->type == 'employee') {
 
                 $emp = !empty(Auth::user()->employee) ? Auth::user()->employee->id : 0;
@@ -166,8 +167,7 @@ class AttendanceEmployeeController extends Controller
                 }
                 $attendanceEmployee = $attendanceEmployee->get();
 
-            }
-            else {
+            } else {
                 $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
                 if (!empty($request->branch)) {
                     $employee->where('branch_id', $request->branch);
@@ -208,9 +208,6 @@ class AttendanceEmployeeController extends Controller
 
             }
             $grand_total = null;
-//            if (is_string( $department))
-//                return  'Yes';
-//            return var_dump($department);
             return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));

@@ -110,8 +110,24 @@
 
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            {{ Form::label('employees', __('Employees'),['class'=>'form-label'])}}
-                                            {{ Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}
+                                            <label class="form-label" for="Employees">
+                                                {{__('Employees')}}
+                                            </label>
+                                            <select class="form-control select" id="Employees" name="employees">
+
+                                                @foreach($emps as $key => $item)
+
+                                                    <option value="{{$item}}">
+                                                        {{$item}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+
+
+{{--                                            --}}
+{{--                                            {{ Form::label('employees', __('Employees'),['class'=>'form-label'])}}--}}
+{{--                                            {{ Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}--}}
                                         </div>
                                     </div>
                                 @endif
