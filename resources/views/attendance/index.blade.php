@@ -124,10 +124,8 @@
                                             </select>
 
 
-
-{{--                                            --}}
-{{--                                            {{ Form::label('employees', __('Employees'),['class'=>'form-label'])}}--}}
-{{--                                            {{ Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}--}}
+                                            {{--{{ Form::label('employees', __('Employees'),['class'=>'form-label'])}}--}}
+                                            {{--{{ Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}--}}
                                         </div>
                                     </div>
                                 @endif
