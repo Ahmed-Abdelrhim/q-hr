@@ -640,7 +640,7 @@ Route::resource('attendanceemployee', 'AttendanceEmployeeController')->middlewar
     ]
 );
 Route::get('employee/report/{id}',[AttendanceEmployeeController::class,'employeeReport'])->name('employee.report');
-Route::get('filter/employee/report',[AttendanceEmployeeController::class,'filterEmployeeReport'])->name('filter.employee.attendance');
+Route::get('filter/employee/report/{id}',[AttendanceEmployeeController::class,'filterEmployeeReport'])->name('filter.employee.attendance');
 
 // Route::get('attendance/employees',[AttendanceEmployeeController::class,'attendanceFilter'])->name('attendance.employees');
 

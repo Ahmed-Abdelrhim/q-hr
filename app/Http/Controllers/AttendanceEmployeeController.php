@@ -28,14 +28,23 @@ class AttendanceEmployeeController extends Controller
             ->where('employee_id', $employee->id)
             ->whereBetween('date', [$start, $end])
             ->get();
-        // return $attendanceEmployee;
 
-        return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee]);
+        return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee,'id'=>$id]);
     }
 
-    public function filterEmployeeReport(Request $request)
+    public function filterEmployeeReport(Request $request,$id)
     {
-        return $request;
+        $employee = Employee::query()->find($id);
+        if (!$employee)
+            return 'Employee not found or has been deleted';
+
+        $start = $request->get('date_from');
+        $end = $request->get('date_to');
+
+        return AttendanceEmployee::query()
+            ->where('employee_id', $employee->id)
+            ->whereBetween('date', [$start, $end])
+            ->get();
     }
 
     public function attendanceFilter(Request $request)
