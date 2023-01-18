@@ -85,15 +85,26 @@
                                 <?php if(\Auth::user()->type != 'employee'): ?>
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            <?php echo e(Form::label('branch', __('Branch'),['class'=>'form-label'])); ?>
 
-                                            <?php echo e(Form::select('branch', $branch,isset($_GET['branch'])?$_GET['branch']:'', array('class' => 'form-control select'))); ?>
+                                            <label class="form-label" for="Branch">
+                                                <?php echo e(__('Branch')); ?>
 
+                                            </label>
+                                            <select class="form-control select" id="Branch" name="branch">
+                                                <?php $__currentLoopData = $branch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($item->id); ?>">
+                                                        <?php echo e($item->name); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+                                            
+                                            
                                         </div>
                                     </div>
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-
 
                                             <label class="form-label" for="Department">
                                                 <?php echo e(__('Department')); ?>
@@ -104,14 +115,14 @@
                                                 <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     
                                                     
-                                                    <option value="<?php echo e($item); ?>">
-                                                        <?php echo e($item); ?>
+                                                    <option value="<?php echo e($item->id); ?>">
+                                                        <?php echo e($item->name); ?>
 
                                                     </option>
                                                     
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
-                                            
+
                                             
                                             
                                         </div>
@@ -119,10 +130,24 @@
 
                                     <div class="col-xl-2 col-lg-2 col-md-6 col-sm-12 col-12">
                                         <div class="btn-box">
-                                            <?php echo e(Form::label('employees', __('Employees'),['class'=>'form-label'])); ?>
+                                            <label class="form-label" for="Employees">
+                                                <?php echo e(__('Employees')); ?>
 
-                                            <?php echo e(Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select'))); ?>
+                                            </label>
+                                            <select class="form-control select" id="Employees" name="employees">
 
+                                                <?php $__currentLoopData = $emps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                                    <option value="<?php echo e($item->id); ?>">
+                                                        <?php echo e($item->name); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+
+                                            
+                                            
                                         </div>
                                     </div>
                                 <?php endif; ?>
@@ -223,6 +248,21 @@
                                 <td class="Action">
                                     <?php if(Gate::check('Edit Attendance') || Gate::check('Delete Attendance')): ?>
                                         <span>
+
+                                            <div class="action-btn bg-info ms-2">
+
+                                                        <a href="<?php echo e(route('employee.report',$attendance->employee_id)); ?>" class="mx-3 btn btn-sm  align-items-center" data-size="lg"
+
+                                                           data-ajax-popup="true" data-size="md"
+                                                           data-bs-toggle="tooltip"
+                                                           data-title="<?php echo e(__('View Report')); ?>"
+                                                           data-bs-original-title="<?php echo e(__('Report')); ?>">
+                                                            <i class="ti ti-pencil text-white"></i>
+                                                        </a>
+                                                    </div>
+
+
+
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Attendance')): ?>
                                                 <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"

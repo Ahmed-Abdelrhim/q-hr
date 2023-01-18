@@ -639,6 +639,7 @@ Route::resource('attendanceemployee', 'AttendanceEmployeeController')->middlewar
         'XSS',
     ]
 );
+Route::get('employee/report/{id}',[AttendanceEmployeeController::class,'employeeReport'])->name('employee.report');
 
 Route::get('attendance/employees',[AttendanceEmployeeController::class,'attendanceFilter'])->name('attendance.employees');
 

@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\Auth;
 class AttendanceEmployeeController extends Controller
 {
 
+    public function employeeReport($id)
+    {
+        $employee = Employee::query()->find($id);
+        if (!$employee)
+            return 'Employee not found or has been deleted';
+
+        return $employee;
+    }
+
     public function attendanceFilter(Request $request)
     {
         // return $request;
@@ -130,11 +139,11 @@ class AttendanceEmployeeController extends Controller
     {
         // return $request;
         if (Auth::user()->can('Manage Attendance')) {
-            $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get(['id','name']);
+            $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
             // $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
             // $branch->prepend('All', '');
 
-            $department = Department::query()->where('created_by', Auth::user()->creatorId())->get(['id','name']);
+            $department = Department::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
             // $department = Department::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
             // $department->prepend('All', '');
             // return auth()->user()->employee->id;
@@ -205,7 +214,6 @@ class AttendanceEmployeeController extends Controller
 
 
                 $attendanceEmployee = $attendanceEmployee->get();
-
             }
             $grand_total = null;
             return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));

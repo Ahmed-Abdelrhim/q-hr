@@ -332,6 +332,21 @@
                                 <td class="Action">
                                     @if (Gate::check('Edit Attendance') || Gate::check('Delete Attendance'))
                                         <span>
+
+                                            <div class="action-btn bg-info ms-2">
+
+                                                        <a href="{{route('employee.report',$attendance->employee_id)}}" class="mx-3 btn btn-sm  align-items-center" data-size="lg"
+
+                                                           data-ajax-popup="true" data-size="md"
+                                                           data-bs-toggle="tooltip"
+                                                           data-title="{{ __('View Report') }}"
+                                                           data-bs-original-title="{{ __('Report') }}">
+                                                            <i class="ti ti-pencil text-white"></i>
+                                                        </a>
+                                                    </div>
+
+
+
                                                 @can('Edit Attendance')
                                                 <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"
