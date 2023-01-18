@@ -10,6 +10,7 @@ use App\Models\IpRestrict;
 use App\Models\User;
 use App\Models\Utility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceEmployeeController extends Controller
@@ -20,8 +21,17 @@ class AttendanceEmployeeController extends Controller
         $employee = Employee::query()->find($id);
         if (!$employee)
             return 'Employee not found or has been deleted';
+        $days_count = now()->day;
+        $start = Carbon::now()->subDays(now()->day - 1)->startOfDay()->toDateString();
+        $end = Carbon::now()->endOfDay()->toDateString();
+        // $date = date('Y-m-d');
+        // return date('');
 
-        return $employee;
+        // return $date = now()->month . '=>' .now()->day;
+
+
+
+        // return $employee;
     }
 
     public function attendanceFilter(Request $request)
