@@ -20,28 +20,35 @@
                                 <div class="row">
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
                                         <div class="btn-box">
-                                            <label class="form-label" for="custom_date"><?php echo e(__('Date')); ?></label>
-                                            <input class="form-control month-btn" name="custom_date" type="date"
-                                                   id="custom_date" />
+                                            <label class="form-label" for="custom_date"><?php echo e(__('Date From')); ?></label>
+                                            <input class="form-control month-btn" name="date_from" type="date" id="custom_date" />
                                         </div>
                                     </div>
 
-                                </div>
-                            </div>
 
-
-                            <div class="col-xl-10">
-                                <div class="row">
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
                                         <div class="btn-box">
-                                            <label class="form-label" for="name"><?php echo e(__('Name')); ?></label>
-                                            <input class="form-control month-btn" name="name" type="text"
-                                                   id="name"/>
+                                            <label class="form-label" for="date_from"><?php echo e(__('Date To')); ?></label>
+                                            <input class="form-control month-btn" name="date_to" type="date" id="date_from"/>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                             <div class="col-auto mt-4">
                                 <div class="row">
