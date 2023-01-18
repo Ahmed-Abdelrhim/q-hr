@@ -1,8 +1,9 @@
-@extends('layouts.admin')
-@section('page-title')
-    {{ __('Employee Report') }}
-@endsection
+@extends('layouts.custom')
 
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+    <li class="breadcrumb-item">{{ __('Employee Report') }}</li>
+@endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
     <li class="breadcrumb-item">{{ __('Employee Report') }}</li>
@@ -14,65 +15,53 @@
         <div class=" mt-2 " id="multiCollapseExample1">
             <div class="card">
                 <div class="card-body">
-                    {{ Form::open(array('route' => array('filter.employee.attendance'),'method'=>'get','id'=>'attendanceemployee_filter')) }}
-                    <div class="row align-items-center justify-content-end">
-                        <div class="col-xl-10">
-                            <div class="row">
+                    <form id="new" action="{{route('filter.employee.attendance')}}" method="GET">
 
-
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-                                    <div class="btn-box">
-                                        {{ Form::label('date', __('Date From'),['class'=>'form-label'])}}
-                                        {{--  <label class="form-label">{{__('sadsadsad ')}}</label>--}}
-                                        {{-- <div class="form-control month-btn">--}}
-                                        {{-- </div>--}}
-                                        {{ Form::date('date','d', array('class' => 'form-control month-btn','name' => 'date_from')) }}
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-                                    <div class="btn-box">
-                                        {{ Form::label('date', __('Date To'),['class'=>'form-label'])}}
-                                        {{ Form::date('date',isset($_GET['date'])?$_GET['date']:'', array('class' => 'form-control month-btn' ,'name' => 'date_to')) }}
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-                                    <div class="btn-box">
-                                        {{ Form::label('date', __('Date From'),['class'=>'form-label'])}}
-                                        <label class="form-label">{{__('Date')}}</label>
-                                        <div class="form-control month-btn">
-
+                        <div class="row align-items-center justify-content-end">
+                            <div class="col-xl-10">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                        <div class="btn-box">
+                                            <label class="form-label" for="custom_date">{{__('Date')}}</label>
+                                            <input class="form-control month-btn" name="custom_date" type="date"
+                                                   id="custom_date" />
                                         </div>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-auto mt-4">
-                            <div class="row">
-                                <div class="col-auto">
-
-                                    <a href="#" class="btn btn-sm btn-primary"
-                                       onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"
-                                       data-bs-toggle="tooltip" title="{{__('Apply')}}"
-                                       data-original-title="{{__('apply')}}">
-                                        <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
-                                    </a>
-
 
                                 </div>
+                            </div>
 
+
+                            <div class="col-xl-10">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                        <div class="btn-box">
+                                            <label class="form-label" for="name">{{__('Name')}}</label>
+                                            <input class="form-control month-btn" name="name" type="text"
+                                                   id="name"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-auto mt-4">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a href="#" class="btn btn-sm btn-primary"
+                                           onclick="document.getElementById('new').submit(); return false;">
+                                            <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
-                {{ Form::close() }}
             </div>
         </div>
     </div>
-
 
 
     <!-- View Employee Attendance Data -->
@@ -173,4 +162,3 @@
         </div>
     </div>
 @endsection
-

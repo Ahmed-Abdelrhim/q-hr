@@ -1,8 +1,7 @@
-<?php $__env->startSection('page-title'); ?>
-    <?php echo e(__('Employee Report')); ?>
-
+<?php $__env->startSection('breadcrumb'); ?>
+    <li class="breadcrumb-item"><a href="<?php echo e(route('home')); ?>"><?php echo e(__('Home')); ?></a></li>
+    <li class="breadcrumb-item"><?php echo e(__('Employee Report')); ?></li>
 <?php $__env->stopSection(); ?>
-
 <?php $__env->startSection('breadcrumb'); ?>
     <li class="breadcrumb-item"><a href="<?php echo e(route('home')); ?>"><?php echo e(__('Home')); ?></a></li>
     <li class="breadcrumb-item"><?php echo e(__('Employee Report')); ?></li>
@@ -14,73 +13,53 @@
         <div class=" mt-2 " id="multiCollapseExample1">
             <div class="card">
                 <div class="card-body">
-                    <?php echo e(Form::open(array('route' => array('filter.employee.attendance'),'method'=>'get','id'=>'attendanceemployee_filter'))); ?>
+                    <form id="new" action="<?php echo e(route('filter.employee.attendance')); ?>" method="GET">
 
-                    <div class="row align-items-center justify-content-end">
-                        <div class="col-xl-10">
-                            <div class="row">
-
-
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-                                    <div class="btn-box">
-                                        <?php echo e(Form::label('date', __('Date From'),['class'=>'form-label'])); ?>
-
-
-
-
-
-                                        <?php echo e(Form::date('date','d', array('class' => 'form-control month-btn','name' => 'date_from'))); ?>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-                                    <div class="btn-box">
-                                        <?php echo e(Form::label('date', __('Date To'),['class'=>'form-label'])); ?>
-
-                                        <?php echo e(Form::date('date',isset($_GET['date'])?$_GET['date']:'', array('class' => 'form-control month-btn' ,'name' => 'date_to'))); ?>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
-                                    <div class="btn-box">
-                                        <?php echo e(Form::label('date', __('Date From'),['class'=>'form-label'])); ?>
-
-                                        <label class="form-label"><?php echo e(__('Date')); ?></label>
-                                        <div class="form-control month-btn">
-
+                        <div class="row align-items-center justify-content-end">
+                            <div class="col-xl-10">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                        <div class="btn-box">
+                                            <label class="form-label" for="custom_date"><?php echo e(__('Date')); ?></label>
+                                            <input class="form-control month-btn" name="custom_date" type="date"
+                                                   id="custom_date" />
                                         </div>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-auto mt-4">
-                            <div class="row">
-                                <div class="col-auto">
-
-                                    <a href="#" class="btn btn-sm btn-primary"
-                                       onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"
-                                       data-bs-toggle="tooltip" title="<?php echo e(__('Apply')); ?>"
-                                       data-original-title="<?php echo e(__('apply')); ?>">
-                                        <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
-                                    </a>
-
 
                                 </div>
+                            </div>
 
+
+                            <div class="col-xl-10">
+                                <div class="row">
+                                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                        <div class="btn-box">
+                                            <label class="form-label" for="name"><?php echo e(__('Name')); ?></label>
+                                            <input class="form-control month-btn" name="name" type="text"
+                                                   id="name"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-auto mt-4">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a href="#" class="btn btn-sm btn-primary"
+                                           onclick="document.getElementById('new').submit(); return false;">
+                                            <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
-                <?php echo e(Form::close()); ?>
-
             </div>
         </div>
     </div>
-
 
 
     <!-- View Employee Attendance Data -->
@@ -185,5 +164,4 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-
-<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/attendance/report.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.custom', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/attendance/report.blade.php ENDPATH**/ ?>
