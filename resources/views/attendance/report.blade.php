@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-body">
                     <form id="new" action="{{route('filter.employee.attendance',$id)}}" method="GET">
-
+                        @csrf
                         <div class="row align-items-center justify-content-end">
                             <div class="col-xl-10">
                                 <div class="row">
