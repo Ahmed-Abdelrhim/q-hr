@@ -24,14 +24,12 @@ class AttendanceEmployeeController extends Controller
         $days_count = now()->day;
         $start = Carbon::now()->subDays(now()->day - 1)->startOfDay()->toDateString();
         $end = Carbon::now()->endOfDay()->toDateString();
-        // $date = date('Y-m-d');
-        // return date('');
+        $attendanceEmployee = AttendanceEmployee::query()
+            ->where('employee_id', $employee->id)
+            ->whereBetween('date',[$start,$end])
+            ->get();
 
-        // return $date = now()->month . '=>' .now()->day;
-
-
-
-        // return $employee;
+        return view('attendance.report',['attendanceEmployee' => $attendanceEmployee]);
     }
 
     public function attendanceFilter(Request $request)

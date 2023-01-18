@@ -36,36 +36,37 @@
                         <tbody>
 
 
-                        @foreach ($attendanceEmployee as $attendance)
-                            <tr>
-                                @if (\Auth::user()->type != 'employee')
-                                    <td>{{ !empty($attendance->employee) ? $attendance->employee->name : '' }}</td>
-                                @endif
-                                <td>{{ \Auth::user()->dateFormat($attendance->date) }}</td>
-                                <td>{{ $attendance->status }}</td>
-                                <td>{{ $attendance->clock_in != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_in) : '00:00' }}
-                                </td>
-                                <td>{{ $attendance->clock_out != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_out) : '00:00' }}
-                                </td>
-                                <!-- Total Logged Hours-->
-                                <td>
-                                    {{ $attendance->clock_out != '00:00:00' ?
-                                        gmdate('H:i',
-                                        strtotime(Auth::user()->timeFormat($attendance->clock_out)) -
-                                        strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
-                                        : '00:00'
-                                        }}
-                                    @php
-                                        $grand_total = gmdate('H:i',
-                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )
-                                    @endphp
-                                </td>
-                                <td>{{ $attendance->late }}</td>
-                                <td>{{ $attendance->early_leaving }}</td>
-                                <td>{{ $attendance->overtime }}</td>
-                                <td class="Action">
-                                    @if (Gate::check('Edit Attendance') || Gate::check('Delete Attendance'))
-                                        <span>
+                        @if(isset($attendanceEmployee))
+                            @foreach ($attendanceEmployee as $attendance)
+                                <tr>
+                                    @if (\Auth::user()->type != 'employee')
+                                        <td>{{ !empty($attendance->employee) ? $attendance->employee->name : '' }}</td>
+                                    @endif
+                                    <td>{{ \Auth::user()->dateFormat($attendance->date) }}</td>
+                                    <td>{{ $attendance->status }}</td>
+                                    <td>{{ $attendance->clock_in != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_in) : '00:00' }}
+                                    </td>
+                                    <td>{{ $attendance->clock_out != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_out) : '00:00' }}
+                                    </td>
+                                    <!-- Total Logged Hours-->
+                                    <td>
+                                        {{ $attendance->clock_out != '00:00:00' ?
+                                            gmdate('H:i',
+                                            strtotime(Auth::user()->timeFormat($attendance->clock_out)) -
+                                            strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
+                                            : '00:00'
+                                            }}
+                                        @php
+                                            $grand_total = gmdate('H:i',
+                                                    strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )
+                                        @endphp
+                                    </td>
+                                    <td>{{ $attendance->late }}</td>
+                                    <td>{{ $attendance->early_leaving }}</td>
+                                    <td>{{ $attendance->overtime }}</td>
+                                    <td class="Action">
+                                        @if (Gate::check('Edit Attendance') || Gate::check('Delete Attendance'))
+                                            <span>
 
                                             <div class="action-btn bg-info ms-2">
 
@@ -83,7 +84,7 @@
 
 
                                                 @can('Edit Attendance')
-                                                <div class="action-btn bg-info ms-2">
+                                                    <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"
                                                            data-size="lg"
                                                            data-url="{{ URL::to('attendanceemployee/' . $attendance->id . '/edit') }}"
@@ -94,10 +95,10 @@
                                                             <i class="ti ti-pencil text-white"></i>
                                                         </a>
                                                     </div>
-                                            @endcan
+                                                @endcan
 
-                                            @can('Delete Attendance')
-                                                <div class="action-btn bg-danger ms-2">
+                                                @can('Delete Attendance')
+                                                    <div class="action-btn bg-danger ms-2">
                                                         {!! Form::open(['method' => 'DELETE', 'route' => ['attendanceemployee.destroy', $attendance->id], 'id' => 'delete-form-' . $attendance->id]) !!}
                                                         <a href="#"
                                                            class="mx-3 btn btn-sm  align-items-center bs-pass-para"
@@ -105,14 +106,15 @@
                                                            data-bs-original-title="Delete"
                                                            aria-label="Delete"><i
                                                                 class="ti ti-trash text-white text-white"></i></a>
-                                                    </form>
+                                                        </form>
                                                     </div>
-                                            @endcan
+                                                @endcan
                                             </span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
 
                         </tbody>
                     </table>
