@@ -26,11 +26,11 @@ class AttendanceEmployeeController extends Controller
         $end = Carbon::now()->endOfDay()->toDateString();
         $attendanceEmployee = AttendanceEmployee::query()
             ->where('employee_id', $employee->id)
-            ->whereBetween('date',[$start,$end])
+            ->whereBetween('date', [$start, $end])
             ->get();
-        return $attendanceEmployee;
+        // return $attendanceEmployee;
 
-        // return view('attendance.report',['attendanceEmployee' => $attendanceEmployee]);
+        return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee]);
     }
 
     public function attendanceFilter(Request $request)
