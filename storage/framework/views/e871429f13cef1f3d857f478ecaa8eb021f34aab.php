@@ -28,9 +28,9 @@
                             <th><?php echo e(__('Late')); ?></th>
                             <th><?php echo e(__('Early Leaving')); ?></th>
                             <th><?php echo e(__('Overtime')); ?></th>
-                            
-                            
-                            
+                            <?php if(Gate::check('Edit Attendance') || Gate::check('Delete Attendance')): ?>
+                                <th width="200px"><?php echo e(__('Action')); ?></th>
+                            <?php endif; ?>
                         </tr>
                         </thead>
                         <tbody>
