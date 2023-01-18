@@ -9,6 +9,81 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+    <!-- Filter Data -->
+    <div class="col-sm-12">
+        <div class=" mt-2 " id="multiCollapseExample1">
+            <div class="card">
+                <div class="card-body">
+                    <?php echo e(Form::open(array('route' => array('filter.employee.attendance'),'method'=>'get','id'=>'attendanceemployee_filter'))); ?>
+
+                    <div class="row align-items-center justify-content-end">
+                        <div class="col-xl-10">
+                            <div class="row">
+
+
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                    <div class="btn-box">
+                                        <?php echo e(Form::label('date', __('Date From'),['class'=>'form-label'])); ?>
+
+
+
+
+
+                                        <?php echo e(Form::date('date','d', array('class' => 'form-control month-btn','name' => 'date_from'))); ?>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                    <div class="btn-box">
+                                        <?php echo e(Form::label('date', __('Date To'),['class'=>'form-label'])); ?>
+
+                                        <?php echo e(Form::date('date',isset($_GET['date'])?$_GET['date']:'', array('class' => 'form-control month-btn' ,'name' => 'date_to'))); ?>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                    <div class="btn-box">
+                                        <?php echo e(Form::label('date', __('Date From'),['class'=>'form-label'])); ?>
+
+                                        <label class="form-label"><?php echo e(__('Date')); ?></label>
+                                        <div class="form-control month-btn">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-auto mt-4">
+                            <div class="row">
+                                <div class="col-auto">
+
+                                    <a href="#" class="btn btn-sm btn-primary"
+                                       onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"
+                                       data-bs-toggle="tooltip" title="<?php echo e(__('Apply')); ?>"
+                                       data-original-title="<?php echo e(__('apply')); ?>">
+                                        <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
+                                    </a>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php echo e(Form::close()); ?>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- View Employee Attendance Data -->
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header card-body table-border-style">

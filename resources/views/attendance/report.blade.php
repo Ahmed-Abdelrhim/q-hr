@@ -9,6 +9,73 @@
 @endsection
 
 @section('content')
+    <!-- Filter Data -->
+    <div class="col-sm-12">
+        <div class=" mt-2 " id="multiCollapseExample1">
+            <div class="card">
+                <div class="card-body">
+                    {{ Form::open(array('route' => array('filter.employee.attendance'),'method'=>'get','id'=>'attendanceemployee_filter')) }}
+                    <div class="row align-items-center justify-content-end">
+                        <div class="col-xl-10">
+                            <div class="row">
+
+
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                    <div class="btn-box">
+                                        {{ Form::label('date', __('Date From'),['class'=>'form-label'])}}
+                                        {{--  <label class="form-label">{{__('sadsadsad ')}}</label>--}}
+                                        {{-- <div class="form-control month-btn">--}}
+                                        {{-- </div>--}}
+                                        {{ Form::date('date','d', array('class' => 'form-control month-btn','name' => 'date_from')) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                    <div class="btn-box">
+                                        {{ Form::label('date', __('Date To'),['class'=>'form-label'])}}
+                                        {{ Form::date('date',isset($_GET['date'])?$_GET['date']:'', array('class' => 'form-control month-btn' ,'name' => 'date_to')) }}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
+                                    <div class="btn-box">
+                                        {{ Form::label('date', __('Date From'),['class'=>'form-label'])}}
+                                        <label class="form-label">{{__('Date')}}</label>
+                                        <div class="form-control month-btn">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-auto mt-4">
+                            <div class="row">
+                                <div class="col-auto">
+
+                                    <a href="#" class="btn btn-sm btn-primary"
+                                       onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"
+                                       data-bs-toggle="tooltip" title="{{__('Apply')}}"
+                                       data-original-title="{{__('apply')}}">
+                                        <span class="btn-inner--icon"><i class="ti ti-search"></i></span>
+                                    </a>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- View Employee Attendance Data -->
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header card-body table-border-style">

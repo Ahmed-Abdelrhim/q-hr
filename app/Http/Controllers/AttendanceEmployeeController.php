@@ -33,6 +33,11 @@ class AttendanceEmployeeController extends Controller
         return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee]);
     }
 
+    public function filterEmployeeReport(Request $request)
+    {
+        return $request;
+    }
+
     public function attendanceFilter(Request $request)
     {
         // return $request;
