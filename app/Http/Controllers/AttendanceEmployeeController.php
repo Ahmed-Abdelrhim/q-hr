@@ -45,7 +45,28 @@ class AttendanceEmployeeController extends Controller
             ->where('employee_id', $employee->id)
             ->whereBetween('date', [$start, $end])
             ->get();
-        return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee, 'id' => $id]);
+
+        $total = 0;
+        //        $start = Carbon::parse($attendanceEmployee[0]->clock_in);
+        //        $end = Carbon::parse($attendanceEmployee[0]->clock_out);
+        //        $hours = $end->diffInHours($start);
+        //        $seconds = $end->diffInRealMinutes($start);
+        //        return $hours . ':' . $seconds;
+
+        $start = strtotime($attendanceEmployee[0]->clock_in);
+        $end = strtotime($attendanceEmployee[0]->clock_out);
+        $result = gmdate('H:i:s',$end - $start);
+
+
+        // return $attendanceEmployee;
+        foreach ($attendanceEmployee as $key => $item) {
+            $start = strtotime($attendanceEmployee[$key]->clock_in);
+            $end = strtotime($attendanceEmployee[$key]->clock_out);
+            $total .=  gmdate('H:i',$end - $start) ;
+        }
+        return $total;
+        // return gmdate('H:i',$total);
+        // return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee, 'id' => $id]);
 
     }
 

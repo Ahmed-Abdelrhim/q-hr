@@ -543,6 +543,7 @@ if (!empty($mode_setting['theme_color'])) {
         </script>
     @endif
 
+
     @if (Utility::getValByName('gdpr_cookie') == 'on')
         <script type="text/javascript">
             var defaults = {
