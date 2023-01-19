@@ -43,7 +43,7 @@
             <div class="card">
                 <div class="card-body">
                     {{ Form::open(array('route' => array('attendanceemployee.index'),'method'=>'get','id'=>'attendanceemployee_filter')) }}
-                    {{--                    <form action="{{route('attendanceemployee.index')}}" method="GET" id="attendanceemployee_filter">--}}
+                    {{-- <form action="{{route('attendanceemployee.index')}}" method="GET" id="attendanceemployee_filter">--}}
                     <div class="row align-items-center justify-content-end">
                         <div class="col-xl-10">
                             <div class="row">
@@ -167,7 +167,7 @@
                             </div>
                         </div>
                     </div>
-                    {{--                    </form>--}}
+                    {{--</form>--}}
                 </div>
                 {{ Form::close() }}
             </div>
@@ -334,7 +334,6 @@
                                         <span>
 
                                             <div class="action-btn bg-info ms-2">
-
                                                         <a href="{{route('employee.report',$attendance->employee_id)}}"
                                                            class="mx-3 btn btn-sm  align-items-center" data-size="lg"
                                                            data-ajax-popup="true" data-size="md"

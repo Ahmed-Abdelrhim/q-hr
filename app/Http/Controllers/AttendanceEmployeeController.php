@@ -259,7 +259,7 @@ class AttendanceEmployeeController extends Controller
                 }
 
                 if (!empty($request->department)) {
-                    return $request;
+                    // return $request;
                     $employee->where('department_id', $request->department);
                 }
 
