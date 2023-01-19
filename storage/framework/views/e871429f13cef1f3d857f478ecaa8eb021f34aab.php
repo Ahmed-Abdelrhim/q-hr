@@ -106,10 +106,6 @@
                                             strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
                                             : '00:00'); ?>
 
-                                        <?php
-                                            $grand_total = gmdate('H:i',
-                                                    strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )
-                                        ?>
                                     </td>
                                     <td><?php echo e($attendance->late); ?></td>
                                     <td><?php echo e($attendance->early_leaving); ?></td>

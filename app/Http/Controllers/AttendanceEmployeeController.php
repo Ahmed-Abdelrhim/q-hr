@@ -53,7 +53,10 @@ class AttendanceEmployeeController extends Controller
             ->where('employee_id', $employee->id)
             ->whereBetween('date', [$start, $end])
             ->get();
+
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
+//        dd($total_late_per_month);
+        // return $total_late_per_month;
 
         return view('attendance.report',
             [
