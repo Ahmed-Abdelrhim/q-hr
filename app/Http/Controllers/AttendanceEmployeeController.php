@@ -29,6 +29,7 @@ class AttendanceEmployeeController extends Controller
             ->whereBetween('date', [$start, $end])
             ->get();
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
+         return $total_late_per_month;
 
 
         return view('attendance.report',
@@ -55,7 +56,7 @@ class AttendanceEmployeeController extends Controller
             ->get();
 
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
-//        dd($total_late_per_month);
+        // dd($total_late_per_month);
         // return $total_late_per_month;
 
         return view('attendance.report',
@@ -72,6 +73,8 @@ class AttendanceEmployeeController extends Controller
     {
         $hours_counter = 0;
         $minutes_counter = 0;
+        $real_number_hours_of_minutes_fraction = 0;
+        $extracted_real_number_from_fraction_part = '00';
         $minutes_is_real_number = false;
 
         foreach ($attendanceEmployee as $key => $item) {
@@ -83,18 +86,29 @@ class AttendanceEmployeeController extends Controller
             $hours_counter = $logged_hours_today + $hours_counter;
             $minutes_counter = $logged_minutes_today + $minutes_counter;
         }
-
         $minutes = $minutes_counter;
+
         if ($minutes_counter >= 60) {
             $minutes_is_real_number = true;
-            $minutes = ceil($minutes_counter / 60);
+            $minutes = $minutes_counter / 60;
+            // $minutes =ceil( $minutes_counter / 60);
+
+            $real_number_hours_of_minutes_fraction = (int)$minutes;
+            $fraction_part = $minutes - $real_number_hours_of_minutes_fraction;
+            $extracted_real_number_from_fraction_part = ceil($fraction_part * 60);
+            if ($extracted_real_number_from_fraction_part == 0)
+                $extracted_real_number_from_fraction_part = '00';
+
+            // $minutes = $real_number + $extracted_real_number_from_fraction_part;
         }
         if ($minutes_is_real_number) {
-            $total_late_per_month = $hours_counter + $minutes . ':' . '00';
+            // $total_late_per_month = $hours_counter + $minutes . ':' . '00';
+            $total_late_per_month = $hours_counter + $real_number_hours_of_minutes_fraction . ':' . $extracted_real_number_from_fraction_part;
         } else {
             $total_late_per_month = $hours_counter . ':' . $minutes;
         }
         return $total_late_per_month;
+        // return $real_number . ':' . $extracted_real_number_from_fraction_part;
     }
 
     public function attendanceFilter(Request $request)
@@ -123,7 +137,6 @@ class AttendanceEmployeeController extends Controller
         $grand_total = 0;
         return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
     }
-
 
 
     public function index(Request $request)
