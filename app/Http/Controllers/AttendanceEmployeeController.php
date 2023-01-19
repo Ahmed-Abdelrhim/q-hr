@@ -75,8 +75,8 @@ class AttendanceEmployeeController extends Controller
         $minutes_is_real_number = false;
 
         foreach ($attendanceEmployee as $key => $item) {
-            $start = strtotime($attendanceEmployee[$key]->clock_in);
-            $end = strtotime($attendanceEmployee[$key]->clock_out);
+            $start = strtotime($item->clock_in);
+            $end = strtotime($item->clock_out);
             (int)$logged_hours_today = gmdate('H', $end - $start);
             (int)$logged_minutes_today = gmdate('i', $end - $start);
 
