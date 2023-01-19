@@ -52,11 +52,22 @@ class AttendanceEmployeeController extends Controller
         //        $hours = $end->diffInHours($start);
         //        $seconds = $end->diffInRealMinutes($start);
         //        return $hours . ':' . $seconds;
+        // return $attendanceEmployee;
 
         $start = strtotime($attendanceEmployee[0]->clock_in);
         $end = strtotime($attendanceEmployee[0]->clock_out);
         $result = gmdate('H:i:s',$end - $start);
 
+
+        $start1 = strtotime($attendanceEmployee[1]->clock_in);
+        $end1 = strtotime($attendanceEmployee[1]->clock_out);
+        $result1 = gmdate('H:i:s',$end1 - $start1);
+
+        return gmdate('H:i',gmdate($end - $start) + gmdate($end1 - $start1) );
+
+        $start2 = strtotime($attendanceEmployee[2]->clock_in);
+        $end2 = strtotime($attendanceEmployee[2]->clock_out);
+        $result2 = gmdate('H:i:s',$end2 - $start2);
 
         // return $attendanceEmployee;
         foreach ($attendanceEmployee as $key => $item) {
