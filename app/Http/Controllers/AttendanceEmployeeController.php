@@ -46,91 +46,33 @@ class AttendanceEmployeeController extends Controller
             ->whereBetween('date', [$start, $end])
             ->get();
 
-        $total = 0;
-        //        $start = Carbon::parse($attendanceEmployee[0]->clock_in);
-        //        $end = Carbon::parse($attendanceEmployee[0]->clock_out);
-        //        $hours = $end->diffInHours($start);
-        //        $seconds = $end->diffInRealMinutes($start);
-        //        return $hours . ':' . $seconds;
-        // return $attendanceEmployee;
-
-        $start = strtotime($attendanceEmployee[0]->clock_in);
-        $end = strtotime($attendanceEmployee[0]->clock_out);
-        $result = gmdate('H:i:s',$end - $start);
-
-
-        $start1 = strtotime($attendanceEmployee[1]->clock_in);
-        $end1 = strtotime($attendanceEmployee[1]->clock_out);
-        $result1 = gmdate('H:i:s',$end1 - $start1);
-
-
-
-        $start2 = strtotime($attendanceEmployee[2]->clock_in);
-        $end2 = strtotime($attendanceEmployee[2]->clock_out);
-        $result2 = gmdate('H:i:s',$end2 - $start2);
-
-        $end_result = gmdate('H:i',gmdate($end - $start) + gmdate($end1 - $start1) );
-        $end_result = "00:00:00";
         $hours_counter = 0;
         $minutes_counter = 0;
         $minutes_is_real_number = false;
 
-        // 7 + 6 + 4 + 4 + 5 =
-
-
-        // 7 +6 + 4 + 4
-
-        // Minutes => 23 + 07 + 0 +  14 + 0 + 23 +  23 + 45 =>
-
-         // return $attendanceEmployee;
+        // return $attendanceEmployee;
         foreach ($attendanceEmployee as $key => $item) {
-            $play = strtotime("00:00:00");
             $start = strtotime($attendanceEmployee[$key]->clock_in);
             $end = strtotime($attendanceEmployee[$key]->clock_out);
-            //            if ($key == 7) {
-            //                $all_day = gmdate('H:i:s',$end - $start);
-            //                (int)$logged_minutes_today = gmdate('i',$end - $start);
-            //                break;
-            //            }
-            (int)$logged_hours_today = gmdate('H',$end - $start);
-            (int)$logged_minutes_today = gmdate('i',$end - $start);
+            (int)$logged_hours_today = gmdate('H', $end - $start);
+            (int)$logged_minutes_today = gmdate('i', $end - $start);
 
             $hours_counter = $logged_hours_today + $hours_counter;
             $minutes_counter = $logged_minutes_today + $minutes_counter;
-            //            if ($key == 0) {
-            //                $end_result = gmdate('H:i:s',gmdate($end - $start) );
-            //                $last = gmdate('H:i:s',gmdate($end - $start) );
-            //
-            //            }
-            //            else {
-            //                $old_last = strtotime($last);
-            //                $last = gmdate('H:i:s', gmdate($end - $start) + gmdate($old_last - $play ));
-            //            }
-
-
-        //            if ($key == 1) {
-        //                $last_1 = gmdate('H:i:s',gmdate($end - $start  ) + gmdate(strtotime($last) - strtotime($play)  ));
-        //                $last_2 = gmdate('H:i:s',gmdate($end - $start  ) + gmdate(strtotime($end_result) - strtotime($play)  ));
-        //            }
-
         }
 
         $minutes = $minutes_counter;
         if ($minutes_counter >= 60) {
             $minutes_is_real_number = true;
-            $minutes =  ceil( $minutes_counter  / 60);
+            $minutes = ceil($minutes_counter / 60);
         }
         if ($minutes_is_real_number) {
-            $total_late_per_month = $hours_counter + $minutes .':' . '00';
+            $total_late_per_month = $hours_counter + $minutes . ':' . '00';
         } else {
             $total_late_per_month = $hours_counter . ':' . $minutes;
         }
         return $total_late_per_month;
 
-
-        // return 'AllDay => ' . $all_day . ' <br> ' . 'Minutes Per Day => ' . $minutes_counter ;
-        // return $end_result . "<==>" . $end_result1;
-        // return gmdate('H:i',$total);
         // return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee, 'id' => $id]);
 
     }
