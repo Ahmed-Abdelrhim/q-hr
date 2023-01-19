@@ -73,6 +73,7 @@ class AttendanceEmployeeController extends Controller
         $end_result = "00:00:00";
         $hours_counter = 0;
         $minutes_counter = 0;
+        $minutes_is_real_number = false;
 
         // 7 + 6 + 4 + 4 + 5 =
 
@@ -107,14 +108,26 @@ class AttendanceEmployeeController extends Controller
             //            }
 
 
-//            if ($key == 1) {
-//                $last_1 = gmdate('H:i:s',gmdate($end - $start  ) + gmdate(strtotime($last) - strtotime($play)  ));
-//                $last_2 = gmdate('H:i:s',gmdate($end - $start  ) + gmdate(strtotime($end_result) - strtotime($play)  ));
-//            }
+        //            if ($key == 1) {
+        //                $last_1 = gmdate('H:i:s',gmdate($end - $start  ) + gmdate(strtotime($last) - strtotime($play)  ));
+        //                $last_2 = gmdate('H:i:s',gmdate($end - $start  ) + gmdate(strtotime($end_result) - strtotime($play)  ));
+        //            }
 
         }
 
-        return $minutes_counter ;
+        $minutes = $minutes_counter;
+        if ($minutes_counter >= 60) {
+            $minutes_is_real_number = true;
+            $minutes =  ceil( $minutes_counter  / 60);
+        }
+        if ($minutes_is_real_number) {
+            $total_late_per_month = $hours_counter + $minutes .':' . '00';
+        } else {
+            $total_late_per_month = $hours_counter . ':' . $minutes;
+        }
+        return $total_late_per_month;
+
+
         // return 'AllDay => ' . $all_day . ' <br> ' . 'Minutes Per Day => ' . $minutes_counter ;
         // return $end_result . "<==>" . $end_result1;
         // return gmdate('H:i',$total);
