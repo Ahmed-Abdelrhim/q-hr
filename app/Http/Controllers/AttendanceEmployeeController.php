@@ -28,8 +28,16 @@ class AttendanceEmployeeController extends Controller
             ->where('employee_id', $employee->id)
             ->whereBetween('date', [$start, $end])
             ->get();
+        $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
-        return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee, 'id' => $id]);
+
+        return view('attendance.report',
+            [
+                'id' => $id,
+                'attendanceEmployee' => $attendanceEmployee,
+                'grand_total' => $total_late_per_month,
+            ]
+        );
     }
 
     public function filterEmployeeReport(Request $request, $id)
@@ -45,12 +53,24 @@ class AttendanceEmployeeController extends Controller
             ->where('employee_id', $employee->id)
             ->whereBetween('date', [$start, $end])
             ->get();
+        $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
+        return view('attendance.report',
+            [
+                'id' => $id,
+                'attendanceEmployee' => $attendanceEmployee,
+                'grand_total' => $total_late_per_month
+            ]
+        );
+
+    }
+
+    public function calcTotalLate($attendanceEmployee)
+    {
         $hours_counter = 0;
         $minutes_counter = 0;
         $minutes_is_real_number = false;
 
-        // return $attendanceEmployee;
         foreach ($attendanceEmployee as $key => $item) {
             $start = strtotime($attendanceEmployee[$key]->clock_in);
             $end = strtotime($attendanceEmployee[$key]->clock_out);
@@ -72,9 +92,6 @@ class AttendanceEmployeeController extends Controller
             $total_late_per_month = $hours_counter . ':' . $minutes;
         }
         return $total_late_per_month;
-
-        // return view('attendance.report', ['attendanceEmployee' => $attendanceEmployee, 'id' => $id]);
-
     }
 
     public function attendanceFilter(Request $request)

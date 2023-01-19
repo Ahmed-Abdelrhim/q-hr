@@ -148,6 +148,9 @@
                                 </tr>
                             @endforeach
                         @endif
+                        <tr>
+                            <td>Grand Total : {{$grand_total}}</td>
+                        </tr>
 
                         </tbody>
                     </table>
