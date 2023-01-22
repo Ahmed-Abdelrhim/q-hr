@@ -91,6 +91,7 @@
 
                                             </label>
                                             <select class="form-control select" id="Branch" name="branch">
+                                                <option value="">All</option>
                                                 <?php $__currentLoopData = $branch; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($item->id); ?>">
                                                         <?php echo e($item->name); ?>
@@ -111,8 +112,9 @@
 
                                             </label>
                                             <select class="form-control select" id="Department" name="department">
-
+                                                <option value="">All</option>
                                                 <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                                                     
                                                     
                                                     <option value="<?php echo e($item->id); ?>">
@@ -135,7 +137,7 @@
 
                                             </label>
                                             <select class="form-control select" id="Employees" name="employees">
-
+                                                <option value="">All</option>
                                                 <?php $__currentLoopData = $emps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                                                     <option value="<?php echo e($item->id); ?>">
@@ -237,10 +239,7 @@
                                         strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
                                         : '00:00'); ?>
 
-                                    <?php
-                                        $grand_total = gmdate('H:i',
-                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )
-                                    ?>
+                                    
                                 </td>
                                 <td><?php echo e($attendance->late); ?></td>
                                 <td><?php echo e($attendance->early_leaving); ?></td>
@@ -300,9 +299,9 @@
                             
                             
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <tr>
-                            <td>Grand Total : <?php echo e($grand_total); ?></td>
-                        </tr>
+                        
+                        
+                        
 
                         </tbody>
                     </table>
@@ -688,4 +687,4 @@
 
 
 
-<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/attendance/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.custom', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/attendance/index.blade.php ENDPATH**/ ?>

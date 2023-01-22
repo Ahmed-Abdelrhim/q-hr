@@ -29,7 +29,7 @@ class AttendanceEmployeeController extends Controller
             ->whereBetween('date', [$start, $end])
             ->get();
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
-         // return $total_late_per_month;
+        // return $total_late_per_month;
 
         return view('attendance.report',
             [
@@ -153,7 +153,7 @@ class AttendanceEmployeeController extends Controller
             // $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
             $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
             // $emps->prepend('All', '');
-            // return $emps;
+
             if (Auth::user()->type == 'employee') {
 
                 $emp = !empty(Auth::user()->employee) ? Auth::user()->employee->id : 0;
@@ -187,11 +187,15 @@ class AttendanceEmployeeController extends Controller
                 }
 
                 if (!empty($request->department)) {
-                    // return $request;
                     $employee->where('department_id', $request->department);
                 }
 
+                if (!empty($request->employees)) {
+                    $employee->where('id', $request->get('employees'));
+                }
+
                 $employee = $employee->get()->pluck('id');
+
 
                 $attendanceEmployee = AttendanceEmployee::query()->whereIn('employee_id', $employee);
 

@@ -1,4 +1,5 @@
-@extends('layouts.admin')
+{{--@extends('layouts.admin')--}}
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Manage Attendance List') }}
 @endsection
@@ -85,6 +86,7 @@
                                                 {{__('Branch')}}
                                             </label>
                                             <select class="form-control select" id="Branch" name="branch">
+                                                <option value="">All</option>
                                                 @foreach($branch as $key => $item)
                                                     <option value="{{$item->id}}">
                                                         {{$item->name}}
@@ -103,8 +105,9 @@
                                                 {{__('Department')}}
                                             </label>
                                             <select class="form-control select" id="Department" name="department">
-
+                                                <option value="">All</option>
                                                 @foreach($department as $key => $item)
+
                                                     {{-- <optgroup>--}}
                                                     {{--<option value="{{$item}}"  @if(request()->input('department') == $item){{ 'selected' }}@endif>--}}
                                                     <option value="{{$item->id}}">
@@ -125,7 +128,7 @@
                                                 {{__('Employees')}}
                                             </label>
                                             <select class="form-control select" id="Employees" name="employees">
-
+                                                <option value="">All</option>
                                                 @foreach($emps as $key => $item)
 
                                                     <option value="{{$item->id}}">
@@ -321,10 +324,10 @@
                                         strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
                                         : '00:00'
                                         }}
-                                    @php
-                                        $grand_total = gmdate('H:i',
-                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )
-                                    @endphp
+                                    {{--                                    @php--}}
+                                    {{--                                        $grand_total = gmdate('H:i',--}}
+                                    {{--                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )--}}
+                                    {{--                                    @endphp--}}
                                 </td>
                                 <td>{{ $attendance->late }}</td>
                                 <td>{{ $attendance->early_leaving }}</td>
@@ -383,9 +386,9 @@
                             {{-- </tr>--}}
                             {{-- @endif--}}
                         @endforeach
-                        <tr>
-                            <td>Grand Total : {{ $grand_total }}</td>
-                        </tr>
+                        {{--                        <tr>--}}
+                        {{--                            <td>Grand Total : {{ $grand_total }}</td>--}}
+                        {{--                        </tr>--}}
 
                         </tbody>
                     </table>

@@ -23,7 +23,8 @@
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
                                         <div class="btn-box">
                                             <label class="form-label" for="custom_date">{{__('Date From')}}</label>
-                                            <input class="form-control month-btn" name="date_from" type="date" id="custom_date" />
+                                            <input class="form-control month-btn" name="date_from" type="date"
+                                                   id="custom_date"/>
                                         </div>
                                     </div>
 
@@ -31,7 +32,8 @@
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
                                         <div class="btn-box">
                                             <label class="form-label" for="date_from">{{__('Date To')}}</label>
-                                            <input class="form-control month-btn" name="date_to" type="date" id="date_from"/>
+                                            <input class="form-control month-btn" name="date_to" type="date"
+                                                   id="date_from"/>
                                         </div>
                                     </div>
 
@@ -144,8 +146,10 @@
                                 </tr>
                             @endforeach
                         @endif
-                        <tr>
-                            <td>Grand Total : {{$grand_total}}</td>
+                        {{-- <tr class="mx-auto col-xl-12 col-lg-12 col-md-12 text-center" style="display: flex">--}}
+                        <tr  style="margin-left: 50px; width: 100%">
+                            <td style="margin-left: 50px; width: 100%">Grand Total : {{$grand_total}}</td>
+                            {{-- <td class="col-xl-12 mx-auto" style="justify-content: center">Grand Total : {{$grand_total}}</td>--}}
                         </tr>
 
                         </tbody>
