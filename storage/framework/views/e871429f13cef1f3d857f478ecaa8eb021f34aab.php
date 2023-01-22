@@ -150,12 +150,11 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php endif; ?>
                         
-                        <div>
-                            <tr class="mx-auto">
+
+                            <tr>
                                 <td>Grand Total : <?php echo e($grand_total); ?></td>
                                 
                             </tr>
-                        </div>
                         </tbody>
                     </table>
                 </div>

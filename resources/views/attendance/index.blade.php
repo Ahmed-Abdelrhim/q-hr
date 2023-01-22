@@ -165,6 +165,14 @@
                                     </a>
 
 
+                                    <a href="#" class="btn btn-sm btn-primary"
+                                       onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"
+                                       data-bs-toggle="tooltip" title="{{__('Report')}}"
+                                       data-original-title="{{__('report')}}">
+                                        <span class="btn-inner--icon"><i class="ti ti-file"></i></span>
+                                    </a>
+
+
                                 </div>
 
                             </div>
@@ -324,10 +332,10 @@
                                         strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
                                         : '00:00'
                                         }}
-                                    {{--                                    @php--}}
-                                    {{--                                        $grand_total = gmdate('H:i',--}}
-                                    {{--                                                strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )--}}
-                                    {{--                                    @endphp--}}
+                                    {{-- @php--}}
+                                    {{-- $grand_total = gmdate('H:i',--}}
+                                    {{-- strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )--}}
+                                    {{-- @endphp--}}
                                 </td>
                                 <td>{{ $attendance->late }}</td>
                                 <td>{{ $attendance->early_leaving }}</td>
@@ -336,21 +344,18 @@
                                     @if (Gate::check('Edit Attendance') || Gate::check('Delete Attendance'))
                                         <span>
 
-                                            <div class="action-btn bg-info ms-2">
-                                                        <a href="{{route('employee.report',$attendance->employee_id)}}"
-                                                           class="mx-3 btn btn-sm  align-items-center" data-size="lg"
-                                                           data-ajax-popup="true" data-size="md"
-                                                           data-bs-toggle="tooltip"
-                                                           data-title="{{ __('View Report') }}"
-                                                           data-bs-original-title="{{ __('Report') }}">
-                                                            <i class="ti ti-file"></i>
-                                                            {{-- <i class="ti ti-pencil text-white"></i>--}}
-                                                        </a>
-                                                    </div>
+                                            {{-- <div class="action-btn bg-info ms-2">--}}
+                                            {{-- <a href="{{route('employee.report',$attendance->employee_id)}}"--}}
+                                            {{-- class="mx-3 btn btn-sm  align-items-center" data-size="lg"--}}
+                                            {{-- data-ajax-popup="true" data-size="md"--}}
+                                            {{-- data-bs-toggle="tooltip"--}}
+                                            {{-- data-title="{{ __('View Report') }}"--}}
+                                            {{-- data-bs-original-title="{{ __('Report') }}">--}}
+                                            {{-- <i class="ti ti-file"></i>--}}
+                                            {{-- </a>--}}
+                                            {{-- </div>--}}
 
-
-
-                                                @can('Edit Attendance')
+                                            @can('Edit Attendance')
                                                 <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"
                                                            data-size="lg"
@@ -386,9 +391,9 @@
                             {{-- </tr>--}}
                             {{-- @endif--}}
                         @endforeach
-                        {{--                        <tr>--}}
-                        {{--                            <td>Grand Total : {{ $grand_total }}</td>--}}
-                        {{--                        </tr>--}}
+                        {{-- <tr>--}}
+                        {{-- <td>Grand Total : {{ $grand_total }}</td>--}}
+                        {{-- </tr>--}}
 
                         </tbody>
                     </table>

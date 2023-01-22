@@ -30,11 +30,6 @@ class AttendanceEmployeeController extends Controller
             ->get();
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
-        //                $start = strtotime($attendanceEmployee[6]->clock_in);
-        //                $end = strtotime($attendanceEmployee[6]->clock_out);
-        //                return $logged_hours_today = gmdate('H:i:s', $end - $start);
-
-
         return view('attendance.report',
             [
                 'id' => $id,
@@ -74,6 +69,7 @@ class AttendanceEmployeeController extends Controller
 
     public function calcTotalLate($attendanceEmployee)
     {
+
         $hours_counter = 0;
         $minutes_counter = 0;
         $real_number_hours_of_minutes_fraction = 0;
@@ -186,6 +182,11 @@ class AttendanceEmployeeController extends Controller
 
             } else {
                 $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
+
+                if (!empty($request->get('employees') && empty($request->get('branch')) && empty($request->get('department')) )) {
+                    return $this->employeeReport($request->get('employees'));
+                }
+
                 if (!empty($request->branch)) {
                     $employee->where('branch_id', $request->branch);
                 }
