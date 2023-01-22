@@ -183,7 +183,6 @@
                                     </a>
 
 
-
                                 </div>
 
                             </div>
@@ -257,20 +256,18 @@
                                     <?php if(Gate::check('Edit Attendance') || Gate::check('Delete Attendance')): ?>
                                         <span>
 
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
 
-
-
-
-
-
-
-
-
-
-
-
-
-                                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Attendance')): ?>
+                                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Attendance')): ?>
                                                 <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"
                                                            data-size="lg"
