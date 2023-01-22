@@ -84,8 +84,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
-
                         <?php if(isset($attendanceEmployee)): ?>
                             <?php $__currentLoopData = $attendanceEmployee; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attendance): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
@@ -152,13 +150,12 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php endif; ?>
                         
-                        <tr>
-                            <div class="mx-auto">
-                                <td style="margin-left: 20px !important;">Grand Total : <?php echo e($grand_total); ?></td>
-                            </div>
-                            
-                        </tr>
-
+                        <div>
+                            <tr class="mx-auto">
+                                <td>Grand Total : <?php echo e($grand_total); ?></td>
+                                
+                            </tr>
+                        </div>
                         </tbody>
                     </table>
                 </div>

@@ -86,8 +86,6 @@
                         </tr>
                         </thead>
                         <tbody>
-
-
                         @if(isset($attendanceEmployee))
                             @foreach ($attendanceEmployee as $attendance)
                                 <tr>
@@ -152,13 +150,11 @@
                             @endforeach
                         @endif
                         {{-- <tr class="mx-auto col-xl-12 col-lg-12 col-md-12 text-center" style="display: flex">--}}
-                        <tr>
-                            <div class="mx-auto">
-                                <td style="margin-left: 20px !important;">Grand Total : {{$grand_total}}</td>
-                            </div>
-                            {{-- <td class="col-xl-12 mx-auto" style="justify-content: center">Grand Total : {{$grand_total}}</td>--}}
-                        </tr>
 
+                            <tr>
+                                <td>Grand Total : {{$grand_total}}</td>
+                                {{-- <td class="col-xl-12 mx-auto" style="justify-content: center">Grand Total : {{$grand_total}}</td>--}}
+                            </tr>
                         </tbody>
                     </table>
                 </div>
