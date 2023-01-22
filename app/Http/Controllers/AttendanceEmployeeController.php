@@ -29,7 +29,11 @@ class AttendanceEmployeeController extends Controller
             ->whereBetween('date', [$start, $end])
             ->get();
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
-        // return $total_late_per_month;
+
+        //                $start = strtotime($attendanceEmployee[6]->clock_in);
+        //                $end = strtotime($attendanceEmployee[6]->clock_out);
+        //                return $logged_hours_today = gmdate('H:i:s', $end - $start);
+
 
         return view('attendance.report',
             [

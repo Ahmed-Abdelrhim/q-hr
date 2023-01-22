@@ -102,12 +102,17 @@
                                     </td>
                                     <!-- Total Logged Hours-->
                                     <td>
-                                        {{ $attendance->clock_out != '00:00:00' ?
-                                            gmdate('H:i',
-                                            strtotime(Auth::user()->timeFormat($attendance->clock_out)) -
-                                            strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
-                                            : '00:00'
-                                            }}
+                                        {{-- {{ $attendance->clock_out != '00:00:00' ?--}}
+                                        {{-- gmdate('H:i',--}}
+                                        {{-- strtotime(Auth::user()->timeFormat($attendance->clock_out)) ---}}
+                                        {{-- strtotime(Auth::user()->timeFormat($attendance->clock_in)) )--}}
+                                        {{-- : '00:00'--}}
+                                        {{-- }}--}}
+
+                                        {{
+                                            $attendance->clock_out != '00:00:00' ?
+                                            gmdate('H:i',strtotime($attendance->clock_out) - strtotime($attendance->clock_in)): '00:00'
+                                        }}
                                     </td>
                                     <td>{{ $attendance->late }}</td>
                                     <td>{{ $attendance->early_leaving }}</td>
@@ -147,8 +152,10 @@
                             @endforeach
                         @endif
                         {{-- <tr class="mx-auto col-xl-12 col-lg-12 col-md-12 text-center" style="display: flex">--}}
-                        <tr  style="margin-left: 50px; width: 100%">
-                            <td style="margin-left: 50px; width: 100%">Grand Total : {{$grand_total}}</td>
+                        <tr>
+                            <div class="mx-auto">
+                                <td style="margin-left: 20px !important;">Grand Total : {{$grand_total}}</td>
+                            </div>
                             {{-- <td class="col-xl-12 mx-auto" style="justify-content: center">Grand Total : {{$grand_total}}</td>--}}
                         </tr>
 
