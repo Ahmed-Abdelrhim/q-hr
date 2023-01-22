@@ -326,12 +326,19 @@
                                 </td>
                                 <!-- Total Logged Hours-->
                                 <td>
+                                    {{-- {{ $attendance->clock_out != '00:00:00' ?--}}
+                                    {{--  gmdate('H:i',--}}
+                                    {{-- strtotime(Auth::user()->timeFormat($attendance->clock_out)) ---}}
+                                    {{-- strtotime(Auth::user()->timeFormat($attendance->clock_in)) )--}}
+                                    {{-- : '00:00'--}}
+                                    {{-- }}--}}
+
                                     {{ $attendance->clock_out != '00:00:00' ?
                                         gmdate('H:i',
-                                        strtotime(Auth::user()->timeFormat($attendance->clock_out)) -
-                                        strtotime(Auth::user()->timeFormat($attendance->clock_in)) )
+                                        strtotime($attendance->clock_out) -
+                                        strtotime($attendance->clock_in) )
                                         : '00:00'
-                                        }}
+                                    }}
                                     {{-- @php--}}
                                     {{-- $grand_total = gmdate('H:i',--}}
                                     {{-- strtotime($attendance->clock_out) - strtotime($attendance->clock_in) )--}}
