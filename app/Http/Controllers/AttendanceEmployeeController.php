@@ -70,7 +70,6 @@ class AttendanceEmployeeController extends Controller
 
     public function calcTotalLate($attendanceEmployee)
     {
-
         $hours_counter = 0;
         $minutes_counter = 0;
         $real_number_hours_of_minutes_fraction = 0;
@@ -154,6 +153,7 @@ class AttendanceEmployeeController extends Controller
             // $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
 
             $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
+            $employee_filter_id = 0;
             // $emps->prepend('All', '');
 
             if (Auth::user()->type == 'employee') {
@@ -185,9 +185,9 @@ class AttendanceEmployeeController extends Controller
             } else {
                 $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
 
-                if (!empty($request->get('employees') && empty($request->get('branch')) && empty($request->get('department')) )) {
-                    return $this->employeeReport($request->get('employees'));
-                }
+                // if (!empty($request->get('employees') && empty($request->get('branch')) && empty($request->get('department')) )) {
+                // return $this->employeeReport($request->get('employees'));
+                // }
 
                 if (!empty($request->branch)) {
                     $employee->where('branch_id', $request->branch);
@@ -198,6 +198,7 @@ class AttendanceEmployeeController extends Controller
                 }
 
                 if (!empty($request->employees)) {
+                    $employee_filter_id = $request->get('employees');
                     $employee->where('id', $request->get('employees'));
                 }
 
@@ -229,7 +230,8 @@ class AttendanceEmployeeController extends Controller
                 $attendanceEmployee = $attendanceEmployee->get();
             }
             $grand_total = null;
-            return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
+            return view('attendance.index',
+                compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps' , 'employee_filter_id'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
         }
