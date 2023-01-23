@@ -12,6 +12,7 @@ use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AttendanceEmployeeController extends Controller
 {
@@ -151,6 +152,7 @@ class AttendanceEmployeeController extends Controller
             // return auth()->user()->employee->id;
 
             // $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
+
             $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
             // $emps->prepend('All', '');
 
