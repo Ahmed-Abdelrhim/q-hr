@@ -33,6 +33,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                         </span>
                         <span class="hide-mob ms-2"> {{ Auth::user()->name }}
                             <i class="ti ti-chevron-down drp-arrow nocolor hide-mob"></i>
+                        </span>
                     </a>
                     <div class="dropdown-menu dash-h-dropdown">
                         <a href="{{ route('profile') }}" class="dropdown-item">

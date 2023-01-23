@@ -181,9 +181,12 @@
                                     
                                     
 
+
+
                                     <?php if(isset($employee_filter_id)): ?>
                                         <?php if($employee_filter_id > 0 && is_integer($employee_filter_id)): ?>
-                                            <a href="<?php echo e(route('employee.report',$employee_filter_id)); ?>" class="btn btn-sm btn-primary"
+                                            <a href="<?php echo e(route('employee.report',$employee_filter_id)); ?>"
+                                               class="btn btn-sm btn-primary"
                                                data-bs-toggle="tooltip" title="<?php echo e(__('Report')); ?>"
                                                data-original-title="<?php echo e(__('report')); ?>">
                                                 <span class="btn-inner--icon"><i class="ti ti-file"></i></span>
