@@ -241,7 +241,7 @@ class EmployeeController extends Controller
             }
 
             $employee = Employee::query()->findOrFail($id);
-            return $employee;
+            // return $employee;
 
             if ($request->document) {
                 foreach ($request->document as $key => $document) {
