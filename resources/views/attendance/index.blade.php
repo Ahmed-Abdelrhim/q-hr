@@ -172,11 +172,12 @@
                                     {{-- </a>--}}
 
                                     @if(isset($employee_filter_id))
-                                        @if($employee_filter_id != 0)
+                                        @if($employee_filter_id > 0 && is_integer($employee_filter_id))
                                             <a href="{{route('employee.report',$employee_filter_id)}}" class="btn btn-sm btn-primary"
                                                data-bs-toggle="tooltip" title="{{__('Report')}}"
                                                data-original-title="{{__('report')}}">
                                                 <span class="btn-inner--icon"><i class="ti ti-file"></i></span>
+
                                             </a>
                                         @endif
                                     @endif

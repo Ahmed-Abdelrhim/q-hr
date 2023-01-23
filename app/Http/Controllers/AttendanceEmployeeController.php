@@ -21,7 +21,7 @@ class AttendanceEmployeeController extends Controller
     {
         $employee = Employee::query()->find($id);
         if (!$employee)
-            return 'Employee not found or has been deleted';
+            return view('errors.404',['msg' => 'Employee Not Found']);
         $days_count = now()->day;
         $start = Carbon::now()->subDays(now()->day - 1)->startOfDay()->toDateString();
         $end = Carbon::now()->endOfDay()->toDateString();
@@ -44,7 +44,7 @@ class AttendanceEmployeeController extends Controller
     {
         $employee = Employee::query()->find($id);
         if (!$employee)
-            return 'Employee not found or has been deleted';
+            return view('errors.404',['msg' => 'Employee Not Found']);
 
         $start = $request->get('date_from');
         $end = $request->get('date_to');
@@ -198,7 +198,7 @@ class AttendanceEmployeeController extends Controller
                 }
 
                 if (!empty($request->employees)) {
-                    $employee_filter_id = $request->get('employees');
+                    $employee_filter_id = (int)$request->get('employees');
                     $employee->where('id', $request->get('employees'));
                 }
 
