@@ -34,6 +34,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                         <span class="hide-mob ms-2"> <?php echo e(Auth::user()->name); ?>
 
                             <i class="ti ti-chevron-down drp-arrow nocolor hide-mob"></i>
+                        </span>
                     </a>
                     <div class="dropdown-menu dash-h-dropdown">
                         <a href="<?php echo e(route('profile')); ?>" class="dropdown-item">

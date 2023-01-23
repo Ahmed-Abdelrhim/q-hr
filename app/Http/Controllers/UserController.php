@@ -97,7 +97,7 @@ class UserController extends Controller
                     'email' => $user->email,
                     'password' => $request->password,
                 ];
-    
+
                 $resp = Utility::sendEmailTemplate('new_user', [$user->id => $user->email], $uArr);
                 return redirect()->route('user.index')->with('success', __('User successfully created.') . ((!empty($resp) && $resp['is_success'] == false && !empty($resp['error'])) ? '<br> <span class="text-danger">' . $resp['error'] . '</span>' : ''));
 
@@ -180,13 +180,13 @@ class UserController extends Controller
         }
 
     public function userPassword($id)
-    { 
+    {
         $eId        = \Crypt::decrypt($id);
-        
+
         $user = User::find($eId);
-        
+
         $employee = User::where('id', $eId)->first();
-        
+
         return view('user.reset', compact('user', 'employee'));
     }
 
@@ -225,6 +225,7 @@ class UserController extends Controller
 
     public function editprofile(Request $request)
     {
+        // return $request;
         $userDetail = \Auth::user();
         $user       = User::findOrFail($userDetail['id']);
 
@@ -244,25 +245,25 @@ class UserController extends Controller
 
         if($request->hasFile('profile'))
         {
-       
+
             $filenameWithExt = $request->file('profile')->getClientOriginalName();
             $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension       = $request->file('profile')->getClientOriginalExtension();
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
 
-           
+
                 $dir        = 'uploads/avatar';
-             
+
             $image_path = $dir . $userDetail['avatar'];
             if (File::exists($image_path)) {
                 File::delete($image_path);
             }
             $url = '';
             $path = Utility::upload_file($request,'profile',$fileNameToStore,$dir,[]);
-            
+
             if($path['flag'] == 1){
                 $url = $path['url'];
-            }else{
+            } else{
                 return redirect()->route('profile', \Auth::user()->id)->with('error', __($path['msg']));
             }
 

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @php
 $profile = asset(Storage::url('uploads/avatar/'));
 @endphp

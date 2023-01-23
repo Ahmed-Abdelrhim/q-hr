@@ -27,7 +27,7 @@ class Utility extends Model
         $data = $data->get();
 
 
-        
+
         $settings = [
             "site_currency" => "Dollars",
             "site_currency_symbol" => "$",
@@ -251,11 +251,11 @@ class Utility extends Model
 
         $payslip['earning']        = $earning;
         $payslip['totalEarning']   = $totalAllowance + $totalCommission + $totalotherpayment + $earning['totalOverTime'];
-        
+
         $payslip['deduction']      = $deduction;
         $payslip['totalDeduction'] = $totalloan + $totaldeduction;
-        
-        
+
+
         return $payslip;
     }
 
@@ -407,7 +407,7 @@ class Utility extends Model
     {
 
 // dd($emailTemplate, $mailTo, $obj);
-        
+
         $usr = \Auth::user();
 
         //Remove Current Login user Email don't send mail to them
@@ -417,7 +417,7 @@ class Utility extends Model
 
         if($usr->type != 'super admin')
         {
-        
+
 
             // find template is exist or not in our record
             $template = EmailTemplate::where('slug', $emailTemplate)->first();
@@ -429,15 +429,15 @@ class Utility extends Model
                 if($is_active->is_active == 1)
                 {
                     $settings = self::settings();
-                    
+
                     // get email content language base
                     $content = EmailTemplateLang::where('parent_id', '=', $template->id)->where('lang', 'LIKE', $usr->lang)->first();
-                    
+
                     $content->from = $template->from;
-                    
+
                     if(!empty($content->content))
                     {
-                        
+
                         $content->content = self::replaceVariable($content->content, $obj);
                         // send email
                         try
@@ -497,7 +497,7 @@ class Utility extends Model
         $arrVariable = [
             '{email}',
             '{password}',
-            
+
             '{app_name}',
             '{app_url}',
 
@@ -508,7 +508,7 @@ class Utility extends Model
             '{employee_branch}',
             '{employee_department}',
             '{employee_designation}',
-            
+
             // '{payslip_email}',
             '{name}',
             '{salary_month}',
@@ -525,7 +525,7 @@ class Utility extends Model
             '{transfer_department}',
             '{transfer_branch}',
             '{transfer_description}',
-            
+
             '{assign_user}',
             '{resignation_date}',
             '{notice_date}',
@@ -541,9 +541,9 @@ class Utility extends Model
             '{promotion_designation}',
             '{promotion_title}',
             '{promotion_date}',
-            
+
             '{employee_complaints_name}',
-            
+
             '{employee_warning_name}',
             '{warning_subject}',
             '{warning_description}',
@@ -579,17 +579,17 @@ class Utility extends Model
         $arrValue    = [
             'email' => '-',
             'password' => '-',
-            
+
             'app_name' => '-',
             'app_url' => '-',
 
             'employee_name' => '-',
             'employee_email' => '-',
-            'employee_password' => '-', 
+            'employee_password' => '-',
             'employee_branch' => '-',
             'employee_department' => '-',
             'employee_designation' => '-',
-            
+
             'name' => '-',
             'salary_month' => '-',
             'url' => '-',
@@ -663,7 +663,7 @@ class Utility extends Model
         }
         $settings = Utility::settings();
         $company_name = $settings['company_name'];
-       
+
         $arrValue['app_name']     = env('APP_NAME');
         $arrValue['company_name'] = self::settings()['company_name'];
         $arrValue['app_url']      = '<a href="' . env('APP_URL') . '" target="_blank">' . env('APP_URL') . '</a>';
@@ -956,12 +956,12 @@ class Utility extends Model
     public static function getTargetrating($designationid, $competencyCount)
         {
             $indicator = Indicator::where('designation', $designationid)->first();
-    
+
             if (!empty($indicator->rating) && ($competencyCount != 0))
             {
                 $rating = json_decode($indicator->rating, true);
                 $starsum = array_sum($rating);
-    
+
                 $overallrating = $starsum / $competencyCount;
             } else {
                 $overallrating = 0;
@@ -973,11 +973,11 @@ class Utility extends Model
             try{
                 $settings = Utility::settings();
             //    dd($key_name);
-                
+
                 if(!empty($settings['storage_setting'])){
-                   
+
                     if($settings['storage_setting'] == 'wasabi'){
-                        
+
                         config(
                             [
                                 'filesystems.disks.wasabi.key' => $settings['wasabi_key'],
@@ -987,10 +987,10 @@ class Utility extends Model
                                 'filesystems.disks.wasabi.endpoint' => 'https://s3.'.$settings['wasabi_region'].'.wasabisys.com'
                             ]
                         );
-                        
+
                         $max_size = !empty($settings['wasabi_max_upload_size'])? $settings['wasabi_max_upload_size']:'2048';
                         $mimes =  !empty($settings['wasabi_storage_validation'])? $settings['wasabi_storage_validation']:'';
-    
+
                     }else if($settings['storage_setting'] == 's3'){
                         config(
                             [
@@ -1003,27 +1003,27 @@ class Utility extends Model
                         );
                         $max_size = !empty($settings['s3_max_upload_size'])? $settings['s3_max_upload_size']:'2048';
                         $mimes =  !empty($settings['s3_storage_validation'])? $settings['s3_storage_validation']:'';
-                      
-    
+
+
                     }else{
                         $max_size = !empty($settings['local_storage_max_upload_size'])? $settings['local_storage_max_upload_size']:'2048';
-                        
+
                         $mimes =  !empty($settings['local_storage_validation'])? $settings['local_storage_validation']:'';
                     }
-    
-                    
-                    $file = $request->$key_name;
-                    
-                   
+
+
+                    $file = $request->key_name;
+
+
                     if(count($custom_validation) > 0){
                         $validation =$custom_validation;
                     }else{
-                        
+
                         $validation =[
                             'mimes:'.$mimes,
                             'max:'.$max_size,
                         ];
-                       
+
                     }
                     $validator = \Validator::make($request->all(), [
                         $key_name =>$validation
@@ -1036,25 +1036,25 @@ class Utility extends Model
                         ];
                         return $res;
                     } else {
-    
+
                         $name = $name;
-                       
+
                          if($settings['storage_setting']=='local')
                         {
                             $request->$key_name->move(storage_path($path), $name);
                             $path = $path.$name;
                         }else if($settings['storage_setting'] == 'wasabi'){
-                            
+
                             $path = \Storage::disk('wasabi')->putFileAs(
                                 $path,
                                 $file,
                                 $name
                             );
-                            
+
                             // $path = $path.$name;
-    
+
                         }else if($settings['storage_setting'] == 's3'){
-                            
+
                             $path = \Storage::disk('s3')->putFileAs(
                                 $path,
                                 $file,
@@ -1063,8 +1063,8 @@ class Utility extends Model
                             // $path = $path.$name;
                             // dd($path);
                         }
-                      
-                     
+
+
                         $res = [
                             'flag' => 1,
                             'msg'  =>'success',
@@ -1072,7 +1072,7 @@ class Utility extends Model
                         ];
                         return $res;
                     }
-    
+
                 }else{
                     $res = [
                         'flag' => 0,
@@ -1080,7 +1080,7 @@ class Utility extends Model
                     ];
                     return $res;
                 }
-            
+
             }catch(\Exception $e){
                 $res = [
                     'flag' => 0,
@@ -1089,11 +1089,11 @@ class Utility extends Model
                 return $res;
             }
         }
-         
-    
+
+
         public static function get_file($path){
             $settings = Utility::settings();
-            
+
             try {
                 if($settings['storage_setting'] == 'wasabi'){
                     config(
@@ -1116,7 +1116,7 @@ class Utility extends Model
                         ]
                     );
                 }
-                
+
                 return \Storage::disk($settings['storage_setting'])->url($path);
             } catch (\Throwable $th) {
                 return '';
@@ -1129,12 +1129,12 @@ class Utility extends Model
             ];
             try{
                 $settings = Utility::settings();
-     
-                
+
+
                 if(!empty($settings['storage_setting'])){
-                   
+
                     if($settings['storage_setting'] == 'wasabi'){
-                        
+
                         config(
                             [
                                 'filesystems.disks.wasabi.key' => $settings['wasabi_key'],
@@ -1144,10 +1144,10 @@ class Utility extends Model
                                 'filesystems.disks.wasabi.endpoint' => 'https://s3.'.$settings['wasabi_region'].'.wasabisys.com'
                             ]
                         );
-                        
+
                         $max_size = !empty($settings['wasabi_max_upload_size'])? $settings['wasabi_max_upload_size']:'2048';
                         $mimes =  !empty($settings['wasabi_storage_validation'])? $settings['wasabi_storage_validation']:'';
-    
+
                     }else if($settings['storage_setting'] == 's3'){
                         config(
                             [
@@ -1160,32 +1160,32 @@ class Utility extends Model
                         );
                         $max_size = !empty($settings['s3_max_upload_size'])? $settings['s3_max_upload_size']:'2048';
                         $mimes =  !empty($settings['s3_storage_validation'])? $settings['s3_storage_validation']:'';
-                      
-    
+
+
                     }else{
                         $max_size = !empty($settings['local_storage_max_upload_size'])? $settings['local_storage_max_upload_size']:'2048';
-                        
+
                         $mimes =  !empty($settings['local_storage_validation'])? $settings['local_storage_validation']:'';
                     }
-                    
-                    
+
+
                     $file = $request->$key_name;
-                    
-                    
+
+
                     if(count($custom_validation) > 0){
                         $validation =$custom_validation;
                     }else{
-                        
+
                         $validation =[
                             'mimes:'.$mimes,
                             'max:'.$max_size,
                         ];
-                       
+
                     }
                     $validator = \Validator::make($multifile, [
                         $key_name =>$validation
                     ]);
-                    
+
                     if($validator->fails()){
                         $res = [
                             'flag' => 0,
@@ -1193,33 +1193,33 @@ class Utility extends Model
                         ];
                         return $res;
                     } else {
-    
+
                         $name = $name;
-                       
+
                         if($settings['storage_setting']=='local'){
-                           
-              
-    
+
+
+
                             \Storage::disk()->putFileAs(
                                 $path,
                                 $request->file($key_name)[$data_key],
                                 $name
                             );
-    
-                      
+
+
                             $path = $name;
                         }else if($settings['storage_setting'] == 'wasabi'){
-                            
+
                             $path = \Storage::disk('wasabi')->putFileAs(
                                 $path,
                                 $file,
                                 $name
                             );
-                            
+
                             // $path = $path.$name;
-    
+
                         }else if($settings['storage_setting'] == 's3'){
-                            
+
                             $path = \Storage::disk('s3')->putFileAs(
                                 $path,
                                 $file,
@@ -1228,7 +1228,7 @@ class Utility extends Model
                             // $path = $path.$name;
                             // dd($path);
                         }
-                      
+
                         $res = [
                             'flag' => 1,
                             'msg'  =>'success',
@@ -1236,7 +1236,7 @@ class Utility extends Model
                         ];
                         return $res;
                     }
-    
+
                 }else{
                     $res = [
                         'flag' => 0,
@@ -1244,7 +1244,7 @@ class Utility extends Model
                     ];
                     return $res;
                 }
-            
+
             }catch(\Exception $e){
                 $res = [
                     'flag' => 0,
@@ -1253,5 +1253,5 @@ class Utility extends Model
                 return $res;
             }
         }
-     
+
 }
