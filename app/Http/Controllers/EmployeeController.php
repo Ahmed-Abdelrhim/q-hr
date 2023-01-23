@@ -239,9 +239,9 @@ class EmployeeController extends Controller
 
                 return redirect()->back()->with('error', $messages->first());
             }
-            // return $request;
 
             $employee = Employee::query()->findOrFail($id);
+            return $employee;
 
             if ($request->document) {
                 foreach ($request->document as $key => $document) {
