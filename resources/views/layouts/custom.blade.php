@@ -242,6 +242,8 @@
 <script src="{{ asset('assets/js/plugins/flatpickr.min.js') }}"></script>
 
 <script src="{{ asset('js/custom.js') }}"></script>
+
+
 <script>
     var toster_pos="{{$SITE_RTL =='on' ?'left' : 'right'}}";
 </script>
@@ -516,7 +518,7 @@
 
 @stack('script-page')
 @stack('scripts')
-@include('Chatify::layouts.footerLinks')
+{{--@include('Chatify::layouts.footerLinks')--}}
 </body>
 
 </html>

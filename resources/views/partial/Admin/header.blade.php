@@ -1,12 +1,12 @@
 @php
-use App\Models\Utility;
-$users = \Auth::user();
-$currantLang = $users->currentLanguage();
-$languages = Utility::languages();
-// $profile = asset(Storage::url('uploads/avatar/'));
-$profile=\App\Models\Utility::get_file('uploads/avatar/');
+    use App\Models\Utility;
+    $users = \Auth::user();
+    $currantLang = $users->currentLanguage();
+    $languages = Utility::languages();
+    // $profile = asset(Storage::url('uploads/avatar/'));
+    $profile=\App\Models\Utility::get_file('uploads/avatar/');
 
-$mode_setting = \App\Models\Utility::mode_layout();
+    $mode_setting = \App\Models\Utility::mode_layout();
 @endphp
 <header
     class="dash-header  {{ isset($mode_setting['is_sidebar_transperent']) && $mode_setting['is_sidebar_transperent'] == 'on' ? 'transprent-bg' : '' }}">
@@ -25,11 +25,12 @@ $mode_setting = \App\Models\Utility::mode_layout();
 
                 <li class="dropdown dash-h-item drp-company">
                     <a class="dash-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
-                        role="button" aria-haspopup="false" aria-expanded="false">
+                       role="button" aria-haspopup="false" aria-expanded="false">
                         <span class="theme-avtar">
                             <img alt="#"
-                                src="{{ !empty($users->avatar) ? $profile . '/' . $users->avatar : $profile . '/avatar.png' }}"
-                                class="header-avtar" style="width: 100%">
+                                 {{-- src="{{ !empty($users->avatar) ? $profile . '/' . $users->avatar : $profile . '/avatar.png' }}"--}}
+                                 src="{{ !empty($users->avatar) ? asset('storage/uploads/avatar') .'/'. $users->avatar : asset('storage/uploads/avatar') . '/avatar.png' }}"
+                                 class="header-avtar" style="width: 100%">
                         </span>
                         <span class="hide-mob ms-2"> {{ Auth::user()->name }}
                             <i class="ti ti-chevron-down drp-arrow nocolor hide-mob"></i>
@@ -42,7 +43,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                         </a>
 
                         <a href="{{ route('logout') }}" class="dropdown-item"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <i class="ti ti-power"></i>
                             <span>{{ __('Logout') }}</span>
                         </a>
@@ -77,7 +78,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                 @if (\Auth::user()->type != 'super admin')
                     <li class="dropdown dash-h-item drp-notification">
                         <a class="dash-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="false" aria-expanded="false">
+                           role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="ti ti-message-2"></i>
                             <span class="bg-danger dash-h-badge message-toggle-msg"><span class="sr-only"></span>
                         </a>
@@ -85,7 +86,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                             <div class="noti-header">
                                 <h5 class="m-0">{{ __('Messages') }}</h5>
                                 <a href="#"
-                                    class="dash-head-link mark_all_as_read_message">{{ __('Clear All') }}</a>
+                                   class="dash-head-link mark_all_as_read_message">{{ __('Clear All') }}</a>
                                 {{-- @php
                                     $notifications = \Auth::user()->notifications();
                                 @endphp
@@ -98,7 +99,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                             <div class="noti-footer">
                                 <div class="d-grid">
                                     <a href="{{ route('chats') }}"
-                                        class="btn dash-head-link justify-content-center text-primary mx-0">View all</a>
+                                       class="btn dash-head-link justify-content-center text-primary mx-0">View all</a>
                                 </div>
                             </div>
                         </div>
@@ -129,11 +130,11 @@ $mode_setting = \App\Models\Utility::mode_layout();
                     </li>
                 @endif --}}
                 @php
-                 $currantLang = basename(\App::getLocale())
-              @endphp
+                    $currantLang = basename(\App::getLocale())
+                @endphp
                 <li class="dropdown dash-h-item drp-language">
                     <a class="dash-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
-                        role="button" aria-haspopup="false" aria-expanded="false" id="dropdownLanguage">
+                       role="button" aria-haspopup="false" aria-expanded="false" id="dropdownLanguage">
                         <i class="ti ti-world nocolor"></i>
                         <span class="drp-text hide-mob">{{ Str::upper($currantLang) }}</span>
                         <i class="ti ti-chevron-down drp-arrow nocolor"></i>
@@ -141,7 +142,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                     <div class="dropdown-menu dash-h-dropdown dropdown-menu-end" aria-labelledby="dropdownLanguage">
                         @foreach (App\Models\Utility::languages() as $lang)
                             <a href="{{ route('change.language', $lang) }}"
-                                class="dropdown-item {{ basename(App::getLocale()) == $lang ? 'text-danger' : '' }}">{{ Str::upper($lang) }}</a>
+                               class="dropdown-item {{ basename(App::getLocale()) == $lang ? 'text-danger' : '' }}">{{ Str::upper($lang) }}</a>
                         @endforeach
                         {{-- @if (\Auth::user()->type == 'super admin')
                             <div class="dropdown-divider m-0"></div>
@@ -151,7 +152,7 @@ $mode_setting = \App\Models\Utility::mode_layout();
                         <div class="dropdown-divider m-0"></div>
                         @can('Create Language')
                             <a class="dropdown-item text-primary"
-                                href="{{ route('manage.language', [$currantLang]) }}">{{ __('Manage Language') }}</a>
+                               href="{{ route('manage.language', [$currantLang]) }}">{{ __('Manage Language') }}</a>
                         @endcan
                     </div>
                 </li>

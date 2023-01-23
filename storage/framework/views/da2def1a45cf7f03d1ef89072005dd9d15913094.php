@@ -1,28 +1,26 @@
-@extends('layouts.custom')
+<?php $__env->startSection('page-title'); ?>
+    <?php echo e(__('Dashboard')); ?>
 
-@section('page-title')
-    {{ __('Dashboard') }}
-@endsection
+<?php $__env->stopSection(); ?>
 
-{{-- @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
-@endsection --}}
 
-@section('content')
-    @if (session('status'))
+
+<?php $__env->startSection('content'); ?>
+    <?php if(session('status')): ?>
         <div class="alert alert-success" role="alert">
-            {{ session('status') }}
+            <?php echo e(session('status')); ?>
+
         </div>
-    @endif
+    <?php endif; ?>
 
 
-    @if (\Auth::user()->type == 'employee')
+    <?php if(\Auth::user()->type == 'employee'): ?>
 
 
         <div class="col-xxl-6">
             <div class="card">
                 <div class="card-header">
-                    <h5>{{ __('Calendar') }}</h5>
+                    <h5><?php echo e(__('Calendar')); ?></h5>
                 </div>
                 <div class="card-body">
                     <div id='event_calendar' class='calendar'></div>
@@ -32,61 +30,65 @@
         <div class="col-xxl-6">
             <div class="card"style="height: 230px;">
                 <div class="card-header" >
-                    <h5>{{ __('Mark Attandance') }}</h5>
+                    <h5><?php echo e(__('Mark Attandance')); ?></h5>
                 </div>
                 <div class="card-body">
                     <p class="text-muted pb-0-5">
-                        {{ __('My Office Time: ' . $officeTime['startTime'] . ' to ' . $officeTime['endTime']) }}</p>
+                        <?php echo e(__('My Office Time: ' . $officeTime['startTime'] . ' to ' . $officeTime['endTime'])); ?></p>
                         <div class="row">
                             <div class="col-md-6 float-right border-right">
-                                {{ Form::open(['url' => 'attendanceemployee/attendance', 'method' => 'post']) }}
-                                @if (empty($employeeAttendance) || $employeeAttendance->clock_out != '00:00:00')
+                                <?php echo e(Form::open(['url' => 'attendanceemployee/attendance', 'method' => 'post'])); ?>
+
+                                <?php if(empty($employeeAttendance) || $employeeAttendance->clock_out != '00:00:00'): ?>
                                     <button type="submit" value="0" name="in" id="clock_in"
-                                        class="btn btn-primary">{{ __('CLOCK IN') }}</button>
-                                @else
+                                        class="btn btn-primary"><?php echo e(__('CLOCK IN')); ?></button>
+                                <?php else: ?>
                                     <button type="submit" value="0" name="in" id="clock_in"
                                         class="btn btn-primary disabled"
-                                        disabled>{{ __('CLOCK IN') }}</button>
-                                @endif
-                                {{ Form::close() }}
+                                        disabled><?php echo e(__('CLOCK IN')); ?></button>
+                                <?php endif; ?>
+                                <?php echo e(Form::close()); ?>
+
                             </div>
                             <div class="col-md-6 float-left">
-                                @if (!empty($employeeAttendance) && $employeeAttendance->clock_out == '00:00:00')
-                                    {{ Form::model($employeeAttendance, ['route' => ['attendanceemployee.update', $employeeAttendance->id], 'method' => 'PUT']) }}
+                                <?php if(!empty($employeeAttendance) && $employeeAttendance->clock_out == '00:00:00'): ?>
+                                    <?php echo e(Form::model($employeeAttendance, ['route' => ['attendanceemployee.update', $employeeAttendance->id], 'method' => 'PUT'])); ?>
+
                                     <button type="submit" value="1" name="out" id="clock_out"
-                                        class="btn btn-danger">{{ __('CLOCK OUT') }}</button>
-                                @else
+                                        class="btn btn-danger"><?php echo e(__('CLOCK OUT')); ?></button>
+                                <?php else: ?>
                                     <button type="submit" value="1" name="out" id="clock_out"
                                         class="btn btn-danger disabled"
-                                        disabled>{{ __('CLOCK OUT') }}</button>
-                                @endif
-                                {{ Form::close() }}
+                                        disabled><?php echo e(__('CLOCK OUT')); ?></button>
+                                <?php endif; ?>
+                                <?php echo e(Form::close()); ?>
+
                             </div>
                         </div>
                 </div>
             </div>
             <div class="card" style="height: 462px;">
                 <div class="card-header card-body table-border-style">
-                    <h5>{{ __('Meeting schedule') }}</h5>
+                    <h5><?php echo e(__('Meeting schedule')); ?></h5>
                 </div>
                 <div class="card-body" style="height: 320px">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Meeting title') }}</th>
-                                    <th>{{ __('Meeting Date') }}</th>
-                                    <th>{{ __('Meeting Time') }}</th>
+                                    <th><?php echo e(__('Meeting title')); ?></th>
+                                    <th><?php echo e(__('Meeting Date')); ?></th>
+                                    <th><?php echo e(__('Meeting Time')); ?></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($meetings as $meeting)
+                                <?php $__currentLoopData = $meetings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meeting): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td>{{ $meeting->title }}</td>
-                                        <td>{{ \Auth::user()->dateFormat($meeting->date) }}</td>
-                                        <td>{{ \Auth::user()->timeFormat($meeting->time) }}</td>
+                                        <td><?php echo e($meeting->title); ?></td>
+                                        <td><?php echo e(\Auth::user()->dateFormat($meeting->date)); ?></td>
+                                        <td><?php echo e(\Auth::user()->timeFormat($meeting->time)); ?></td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -96,28 +98,28 @@
         <div class="col-xl-12 col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header card-body table-border-style">
-                    <h5>{{ __('Announcement List') }}</h5>
+                    <h5><?php echo e(__('Announcement List')); ?></h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Title') }}</th>
-                                    <th>{{ __('Start Date') }}</th>
-                                    <th>{{ __('End Date') }}</th>
-                                    <th>{{ __('Description') }}</th>
+                                    <th><?php echo e(__('Title')); ?></th>
+                                    <th><?php echo e(__('Start Date')); ?></th>
+                                    <th><?php echo e(__('End Date')); ?></th>
+                                    <th><?php echo e(__('Description')); ?></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($announcements as $announcement)
+                                <?php $__currentLoopData = $announcements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $announcement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td>{{ $announcement->title }}</td>
-                                        <td>{{ \Auth::user()->dateFormat($announcement->start_date) }}</td>
-                                        <td>{{ \Auth::user()->dateFormat($announcement->end_date) }}</td>
-                                        <td>{{ $announcement->description }}</td>
+                                        <td><?php echo e($announcement->title); ?></td>
+                                        <td><?php echo e(\Auth::user()->dateFormat($announcement->start_date)); ?></td>
+                                        <td><?php echo e(\Auth::user()->dateFormat($announcement->end_date)); ?></td>
+                                        <td><?php echo e($announcement->description); ?></td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -125,10 +127,10 @@
             </div>
         </div>
 
-    @else
+    <?php else: ?>
     <div class="col-xxl-12">
 
-         {{-- start --}}
+         
          <div class="row">
 
             <div class="col-lg-4 col-md-6">
@@ -142,13 +144,13 @@
                                         <i class="ti ti-users"></i>
                                     </div>
                                     <div class="ms-3">
-                                        <small class="text-muted">{{ __('Total') }}</small>
-                                        <h6 class="m-0">{{ __('Staff') }}</h6>
+                                        <small class="text-muted"><?php echo e(__('Total')); ?></small>
+                                        <h6 class="m-0"><?php echo e(__('Staff')); ?></h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto text-end">
-                                <h4 class="m-0 text-primary">{{ $countUser + $countEmployee }}</h4>
+                                <h4 class="m-0 text-primary"><?php echo e($countUser + $countEmployee); ?></h4>
                             </div>
                         </div>
                     </div>
@@ -166,13 +168,13 @@
                                         <i class="ti ti-ticket"></i>
                                     </div>
                                     <div class="ms-3">
-                                        <small class="text-muted">{{ __('Total') }}</small>
-                                        <h6 class="m-0">{{ __('Ticket') }}</h6>
+                                        <small class="text-muted"><?php echo e(__('Total')); ?></small>
+                                        <h6 class="m-0"><?php echo e(__('Ticket')); ?></h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto text-end">
-                                <h4 class="m-0 text-info"> {{ $countTicket }}</h4>
+                                <h4 class="m-0 text-info"> <?php echo e($countTicket); ?></h4>
                             </div>
                         </div>
                     </div>
@@ -189,13 +191,13 @@
                                             <i class="ti ti-wallet"></i>
                                         </div>
                                         <div class="ms-3">
-                                            <small class="text-muted">{{ __('Total') }}</small>
-                                            <h6 class="m-0">{{ __('Account Balance') }}</h6>
+                                            <small class="text-muted"><?php echo e(__('Total')); ?></small>
+                                            <h6 class="m-0"><?php echo e(__('Account Balance')); ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto text-end">
-                                    <h4 class="m-0 text-warning">{{ \Auth::user()->priceFormat($accountBalance) }}</h4>
+                                    <h4 class="m-0 text-warning"><?php echo e(\Auth::user()->priceFormat($accountBalance)); ?></h4>
                                 </div>
                             </div>
                         </div>
@@ -216,13 +218,13 @@
                                             <i class="ti ti-cast"></i>
                                         </div>
                                         <div class="ms-3">
-                                            <small class="text-muted">{{ __('Total') }}</small>
-                                            <h6 class="m-0">{{ __('Jobs') }}</h6>
+                                            <small class="text-muted"><?php echo e(__('Total')); ?></small>
+                                            <h6 class="m-0"><?php echo e(__('Jobs')); ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto text-end">
-                                    <h4 class="m-0 text-primary">{{$activeJob + $inActiveJOb}}</h4>
+                                    <h4 class="m-0 text-primary"><?php echo e($activeJob + $inActiveJOb); ?></h4>
                                 </div>
                             </div>
                         </div>
@@ -240,13 +242,13 @@
                                             <i class="ti ti-cast"></i>
                                         </div>
                                         <div class="ms-3">
-                                            <small class="text-muted">{{ __('Total') }}</small>
-                                            <h6 class="m-0">{{ __('Active Jobs') }}</h6>
+                                            <small class="text-muted"><?php echo e(__('Total')); ?></small>
+                                            <h6 class="m-0"><?php echo e(__('Active Jobs')); ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto text-end">
-                                    <h4 class="m-0 text-info"> {{$activeJob}}</h4>
+                                    <h4 class="m-0 text-info"> <?php echo e($activeJob); ?></h4>
                                 </div>
                             </div>
                         </div>
@@ -263,22 +265,22 @@
                                             <i class="ti ti-cast"></i>
                                         </div>
                                         <div class="ms-3">
-                                            <small class="text-muted">{{ __('Total') }}</small>
-                                            <h6 class="m-0">{{ __('Inactive Jobs') }}</h6>
+                                            <small class="text-muted"><?php echo e(__('Total')); ?></small>
+                                            <h6 class="m-0"><?php echo e(__('Inactive Jobs')); ?></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto text-end">
-                                    <h4 class="m-0 text-warning">{{$inActiveJOb}}</h4>
+                                    <h4 class="m-0 text-warning"><?php echo e($inActiveJOb); ?></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-    {{-- </div> --}}
+    
 
-    {{-- end --}}
+    
 
         <div class="col-xxl-12">
             <div class="row">
@@ -286,26 +288,26 @@
 
                 <div class="card">
                     <div class="card-header card-body table-border-style">
-                        <h5>{{ __('Meeting schedule') }}</h5>
+                        <h5><?php echo e(__('Meeting schedule')); ?></h5>
                     </div>
                     <div class="card-body" style="height: 324px; overflow:auto">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>{{ __('Title') }}</th>
-                                        <th>{{ __('Date') }}</th>
-                                        <th>{{ __('Time') }}</th>
+                                        <th><?php echo e(__('Title')); ?></th>
+                                        <th><?php echo e(__('Date')); ?></th>
+                                        <th><?php echo e(__('Time')); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                    @foreach ($meetings as $meeting)
+                                    <?php $__currentLoopData = $meetings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $meeting): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
-                                            <td>{{ $meeting->title }}</td>
-                                            <td>{{ \Auth::user()->dateFormat($meeting->date) }}</td>
-                                            <td>{{ \Auth::user()->timeFormat($meeting->time) }}</td>
+                                            <td><?php echo e($meeting->title); ?></td>
+                                            <td><?php echo e(\Auth::user()->dateFormat($meeting->date)); ?></td>
+                                            <td><?php echo e(\Auth::user()->timeFormat($meeting->time)); ?></td>
                                         </tr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -314,24 +316,24 @@
 
                 <div class="card">
                     <div class="card-header card-body table-border-style">
-                        <h5>{{ __("Today's Not Clock In") }}</h5>
+                        <h5><?php echo e(__("Today's Not Clock In")); ?></h5>
                     </div>
                     <div class="card-body" style="height: 324px; overflow:auto">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Status') }}</th>
+                                        <th><?php echo e(__('Name')); ?></th>
+                                        <th><?php echo e(__('Status')); ?></th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
-                                    @foreach ($notClockIns as $notClockIn)
+                                    <?php $__currentLoopData = $notClockIns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notClockIn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
-                                            <td>{{ $notClockIn->name }}</td>
-                                            <td><span class="absent-btn">{{ __('Absent') }}</span></td>
+                                            <td><?php echo e($notClockIn->name); ?></td>
+                                            <td><span class="absent-btn"><?php echo e(__('Absent')); ?></span></td>
                                         </tr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -342,7 +344,7 @@
               <div class="col-xl-7">
                 <div class="card">
                     <div class="card-header">
-                        <h5>{{ __('Calendar') }}</h5>
+                        <h5><?php echo e(__('Calendar')); ?></h5>
                     </div>
                     <div class="card-body card-635" >
                         <div id='calendar' class='calendar'></div>
@@ -355,28 +357,28 @@
         <div class="col-xl-12 col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header card-body table-border-style">
-                    <h5>{{ __('Announcement List') }}</h5>
+                    <h5><?php echo e(__('Announcement List')); ?></h5>
                 </div>
                 <div class="card-body" style="height: 270px; overflow:auto">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Title') }}</th>
-                                    <th>{{ __('Start Date') }}</th>
-                                    <th>{{ __('End Date') }}</th>
-                                    <th>{{ __('Description') }}</th>
+                                    <th><?php echo e(__('Title')); ?></th>
+                                    <th><?php echo e(__('Start Date')); ?></th>
+                                    <th><?php echo e(__('End Date')); ?></th>
+                                    <th><?php echo e(__('Description')); ?></th>
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                @foreach ($announcements as $announcement)
+                                <?php $__currentLoopData = $announcements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $announcement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td>{{ $announcement->title }}</td>
-                                        <td>{{ \Auth::user()->dateFormat($announcement->start_date) }}</td>
-                                        <td>{{ \Auth::user()->dateFormat($announcement->end_date) }}</td>
-                                        <td>{{ $announcement->description }}</td>
+                                        <td><?php echo e($announcement->title); ?></td>
+                                        <td><?php echo e(\Auth::user()->dateFormat($announcement->start_date)); ?></td>
+                                        <td><?php echo e(\Auth::user()->dateFormat($announcement->end_date)); ?></td>
+                                        <td><?php echo e($announcement->description); ?></td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -385,14 +387,14 @@
         </div>
 
     </div>
-    @endif
-@endsection
-{{-- {{ dd($arrEvents) }} --}}
+    <?php endif; ?>
+<?php $__env->stopSection(); ?>
 
 
 
-@push('script-page')
-    <script src="{{ asset('assets/js/plugins/main.min.js') }}"></script>
+
+<?php $__env->startPush('script-page'); ?>
+    <script src="<?php echo e(asset('assets/js/plugins/main.min.js')); ?>"></script>
     <script type="text/javascript">
         (function() {
             var etitle;
@@ -405,9 +407,9 @@
                     right: 'timeGridDay,timeGridWeek,dayGridMonth'
                 },
                 buttonText: {
-                    timeGridDay: "{{__('Day')}}",
-                    timeGridWeek: "{{__('Week')}}",
-                    dayGridMonth: "{{__('Month')}}"
+                    timeGridDay: "<?php echo e(__('Day')); ?>",
+                    timeGridWeek: "<?php echo e(__('Week')); ?>",
+                    dayGridMonth: "<?php echo e(__('Month')); ?>"
                 },
                 themeSystem: 'bootstrap',
 
@@ -419,7 +421,7 @@
                 editable: true,
                 dayMaxEvents: true,
                 handleWindowResize: true,
-                events: {!! json_encode($arrEvents) !!},
+                events: <?php echo json_encode($arrEvents); ?>,
 
 
             });
@@ -439,9 +441,9 @@
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 buttonText: {
-                    timeGridDay: "{{__('Day')}}",
-                    timeGridWeek: "{{__('Week')}}",
-                    dayGridMonth: "{{__('Month')}}"
+                    timeGridDay: "<?php echo e(__('Day')); ?>",
+                    timeGridWeek: "<?php echo e(__('Week')); ?>",
+                    dayGridMonth: "<?php echo e(__('Month')); ?>"
                 },
                 themeSystem: 'bootstrap',
 
@@ -453,7 +455,7 @@
                 editable: true,
                 dayMaxEvents: true,
                 handleWindowResize: true,
-                events: {!! json_encode($arrEvents) !!},
+                events: <?php echo json_encode($arrEvents); ?>,
 
 
             });
@@ -461,121 +463,8 @@
             calendar.render();
         })();
     </script>
-    {{-- <script>
-        (function() {
-            var etitle;
-            var etype;
-            var etypeclass;
-            var calendar = new FullCalendar.Calendar(document.getElementById('event_calendar'), {
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                buttonText: {
-                    timeGridDay: "{{__('Day')}}",
-                    timeGridWeek: "{{__('Week')}}",
-                    dayGridMonth: "{{__('Month')}}"
-                },
-                themeSystem: 'bootstrap',
-                slotDuration: '00:10:00',
-                navLinks: true,
-                droppable: true,
-                selectable: true,
-                selectMirror: true,
-                editable: true,
-                dayMaxEvents: true,
-                handleWindowResize: true,
-                events: {!! json_encode($arrEvents) !!},
-            });
-            calendar.render();
-        })();
+    
+    
+<?php $__env->stopPush(); ?>
 
-
-        $(document).on('click', '.fc-day-grid-event', function(e) {
-            if (!$(this).hasClass('deal')) {
-                e.preventDefault();
-                var event = $(this);
-                var title = $(this).find('.fc-content .fc-title').html();
-                var size = 'md';
-                var url = $(this).attr('href');
-                $("#commonModal .modal-title").html(title);
-                $("#commonModal .modal-dialog").addClass('modal-' + size);
-
-                $.ajax({
-                    url: url,
-                    success: function(data) {
-                        $('#commonModal .body').html(data);
-                        $("#commonModal").modal('show');
-                    },
-                    error: function(data) {
-                        data = data.responseJSON;
-                        show_toastr('Error', data.error, 'error')
-                    }
-                });
-            }
-        });
-    </script> --}}
-    {{-- <script>
-        // event_calendar (not working now)
-        var e, t, a = $('[data-toggle="event_calendar"]');
-        a.length && (t = {
-            header: {right: "", center: "", left: ""},
-            buttonIcons: {prev: "calendar--prev", next: "calendar--next"},
-            theme: !1,
-            selectable: !0,
-            selectHelper: !0,
-            editable: !0,
-            events: {!! json_encode($arrEvents) !!} ,
-            eventStartEditable: !1,
-            locale: '{{basename(App::getLocale())}}',
-            dayClick: function (e) {
-                var t = moment(e).toISOString();
-                $("#new-event").modal("show"), $(".new-event--title").val(""), $(".new-event--start").val(t), $(".new-event--end").val(t)
-            },
-            eventResize: function (event) {
-                var eventObj = {
-                    start: event.start.format(),
-                    end: event.end.format(),
-                };
-
-                /*$.ajax({
-                    url: event.resize_url,
-                    method: 'PUT',
-                    data: eventObj,
-                    success: function (response) {
-                    },
-                    error: function (data) {
-                        data = data.responseJSON;
-                    }
-                });*/
-            },
-            viewRender: function (t) {
-                e.fullCalendar("getDate").month(), $(".fullcalendar-title").html(t.title)
-            },
-            eventClick: function (e, t) {
-                var title = e.title;
-                var url = e.url;
-
-                if (typeof url != 'undefined') {
-                    $("#commonModal .modal-title").html(title);
-                    $("#commonModal .modal-dialog").addClass('modal-md');
-                    $("#commonModal").modal('show');
-                    $.get(url, {}, function (data) {
-                        $('#commonModal .modal-body').html(data);
-                    });
-                    return false;
-                }
-            }
-        }, (e = a).fullCalendar(t),
-            $("body").on("click", "[data-calendar-view]", function (t) {
-                t.preventDefault(), $("[data-calendar-view]").removeClass("active"), $(this).addClass("active");
-                var a = $(this).attr("data-calendar-view");
-                e.fullCalendar("changeView", a)
-            }), $("body").on("click", ".fullcalendar-btn-next", function (t) {
-            t.preventDefault(), e.fullCalendar("next")
-        }), $("body").on("click", ".fullcalendar-btn-prev", function (t) {
-            t.preventDefault(), e.fullCalendar("prev")
-        }));
-    </script> --}}
-@endpush
+<?php echo $__env->make('layouts.custom', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/dashboard/dashboard.blade.php ENDPATH**/ ?>

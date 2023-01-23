@@ -1,5 +1,4 @@
-
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
    {{ __('Manage Employee') }}
@@ -22,7 +21,7 @@
         <i class="ti ti-file"></i>
     </a>
     @can('Create Employee')
-        <a href="{{ route('employee.create') }}" 
+        <a href="{{ route('employee.create') }}"
             data-title="{{ __('Create New Employee') }}" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary"
             data-bs-original-title="{{ __('Create') }}">
             <i class="ti ti-plus"></i>

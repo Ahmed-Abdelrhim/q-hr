@@ -1,6 +1,6 @@
 @extends('layouts.custom')
 @php
-$profile = asset(Storage::url('uploads/avatar/'));
+    $profile = asset(Storage::url('uploads/avatar/'));
 @endphp
 
 @push('script-page')
@@ -32,11 +32,15 @@ $profile = asset(Storage::url('uploads/avatar/'));
                 <div class="card sticky-top" style="top:30px">
                     <div class="list-group list-group-flush" id="useradd-sidenav">
                         <a href="#useradd-1"
-                            class="list-group-item list-group-item-action border-0">{{ __('Personal Info') }} <div
-                                class="float-end"><i class="ti ti-chevron-right"></i></div></a>
+                           class="list-group-item list-group-item-action border-0">{{ __('Personal Info') }}
+                            <div
+                                class="float-end"><i class="ti ti-chevron-right"></i></div>
+                        </a>
                         <a href="#useradd-2"
-                            class="list-group-item list-group-item-action border-0">{{ __('Change Password') }} <div
-                                class="float-end"><i class="ti ti-chevron-right"></i></div></a>
+                           class="list-group-item list-group-item-action border-0">{{ __('Change Password') }}
+                            <div
+                                class="float-end"><i class="ti ti-chevron-right"></i></div>
+                        </a>
 
                     </div>
                 </div>
@@ -58,11 +62,11 @@ $profile = asset(Storage::url('uploads/avatar/'));
                                     <div class="form-group">
                                         <label class="col-form-label text-dark">{{ __('Name') }}</label>
                                         <input class="form-control @error('name') is-invalid @enderror" name="name"
-                                            type="text" id="name" placeholder="{{ __('Enter Your Name') }}"
-                                            value="{{ $userDetail->name }}" required autocomplete="name">
+                                               type="text" id="name" placeholder="{{ __('Enter Your Name') }}"
+                                               value="{{ $userDetail->name }}" required autocomplete="name">
                                         @error('name')
-                                            <span class="invalid-feedback text-danger text-xs"
-                                                role="alert">{{ $message }}</span>
+                                        <span class="invalid-feedback text-danger text-xs"
+                                              role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -70,11 +74,11 @@ $profile = asset(Storage::url('uploads/avatar/'));
                                     <div class="form-group">
                                         <label for="email" class="col-form-label text-dark">{{ __('Email') }}</label>
                                         <input class="form-control @error('email') is-invalid @enderror" name="email"
-                                            type="text" id="email" placeholder="{{ __('Enter Your Email Address') }}"
-                                            value="{{ $userDetail->email }}" required autocomplete="email">
+                                               type="text" id="email" placeholder="{{ __('Enter Your Email Address') }}"
+                                               value="{{ $userDetail->email }}" required autocomplete="email">
                                         @error('email')
-                                            <span class="invalid-feedback text-danger text-xs"
-                                                role="alert">{{ $message }}</span>
+                                        <span class="invalid-feedback text-danger text-xs"
+                                              role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -83,24 +87,27 @@ $profile = asset(Storage::url('uploads/avatar/'));
                                         {{ Form::label('profile', __('Avatar'), ['class' => 'col-form-label']) }}
                                         <div class="choose-files ">
                                             <label for="profile">
-                                                <div class=" bg-primary profile "> <i
+                                                <div class=" bg-primary profile "><i
                                                         class="ti ti-upload px-1"></i>{{ __('Choose file here') }}
                                                 </div>
-                                                <input type="file" class="form-control file" name="profile" id="profile" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-                                                <img id="blah"  width="100" src="{{ !empty($userDetail->avatar) ? $profile . $userDetail->avatar : $profile . '/avatar.png' }}" />
+                                                <input type="file" class="form-control file" name="profile" id="profile"
+                                                       onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+                                                {{-- <img id="blah"  width="100" src="{{ !empty($userDetail->avatar) ? $profile . $userDetail->avatar : $profile . '/avatar.png' }}" />--}}
+                                                <img id="blah" width="100"
+                                                     src="{{ !empty($userDetail->avatar) ? asset('storage/uploads/avatar') .'/'. $userDetail->avatar : $profile . '/avatar.png' }}"/>
                                             </label>
                                         </div>
                                         <span
-                                        class="text-xs text-muted">{{ __('Please upload a valid image file. Size of image should not be more than 2MB.') }}</span>
-                                    @error('profile')
+                                            class="text-xs text-muted">{{ __('Please upload a valid image file. Size of image should not be more than 2MB.') }}</span>
+                                        @error('profile')
                                         <span class="invalid-feedback text-danger text-xs"
-                                            role="alert">{{ $message }}</span>
-                                    @enderror
+                                              role="alert">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-end">
                                     <input type="submit" value="{{ __('Save Changes') }}"
-                                        class="btn btn-print-invoice  btn-primary m-r-10">
+                                           class="btn btn-print-invoice  btn-primary m-r-10">
                                 </div>
                             </div>
                             </form>
@@ -125,7 +132,7 @@ $profile = asset(Storage::url('uploads/avatar/'));
                                         {{ Form::label('current_password', __('Current Password'), ['class' => 'col-form-label text-dark']) }}
                                         {{ Form::password('current_password', ['class' => 'form-control', 'placeholder' => __('Enter Current Password')]) }}
                                         @error('current_password')
-                                            <span class="invalid-current_password" role="alert">
+                                        <span class="invalid-current_password" role="alert">
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -138,7 +145,7 @@ $profile = asset(Storage::url('uploads/avatar/'));
                                         {{ Form::label('new_password', __('New Password'), ['class' => 'col-form-label text-dark']) }}
                                         {{ Form::password('new_password', ['class' => 'form-control', 'placeholder' => __('Enter New Password')]) }}
                                         @error('new_password')
-                                            <span class="invalid-new_password" role="alert">
+                                        <span class="invalid-new_password" role="alert">
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             </span>
                                         @enderror
@@ -149,7 +156,7 @@ $profile = asset(Storage::url('uploads/avatar/'));
                                         {{ Form::label('confirm_password', __('Re-type New Password'), ['class' => 'col-form-label text-dark']) }}
                                         {{ Form::password('confirm_password', ['class' => 'form-control', 'placeholder' => __('Enter Re-type New Password')]) }}
                                         @error('confirm_password')
-                                            <span class="invalid-confirm_password" role="alert">
+                                        <span class="invalid-confirm_password" role="alert">
                                                 <strong class="text-danger">{{ $message }}</strong>
                                             </span>
                                         @enderror
