@@ -295,11 +295,6 @@ class EmployeeController extends Controller
 
             // $input = $request->all();
 
-            if (Hash::check('12345678', $employee->password))
-                return 'Yes The Same';
-            return 'No Not The Same';
-
-
             $employee->fill($input)->save();
 
             $password = $employee->password;
