@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label for="password" class="form-label">{{__('Password')}}</label>
                                         <input type="password" name="password" min="4" max="20" class="form-control"
-                                               id="password">
+                                               id="password" placeholder="Password">
                                         {{-- {!! Form::label('password', __('Password'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>--}}
                                         {{-- {!! Form::password('password', null, ['class' => 'form-control']) !!}--}}
                                     </div>

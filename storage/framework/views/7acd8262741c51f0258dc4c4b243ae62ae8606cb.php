@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label for="password" class="form-label"><?php echo e(__('Password')); ?></label>
                                         <input type="password" name="password" min="4" max="20" class="form-control"
-                                               id="password">
+                                               id="password" placeholder="Password">
                                         
                                         
                                     </div>
