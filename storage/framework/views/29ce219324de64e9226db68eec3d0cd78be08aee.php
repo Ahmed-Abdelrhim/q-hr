@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@php
+<?php
     $logos=\App\Models\Utility::get_file('uploads/logo/');
 
     $logo = Utility::get_superadmin_logo();
@@ -15,16 +15,17 @@
     if (!empty($mode_setting['theme_color'])) {
         $color = $mode_setting['theme_color'];
     }
-@endphp
+?>
 <html lang="en">
-<html dir="{{ env('SITE_RTL') == 'on' ? 'rtl' : '' }}">
+<html dir="<?php echo e(env('SITE_RTL') == 'on' ? 'rtl' : ''); ?>">
 
 
 <head>
 
     <title>
-        {{ Utility::getValByName('title_text') ? Utility::getValByName('title_text') : config('app.name', 'HRMGo') }}
-        - @yield('page-title')</title>
+        <?php echo e(Utility::getValByName('title_text') ? Utility::getValByName('title_text') : config('app.name', 'HRMGo')); ?>
+
+        - <?php echo $__env->yieldContent('page-title'); ?></title>
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 11]>
@@ -43,31 +44,31 @@
     <meta name="author" content="Rajodiya Infotech"/>
 
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset(Storage::url('uploads/logo')) . '/favicon.png' }}" type="image/x-icon"/>
+    <link rel="icon" href="<?php echo e(asset(Storage::url('uploads/logo')) . '/favicon.png'); ?>" type="image/x-icon"/>
 
     <!-- font css -->
-    <link rel="stylesheet" href="{{ asset('assets/fonts/tabler-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/feather.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/stylesheet.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/tabler-icons.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/feather.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/fontawesome.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/material.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/stylesheet.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/custom.css')); ?>">
     <!-- vendor css -->
 
-    <link rel="stylesheet" href="{{ asset('assets/css/customizer.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/customizer.css')); ?>">
 
 
-    @if (env('SITE_RTL') == 'on')
-        <link rel="stylesheet" href="{{ asset('assets/css/style-rtl.css') }}">
-    @endif
-    @if (isset($mode_setting['dark_mode']) && $mode_setting['dark_mode'] == 'on')
-        <link rel="stylesheet" href="{{ asset('assets/css/style-dark.css') }}">
-    @else
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    @endif
+    <?php if(env('SITE_RTL') == 'on'): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('assets/css/style-rtl.css')); ?>">
+    <?php endif; ?>
+    <?php if(isset($mode_setting['dark_mode']) && $mode_setting['dark_mode'] == 'on'): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('assets/css/style-dark.css')); ?>">
+    <?php else: ?>
+        <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">
+    <?php endif; ?>
 </head>
 
-<body class="{{ $color }}">
+<body class="<?php echo e($color); ?>">
 <!-- [ auth-signup ] start -->
 <div class="auth-wrapper auth-v3">
     <div class="bg-auth-side bg-primary"></div>
@@ -75,8 +76,8 @@
         <nav class="navbar navbar-expand-md navbar-light default">
             <div class="container-fluid pe-2">
                 <a class="navbar-brand" href="#">
-                    {{-- <img src="{{ $logos . $logo }}" alt="{{ env('APP_NAME') }}"--}}
-                    <img src="{{ asset('storage/uploads/logo') . '/'. $logo }}" alt="{{ env('APP_NAME') }}"
+                    
+                    <img src="<?php echo e(asset('storage/uploads/logo') . '/'. $logo); ?>" alt="<?php echo e(env('APP_NAME')); ?>"
                          style="width: 30% !important;" class="logo logo-lg"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -87,16 +88,16 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01" style="flex-grow: 0;">
                     <ul class="navbar-nav align-items-center ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">{{ __('Support') }}</a>
+                            <a class="nav-link active" href="#"><?php echo e(__('Support')); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Terms') }}</a>
+                            <a class="nav-link" href="#"><?php echo e(__('Terms')); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Privacy') }}</a>
+                            <a class="nav-link" href="#"><?php echo e(__('Privacy')); ?></a>
                         </li>
                         <li class="nav-item">
-                            @yield('language-bar')
+                            <?php echo $__env->yieldContent('language-bar'); ?>
                         </li>
                     </ul>
                 </div>
@@ -104,7 +105,7 @@
         </nav>
         <div class="card">
             <div class="row align-items-center text-start">
-                @yield('content')
+                <?php echo $__env->yieldContent('content'); ?>
 
             </div>
         </div>
@@ -112,9 +113,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-6">
-                        {{ __('Copyright') }} &copy;
-                        {{ Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'LeadGo') }}
-                        {{ date('Y') }}
+                        <?php echo e(__('Copyright')); ?> &copy;
+                        <?php echo e(Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'LeadGo')); ?>
+
+                        <?php echo e(date('Y')); ?>
+
                     </div>
                 </div>
             </div>
@@ -124,36 +127,37 @@
 <!-- [ auth-signup ] end -->
 
 <!-- Required Js -->
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/vendor-all.js') }}"></script>
-<script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
+<script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/js/vendor-all.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/js/plugins/bootstrap.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/js/plugins/feather.min.js')); ?>"></script>
 <script>
     feather.replace();
 </script>
 
 <input type="checkbox" class="d-none" id="cust-theme-bg"
-    {{ Utility::getValByName('cust_theme_bg') == 'on' ? 'checked' : '' }} />
+    <?php echo e(Utility::getValByName('cust_theme_bg') == 'on' ? 'checked' : ''); ?> />
 <input type="checkbox" class="d-none" id="cust-darklayout"
-    {{ Utility::getValByName('cust_darklayout') == 'on' ? 'checked' : '' }} />
+    <?php echo e(Utility::getValByName('cust_darklayout') == 'on' ? 'checked' : ''); ?> />
 
-<script src="{{ asset('js/custom.js') }}"></script>
+<script src="<?php echo e(asset('js/custom.js')); ?>"></script>
 <script>
-    var toster_pos = "{{$SITE_RTL =='on' ?'left' : 'right'}}";
+    var toster_pos = "<?php echo e($SITE_RTL =='on' ?'left' : 'right'); ?>";
 </script>
-@stack('script')
-@stack('custom-scripts')
+<?php echo $__env->yieldPushContent('script'); ?>
+<?php echo $__env->yieldPushContent('custom-scripts'); ?>
 
-@if ($message = Session::get('success'))
+<?php if($message = Session::get('success')): ?>
     <script>
-        show_toastr('Success', '{!! $message !!}', 'success');
+        show_toastr('Success', '<?php echo $message; ?>', 'success');
     </script>
-@endif
-@if ($message = Session::get('error'))
+<?php endif; ?>
+<?php if($message = Session::get('error')): ?>
     <script>
-        show_toastr('Error', '{!! $message !!}', 'error');
+        show_toastr('Error', '<?php echo $message; ?>', 'error');
     </script>
-@endif
+<?php endif; ?>
 </body>
 
 </html>
+<?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/layouts/auth.blade.php ENDPATH**/ ?>

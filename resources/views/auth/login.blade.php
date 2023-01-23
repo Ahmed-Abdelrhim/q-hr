@@ -1,5 +1,3 @@
-
-
 @extends('layouts.auth')
 @section('page-title')
     {{__('Login')}}
