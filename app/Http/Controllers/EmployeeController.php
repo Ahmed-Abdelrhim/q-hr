@@ -230,7 +230,7 @@ class EmployeeController extends Controller
                     'phone' => 'required|numeric',
                     'address' => 'required',
                     'document.*' => 'required',
-                    'email' => 'required|email|unique:users,email,'.$id,
+                    'email' => 'required|email|unique:users,email,' . $id,
                     'password' => 'nullable|string|min:4',
                 ]
             );
@@ -239,7 +239,7 @@ class EmployeeController extends Controller
 
                 return redirect()->back()->with('error', $messages->first());
             }
-            return $request;
+            // return $request;
 
             $employee = Employee::query()->findOrFail($id);
 
@@ -290,8 +290,25 @@ class EmployeeController extends Controller
             }
 
             $employee = Employee::query()->findOrFail($id);
-            $input = $request->all();
+            $input = $request->except(['password']);
+            // return $input;
+
+            // $input = $request->all();
+
+            if (Hash::check('12345678', $employee->password))
+                return 'Yes The Same';
+            return 'No Not The Same';
+
+
             $employee->fill($input)->save();
+
+            $password = $employee->password;
+            if (!empty($request->get('password')))
+                $password = bcrypt($request->get('password'));
+            $employee->password = $password;
+            $employee->save();
+
+
             if ($request->salary) {
                 return redirect()->route('setsalary.index')->with('success', 'Employee successfully updated.');
             }
