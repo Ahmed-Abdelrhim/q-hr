@@ -31,9 +31,12 @@ class AttendanceEmployeeController extends Controller
             ->get();
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
+        // TODO: implement calculations for missing and penalty
+
         return view('attendance.report',
             [
                 'id' => $id,
+                'employee' => $employee,
                 'attendanceEmployee' => $attendanceEmployee,
                 'grand_total' => $total_late_per_month,
             ]

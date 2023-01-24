@@ -64,66 +64,72 @@
             <div class="card-header card-body table-border-style">
 
                 <div class="table-responsive">
+                    <h4 class="h4" style="margin-left: 25px;margin-top: 10px;">
+                        <div>ID : <?php echo e($employee->id); ?></div>
+                    </h4>
+                    <h4 class="h4" style="margin-left: 25px;margin-top: 10px;">
+                        <div>Name : <?php echo e($employee->name); ?></div>
+                    </h4>
                     <table class="table" id="pc-dt-simple">
                         <thead>
                         <tr>
-                            <?php if(\Auth::user()->type != 'employee'): ?>
-                                <th><?php echo e(__('Employee')); ?></th>
-                            <?php endif; ?>
+                            
+                            <th><?php echo e(__('DAY')); ?></th>
+                            
                             <th><?php echo e(__('Date')); ?></th>
-                            <th><?php echo e(__('Status')); ?></th>
+                            
                             <th><?php echo e(__('Clock In')); ?></th>
                             <th><?php echo e(__('Clock Out')); ?></th>
-                            <th><?php echo e(__('Total')); ?></th>
+                            <th><?php echo e(__('W.Hours')); ?></th>
                             <th><?php echo e(__('Late')); ?></th>
-                            <th><?php echo e(__('Early Leaving')); ?></th>
-                            <th><?php echo e(__('Overtime')); ?></th>
-                                
-                                
-                                
+                            <th><?php echo e(__('Early Leave')); ?></th>
+                            
+                            <th><?php echo e(__('Permission')); ?></th>
+                            <th><?php echo e(__('Missing')); ?></th>
+                            <th><?php echo e(__('Penalty')); ?></th>
+                            
+                            
+                            
                         </tr>
                         </thead>
                         <tbody>
                         <?php if(isset($attendanceEmployee)): ?>
                             <?php $__currentLoopData = $attendanceEmployee; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attendance): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <?php if(\Auth::user()->type != 'employee'): ?>
-                                        <td><?php echo e(!empty($attendance->employee) ? $attendance->employee->name : ''); ?></td>
-                                    <?php endif; ?>
+                                    <td><?php echo e(\Carbon\Carbon::parse($attendance->date)->dayName); ?></td>
+                                    
+                                    
+                                    
                                     <td><?php echo e(\Auth::user()->dateFormat($attendance->date)); ?></td>
-                                    <td><?php echo e($attendance->status); ?></td>
+                                    
                                     <td><?php echo e($attendance->clock_in != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_in) : '00:00'); ?>
 
                                     </td>
                                     <td><?php echo e($attendance->clock_out != '00:00:00' ? \Auth::user()->timeFormat($attendance->clock_out) : '00:00'); ?>
 
                                     </td>
-                                    <!-- Total Logged Hours-->
+                                    <!-- Total Working Hours-->
                                     <td>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-
                                         <?php echo e($attendance->clock_out != '00:00:00' ?
                                             gmdate('H:i',strtotime($attendance->clock_out) - strtotime($attendance->clock_in)): '00:00'); ?>
 
                                     </td>
                                     <td><?php echo e($attendance->late); ?></td>
                                     <td><?php echo e($attendance->early_leaving); ?></td>
-                                    <td><?php echo e($attendance->overtime); ?></td>
+                                    
+                                    <td>Permission</td>
+                                    <td>Missing</td>
+                                    <td>Penalty</td>
 
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <?php endif; ?>
                         
 
-                            <tr>
-                                <td>Grand Total : <?php echo e($grand_total); ?></td>
-                                
-                            </tr>
+                        <tr>
+                            <td>Grand Total : <?php echo e($grand_total); ?></td>
+                            
+                        </tr>
                         </tbody>
                     </table>
                 </div>
