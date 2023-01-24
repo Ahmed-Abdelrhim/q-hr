@@ -33,7 +33,8 @@ class AttendanceEmployeeController extends Controller
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
         // TODO: implement calculations for missing and penalty
-        $penalty = $this->calculateMissingAndPenalty($attendanceEmployee);
+        $penalty = $this->calculatePenalty($attendanceEmployee);
+        $missing = $this->calculateMissing($attendanceEmployee);
 
         return view('attendance.report',
             [
@@ -46,35 +47,46 @@ class AttendanceEmployeeController extends Controller
         );
     }
 
-    function calculateMissingAndPenalty($attendanceEmployee)
+    function calculatePenalty($attendanceEmployee)
     {
         $data = $attendanceEmployee[0];
         // return var_dump($data->clock_in);
         $begin = Carbon::parse('8:30:00');
         $end = Carbon::parse('9:35:00');
-        $missing = [];
+        $penalty = [];
         // return var_dump(Carbon::parse($data->clock_in));
         foreach ($attendanceEmployee as $attendance) {
             if (Carbon::parse($attendance->clock_in)->greaterThanOrEqualTo($begin) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($end)) {
-                $missing[] .= 0;
+                $penalty[] .= 0;
             } else {
                 $quarter = Carbon::parse('10:00:00');
                 $half = Carbon::parse('10:31:00');
-                if (Carbon::parse($attendance->clock_in)->greaterThan($end) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($quarter) ) {
-                    $missing[] .= 0.25;
+                if (Carbon::parse($attendance->clock_in)->greaterThan($end) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($quarter)) {
+                    $penalty[] .= 0.25;
                 }
                 if (Carbon::parse($attendance->clock_in)->greaterThan($quarter) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($half)) {
-                    $missing[] .= 0.5;
+                    $penalty[] .= 0.5;
                 }
                 if (Carbon::parse($attendance->clock_in)->greaterThan($half)) {
-                    $missing[] .= 1;
+                    $penalty[] .= 1;
                 }
             }
         }
+        return $penalty;
+    }
+
+    public function calculateMissing($attendanceEmployee)
+    {
+        $end = Carbon::parse('9:35:00');
+        $missing = [];
+        foreach ($attendanceEmployee as $attendance) {
+            if (Carbon::parse($attendance->clock_in)->greaterThan($end)) {
+                $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in));
+            } else {
+                $missing[] .= 0;
+            }
+        }
         return $missing;
-        //        if (Carbon::parse($data->clock_in)->greaterThanOrEqualTo(Carbon::parse($begin)) && Carbon::parse($data->clock_in)->lessThanOrEqualTo(Carbon::parse($end)))
-        //            return $data;
-        //        return 'Not In Time , Has Penalty';
     }
 
     public function filterEmployeeReport(Request $request, $id)
