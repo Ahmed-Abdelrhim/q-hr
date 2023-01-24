@@ -89,13 +89,13 @@ class AttendanceEmployeeController extends Controller
 
     public function calculateMissing($attendanceEmployee)
     {
-        $end = Carbon::parse('9:35:00');
-        $stay = Carbon::parse('08:00:00');
+        // $end = Carbon::parse('9:35:00');
+        $time_to_stay_in_company = Carbon::parse('08:00:00');
         $missing = [];
         foreach ($attendanceEmployee as $attendance) {
-            $total = Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in))->format('%H:%i');
-            if (Carbon::parse($total)->lessThan($stay)) {
-                $missing[] .= Carbon::parse($total)->diff($stay)->format('%H:%i');
+            $today_total_working_hours = Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in))->format('%H:%i');
+            if (Carbon::parse($today_total_working_hours)->lessThan($time_to_stay_in_company)) {
+                $missing[] .= Carbon::parse($today_total_working_hours)->diff($time_to_stay_in_company)->format('%H:%i');
             } else {
                 $missing[] .= 0;
             }

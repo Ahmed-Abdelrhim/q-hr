@@ -164,7 +164,7 @@
                                     </a>
 
                                     {{-- <a href="{{route('filter.employee.attendance',$employee_filter_id)}}" class="btn btn-sm btn-primary" --}}
-                                    {{-- onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"--}}
+                                    {{-- onclick="document.getElementById('attendanceemployee_filter').submit(); return false;" --}}
                                     {{-- data-bs-toggle="tooltip" title="{{__('Report')}}"--}}
                                     {{-- data-original-title="{{__('report')}}">--}}
                                     {{-- <span class="btn-inner--icon"><i class="ti ti-file"></i></span>--}}
