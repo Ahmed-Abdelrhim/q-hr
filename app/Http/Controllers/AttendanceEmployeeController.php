@@ -36,6 +36,8 @@ class AttendanceEmployeeController extends Controller
         $penalty = $this->calculatePenalty($attendanceEmployee);
         $missing = $this->calculateMissing($attendanceEmployee);
 
+        // return $attendanceEmployee;
+
         return view('attendance.report',
             [
                 'id' => $id,
@@ -51,11 +53,9 @@ class AttendanceEmployeeController extends Controller
     function calculatePenalty($attendanceEmployee)
     {
         $data = $attendanceEmployee[0];
-        // return var_dump($data->clock_in);
-        $begin = Carbon::parse('8:30:00');
+        $begin = Carbon::parse('7:00:00');
         $end = Carbon::parse('9:35:00');
         $penalty = [];
-        // return var_dump(Carbon::parse($data->clock_in));
         foreach ($attendanceEmployee as $attendance) {
             if (Carbon::parse($attendance->clock_in)->greaterThanOrEqualTo($begin) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($end)) {
                 $penalty[] .= 0;
