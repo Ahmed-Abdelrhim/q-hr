@@ -90,34 +90,6 @@ class AttendanceEmployeeController extends Controller
         return $missing;
     }
 
-    public function filterEmployeeReport(Request $request, $id)
-    {
-        $employee = Employee::query()->find($id);
-        if (!$employee)
-            return view('errors.404', ['msg' => 'Employee Not Found']);
-
-        $start = $request->get('date_from');
-        $end = $request->get('date_to');
-
-        $attendanceEmployee = AttendanceEmployee::query()
-            ->where('employee_id', $employee->id)
-            ->whereBetween('date', [$start, $end])
-            ->get();
-
-        $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
-        // dd($total_late_per_month);
-        // return $total_late_per_month;
-
-        return view('attendance.report',
-            [
-                'id' => $id,
-                'attendanceEmployee' => $attendanceEmployee,
-                'grand_total' => $total_late_per_month
-            ]
-        );
-
-    }
-
     public function calcTotalLate($attendanceEmployee)
     {
         $hours_counter = 0;
@@ -157,6 +129,41 @@ class AttendanceEmployeeController extends Controller
             $total_late_per_month = $hours_counter . ':' . $minutes;
         }
         return $total_late_per_month;
+    }
+
+
+    public function filterEmployeeReport(Request $request, $id)
+    {
+        $employee = Employee::query()->find($id);
+        if (!$employee)
+            return view('errors.404', ['msg' => 'Employee Not Found']);
+
+        $start = $request->get('date_from');
+        $end = $request->get('date_to');
+
+        $attendanceEmployee = AttendanceEmployee::query()
+            ->where('employee_id', $employee->id)
+            ->whereBetween('date', [$start, $end])
+            ->get();
+
+        $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
+
+        $penalty = $this->calculatePenalty($attendanceEmployee);
+        $missing = $this->calculateMissing($attendanceEmployee);
+        // dd($total_late_per_month);
+        // return $total_late_per_month;
+
+        return view('attendance.report',
+            [
+                'id' => $id,
+                'employee' => $employee,
+                'penalty' => $penalty,
+                'missing' => $missing,
+                'attendanceEmployee' => $attendanceEmployee,
+                'grand_total' => $total_late_per_month
+            ]
+        );
+
     }
 
 

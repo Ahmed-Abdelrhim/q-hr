@@ -121,11 +121,6 @@
                                     <td>
                                         <?php echo e(str_replace('before' , '' , $missing[$key])); ?>
 
-                                        
-                                        
-                                        
-                                        
-                                        
                                     </td>
                                     <td>
                                         <?php if($penalty[$key] == 0 ): ?>
@@ -138,7 +133,7 @@
                                             1/2 DAY
                                         <?php endif; ?>
                                         <?php if($penalty[$key] == 1 ): ?>
-                                            One DAY
+                                            1 DAY
                                         <?php endif; ?>
                                     </td>
 

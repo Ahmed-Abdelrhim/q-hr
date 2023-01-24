@@ -133,7 +133,7 @@
                                             1/2 DAY
                                         @endif
                                         @if($penalty[$key] == 1 )
-                                            One DAY
+                                            1 DAY
                                         @endif
                                     </td>
 
