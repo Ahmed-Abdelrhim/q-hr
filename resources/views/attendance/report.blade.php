@@ -121,11 +121,6 @@
                                     <td><span style="margin-left: 25px">0</span></td>
                                     <td>
                                         {{  str_replace('before' , '' , $missing[$key]) }}
-                                        {{-- @if(str_contains( $missing[$key] , 'before'))--}}
-                                        {{-- {{  str_replace('before' , '' , $missing[$key]) }}--}}
-                                        {{-- @else--}}
-                                        {{-- {{$missing[$key]}}--}}
-                                        {{-- @endif--}}
                                     </td>
                                     <td>
                                         @if($penalty[$key] == 0 )
