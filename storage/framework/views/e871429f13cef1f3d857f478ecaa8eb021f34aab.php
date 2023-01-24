@@ -118,7 +118,15 @@
                                     <td><?php echo e($attendance->early_leaving); ?></td>
                                     
                                     <td><span style="margin-left: 25px">0</span></td>
-                                    <td><?php echo e($missing[$key]); ?></td>
+                                    <td>
+                                        <?php echo e(str_replace('before' , '' , $missing[$key])); ?>
+
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    </td>
                                     <td>
                                         <?php if($penalty[$key] == 0 ): ?>
                                             0
@@ -129,9 +137,9 @@
                                         <?php if($penalty[$key] == 0.5 ): ?>
                                             1/2 DAY
                                         <?php endif; ?>
-                                            <?php if($penalty[$key] == 1 ): ?>
-                                                One DAY
-                                            <?php endif; ?>
+                                        <?php if($penalty[$key] == 1 ): ?>
+                                            One DAY
+                                        <?php endif; ?>
                                     </td>
 
                                 </tr>

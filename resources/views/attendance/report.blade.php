@@ -119,7 +119,14 @@
                                     <td>{{ $attendance->early_leaving }}</td>
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
                                     <td><span style="margin-left: 25px">0</span></td>
-                                    <td>{{$missing[$key]}}</td>
+                                    <td>
+                                        {{  str_replace('before' , '' , $missing[$key]) }}
+                                        {{-- @if(str_contains( $missing[$key] , 'before'))--}}
+                                        {{-- {{  str_replace('before' , '' , $missing[$key]) }}--}}
+                                        {{-- @else--}}
+                                        {{-- {{$missing[$key]}}--}}
+                                        {{-- @endif--}}
+                                    </td>
                                     <td>
                                         @if($penalty[$key] == 0 )
                                             0
@@ -130,9 +137,9 @@
                                         @if($penalty[$key] == 0.5 )
                                             1/2 DAY
                                         @endif
-                                            @if($penalty[$key] == 1 )
-                                                One DAY
-                                            @endif
+                                        @if($penalty[$key] == 1 )
+                                            One DAY
+                                        @endif
                                     </td>
 
                                 </tr>
