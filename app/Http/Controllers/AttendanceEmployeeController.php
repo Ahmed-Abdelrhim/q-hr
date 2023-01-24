@@ -49,12 +49,21 @@ class AttendanceEmployeeController extends Controller
     {
         $data = $attendanceEmployee[0];
         // return var_dump($data->clock_in);
-        $begin = '8:30:00';
-        $end = '9:35:00';
+        $begin = Carbon::parse('8:30:00');
+        $end = Carbon::parse('9:35:00');
+        $missing = [];
         // return var_dump(Carbon::parse($data->clock_in));
-        if (Carbon::parse($data->clock_in)->greaterThanOrEqualTo(Carbon::parse($begin)) && Carbon::parse($data->clock_in)->lessThanOrEqualTo(Carbon::parse($end)))
-            return $data;
-        return 'Not In Time , Has Penalty';
+        foreach ($attendanceEmployee as $attendance) {
+            if (Carbon::parse($attendance->clock_in)->greaterThanOrEqualTo($begin) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($end)) {
+                $missing[] .= 0;
+            } else {
+                $missing[] .= 0.25;
+            }
+        }
+        return $missing;
+        //        if (Carbon::parse($data->clock_in)->greaterThanOrEqualTo(Carbon::parse($begin)) && Carbon::parse($data->clock_in)->lessThanOrEqualTo(Carbon::parse($end)))
+        //            return $data;
+        //        return 'Not In Time , Has Penalty';
     }
 
     public function filterEmployeeReport(Request $request, $id)
