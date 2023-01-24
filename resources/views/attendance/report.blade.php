@@ -146,7 +146,7 @@
                                 </tr>
                             @endforeach
                         @endif
-                        {{-- <tr class="mx-auto col-xl-12 col-lg-12 col-md-12 text-center" style="display: flex">--}}
+                        {{-- <tr class="mx-auto col-xl-12 col-lg-12 col-md-12 text-center" style="display: flex"> --}}
 
                         <tr>
                             <td>Grand Total : {{$grand_total}}</td>
