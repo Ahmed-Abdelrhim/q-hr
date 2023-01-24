@@ -100,7 +100,7 @@
                                 <tr>
                                     <td>{{\Carbon\Carbon::parse($attendance->date)->dayName }}</td>
                                     {{-- @if (\Auth::user()->type != 'employee')--}}
-                                    {{-- <td>{{ !empty($attendance->employee) ? $attendance->employee->name : '' }}</td>--}}
+                                    {{-- <td>{{ !empty($attendance->employee) ? $attendance->employee->name : '' }}</td> --}}
                                     {{-- @endif--}}
                                     <td>{{ \Auth::user()->dateFormat($attendance->date) }}</td>
                                     {{-- <td>{{ $attendance->status }}</td>--}}
