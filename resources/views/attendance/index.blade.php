@@ -163,7 +163,7 @@
                                                 class="ti ti-trash-off text-white-off "></i></span>
                                     </a>
 
-                                    {{-- <a href="{{route('filter.employee.attendance',$employee_filter_id)}}" class="btn btn-sm btn-primary"--}}
+                                    {{-- <a href="{{route('filter.employee.attendance',$employee_filter_id)}}" class="btn btn-sm btn-primary" --}}
                                     {{-- onclick="document.getElementById('attendanceemployee_filter').submit(); return false;"--}}
                                     {{-- data-bs-toggle="tooltip" title="{{__('Report')}}"--}}
                                     {{-- data-original-title="{{__('report')}}">--}}
