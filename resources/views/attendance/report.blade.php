@@ -120,7 +120,10 @@
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
                                     <td><span style="margin-left: 25px">0</span></td>
                                     <td>
-                                        {{  str_replace('before' , '' , $missing[$key]) }}
+                                        {{$missing[$key]}}
+                                        {{-- @if(Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in)) )--}}
+                                        {{-- {{  str_replace('before' , '' , $missing[$key]) }}--}}
+                                        {{-- @endif--}}
                                     </td>
                                     <td>
                                         @if($penalty[$key] == 0 )

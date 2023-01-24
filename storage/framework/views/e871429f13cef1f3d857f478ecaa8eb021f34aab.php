@@ -119,8 +119,11 @@
                                     
                                     <td><span style="margin-left: 25px">0</span></td>
                                     <td>
-                                        <?php echo e(str_replace('before' , '' , $missing[$key])); ?>
+                                        <?php echo e($missing[$key]); ?>
 
+                                        
+                                        
+                                        
                                     </td>
                                     <td>
                                         <?php if($penalty[$key] == 0 ): ?>

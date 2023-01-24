@@ -31,12 +31,21 @@ class AttendanceEmployeeController extends Controller
         $attendanceEmployee = AttendanceEmployee::query()
             ->where('employee_id', $employee->id)
             ->whereBetween('date', [$start, $end])
-            ->get();
+            ->get(['clock_in', 'clock_out', 'date', 'late', 'early_leaving',]);
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
         // TODO: implement calculations for missing and penalty
         $penalty = $this->calculatePenalty($attendanceEmployee);
         $missing = $this->calculateMissing($attendanceEmployee);
+
+
+//                $data = $attendanceEmployee[7];
+//                $total = Carbon::parse($data->clock_out)->diff(Carbon::parse($data->clock_in))->format('%H:%i');
+//                $stay = Carbon::parse('08:00:00');
+//                if (Carbon::parse($total)->lessThanOrEqualTo($stay))
+//                    return Carbon::parse($total)->diff($stay)->format('%H:%i');
+//                return 'Ok';
+
 
         // return $attendanceEmployee;
 
@@ -81,14 +90,22 @@ class AttendanceEmployeeController extends Controller
     public function calculateMissing($attendanceEmployee)
     {
         $end = Carbon::parse('9:35:00');
+        $stay = Carbon::parse('08:00:00');
         $missing = [];
         foreach ($attendanceEmployee as $attendance) {
-            if (Carbon::parse($attendance->clock_in)->greaterThan($end)) {
-                // $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in) , true);
-                $missing[] .= $end->diff(Carbon::parse($attendance->clock_in))->format('%H:%I');
+            $total = Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in))->format('%H:%i');
+            if (Carbon::parse($total)->lessThan($stay)) {
+                $missing[] .= Carbon::parse($total)->diff($stay)->format('%H:%i');
             } else {
                 $missing[] .= 0;
             }
+
+            //            if (Carbon::parse($attendance->clock_in)->greaterThan($end)) {
+            //                // $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in) , true);
+            //                $missing[] .= $end->diff(Carbon::parse($attendance->clock_in))->format('%H:%I');
+            //            } else {
+            //                $missing[] .= 0;
+            //            }
         }
         return $missing;
     }

@@ -54,7 +54,7 @@
 
                                     <div class="form-check form-check-inline form-group">
                                         <input type="radio" id="monthly" value="monthly" name="type"
-                                               class="form-check-input" {{isset($_GET['type']) && $_GET['type']=='monthly' ?'checked':'checked'}}>
+                                               class="form-check-input" {{isset($_GET['type']) && $_GET['type']== 'monthly' ?'checked':'checked'}}>
                                         <label class="form-check-label" for="monthly">{{__('Monthly')}}</label>
                                     </div>
                                     <div class="form-check form-check-inline form-group">
@@ -137,7 +137,6 @@
                                                 @endforeach
                                             </select>
 
-
                                             {{--{{ Form::label('employees', __('Employees'),['class'=>'form-label'])}}--}}
                                             {{--{{ Form::select('emps', $emps,isset($_GET['emps'])?$_GET['emps']:'', array('class' => 'form-control select')) }}--}}
                                         </div>
@@ -171,6 +170,7 @@
                                     {{-- <span class="btn-inner--icon"><i class="ti ti-file"></i></span>--}}
                                     {{-- </a>--}}
 
+                                    <!-- Report -->
                                     @if(isset($employee_filter_id))
                                         @if($employee_filter_id > 0 && is_integer($employee_filter_id))
                                             <a href="{{route('employee.report',Crypt::encrypt($employee_filter_id) )}}"
