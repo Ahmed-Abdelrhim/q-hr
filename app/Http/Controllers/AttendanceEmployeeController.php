@@ -12,6 +12,7 @@ use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AttendanceEmployeeController extends Controller
@@ -21,7 +22,7 @@ class AttendanceEmployeeController extends Controller
     {
         $employee = Employee::query()->find($id);
         if (!$employee)
-            return view('errors.404',['msg' => 'Employee Not Found']);
+            return view('errors.404', ['msg' => 'Employee Not Found']);
         $days_count = now()->day;
         $start = Carbon::now()->subDays(now()->day - 1)->startOfDay()->toDateString();
         $end = Carbon::now()->endOfDay()->toDateString();
@@ -32,6 +33,7 @@ class AttendanceEmployeeController extends Controller
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
         // TODO: implement calculations for missing and penalty
+        return $missing = $this->calculateMissingAndPenalty($attendanceEmployee);
 
         return view('attendance.report',
             [
@@ -43,11 +45,23 @@ class AttendanceEmployeeController extends Controller
         );
     }
 
+    function calculateMissingAndPenalty($attendanceEmployee)
+    {
+        $data = $attendanceEmployee[0];
+        // return var_dump($data->clock_in);
+        $begin = '8:30:00';
+        $end = '9:35:00';
+        // return var_dump(Carbon::parse($data->clock_in));
+        if (Carbon::parse($data->clock_in)->greaterThanOrEqualTo(Carbon::parse($begin)) && Carbon::parse($data->clock_in)->lessThanOrEqualTo(Carbon::parse($end)))
+            return $data;
+        return 'Not In Time , Has Penalty';
+    }
+
     public function filterEmployeeReport(Request $request, $id)
     {
         $employee = Employee::query()->find($id);
         if (!$employee)
-            return view('errors.404',['msg' => 'Employee Not Found']);
+            return view('errors.404', ['msg' => 'Employee Not Found']);
 
         $start = $request->get('date_from');
         $end = $request->get('date_to');
@@ -110,33 +124,6 @@ class AttendanceEmployeeController extends Controller
             $total_late_per_month = $hours_counter . ':' . $minutes;
         }
         return $total_late_per_month;
-    }
-
-    public function attendanceFilter(Request $request)
-    {
-        // return $request;
-        if ($request->get('branch') != null) {
-            $branch = Branch::query()->where('id', $request->get('branch'))->get(['id', 'name']);
-        } else {
-            $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
-        }
-        if ($request->get('department') != null) {
-            $department = Department::query()->where('id', $request->get('department'))->get(['id', 'name']);
-        } else {
-            $department = Department::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
-        }
-        if ($request->get('employees') != null) {
-            $emps = Employee::query()->where('id', $request->get('employees'))->get(['id', 'name']);
-        } else {
-            $emps = Employee::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
-        }
-        $employee = Employee::query()->select('id')->where('created_by', Auth::user()->creatorId());
-
-        $employee = $employee->get()->pluck('id');
-
-        $attendanceEmployee = AttendanceEmployee::query()->whereIn('employee_id', $employee);
-        $grand_total = 0;
-        return view('attendance.index', compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps'));
     }
 
 
@@ -234,7 +221,7 @@ class AttendanceEmployeeController extends Controller
             }
             $grand_total = null;
             return view('attendance.index',
-                compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps' , 'employee_filter_id'));
+                compact('attendanceEmployee', 'branch', 'department', 'grand_total', 'emps', 'employee_filter_id'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
         }
