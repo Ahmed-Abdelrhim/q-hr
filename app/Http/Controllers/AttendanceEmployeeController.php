@@ -12,6 +12,7 @@ use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
@@ -20,6 +21,7 @@ class AttendanceEmployeeController extends Controller
 
     public function employeeReport($id)
     {
+        $id = Crypt::decrypt($id);
         $employee = Employee::query()->find($id);
         if (!$employee)
             return view('errors.404', ['msg' => 'Employee Not Found']);
@@ -135,6 +137,7 @@ class AttendanceEmployeeController extends Controller
 
     public function filterEmployeeReport(Request $request, $id)
     {
+        $id = Crypt::decrypt($id);
         $employee = Employee::query()->find($id);
         if (!$employee)
             return view('errors.404', ['msg' => 'Employee Not Found']);

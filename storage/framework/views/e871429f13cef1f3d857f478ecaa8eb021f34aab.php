@@ -13,7 +13,7 @@
         <div class=" mt-2 " id="multiCollapseExample1">
             <div class="card">
                 <div class="card-body">
-                    <form id="new" action="<?php echo e(route('filter.employee.attendance',$id)); ?>" method="GET">
+                    <form id="new" action="<?php echo e(route('filter.employee.attendance',Crypt::encrypt($id))); ?>" method="GET">
                         <?php echo csrf_field(); ?>
                         <div class="row align-items-center justify-content-end">
                             <div class="col-xl-10">

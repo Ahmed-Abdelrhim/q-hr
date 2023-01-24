@@ -15,7 +15,7 @@
         <div class=" mt-2 " id="multiCollapseExample1">
             <div class="card">
                 <div class="card-body">
-                    <form id="new" action="{{route('filter.employee.attendance',$id)}}" method="GET">
+                    <form id="new" action="{{route('filter.employee.attendance',Crypt::encrypt($id))}}" method="GET">
                         @csrf
                         <div class="row align-items-center justify-content-end">
                             <div class="col-xl-10">

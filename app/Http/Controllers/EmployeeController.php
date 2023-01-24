@@ -91,7 +91,7 @@ class EmployeeController extends Controller
                 return redirect()->back()->withInput()->with('error', $messages->first());
             }
 
-            $user = User::create(
+            $user = User::query()->create(
                 [
                     'name' => $request['name'],
                     'email' => $request['email'],
@@ -112,7 +112,7 @@ class EmployeeController extends Controller
             }
 
 
-            $employee = Employee::create(
+            $employee = Employee::query()->create(
                 [
                     'user_id' => $user->id,
                     'name' => $request['name'],
