@@ -1,3 +1,7 @@
+<?php $__env->startSection('page-title'); ?>
+    <?php echo e(__('Report')); ?>
+
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('breadcrumb'); ?>
     <li class="breadcrumb-item"><a href="<?php echo e(route('home')); ?>"><?php echo e(__('Home')); ?></a></li>
     <li class="breadcrumb-item"><?php echo e(__('Employee Report')); ?></li>
@@ -16,6 +20,7 @@
                     <form id="new" action="<?php echo e(route('filter.employee.attendance',Crypt::encrypt($id))); ?>" method="GET">
                         <?php echo csrf_field(); ?>
                         <div class="row align-items-center justify-content-end">
+
                             <div class="col-xl-10">
                                 <div class="row">
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
@@ -130,10 +135,10 @@
                                             0
                                         <?php endif; ?>
                                         <?php if($penalty[$key] == 0.25 ): ?>
-                                            1/4 DAY
+                                                ¼  DAY
                                         <?php endif; ?>
                                         <?php if($penalty[$key] == 0.5 ): ?>
-                                            1/2 DAY
+                                                ½ DAY
                                         <?php endif; ?>
                                         <?php if($penalty[$key] == 1 ): ?>
                                             1 DAY

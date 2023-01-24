@@ -1,5 +1,7 @@
 @extends('layouts.custom')
-
+@section('page-title')
+    {{__('Report')}}
+@endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
     <li class="breadcrumb-item">{{ __('Employee Report') }}</li>
@@ -18,6 +20,7 @@
                     <form id="new" action="{{route('filter.employee.attendance',Crypt::encrypt($id))}}" method="GET">
                         @csrf
                         <div class="row align-items-center justify-content-end">
+
                             <div class="col-xl-10">
                                 <div class="row">
                                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 date">
@@ -130,10 +133,10 @@
                                             0
                                         @endif
                                         @if($penalty[$key] == 0.25 )
-                                            1/4 DAY
+                                                ¼  DAY
                                         @endif
                                         @if($penalty[$key] == 0.5 )
-                                            1/2 DAY
+                                                ½ DAY
                                         @endif
                                         @if($penalty[$key] == 1 )
                                             1 DAY

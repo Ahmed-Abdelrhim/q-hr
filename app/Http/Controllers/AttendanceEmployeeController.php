@@ -100,12 +100,12 @@ class AttendanceEmployeeController extends Controller
                 $missing[] .= 0;
             }
 
-            //            if (Carbon::parse($attendance->clock_in)->greaterThan($end)) {
-            //                // $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in) , true);
-            //                $missing[] .= $end->diff(Carbon::parse($attendance->clock_in))->format('%H:%I');
-            //            } else {
-            //                $missing[] .= 0;
-            //            }
+            // if (Carbon::parse($attendance->clock_in)->greaterThan($end)) {
+            // $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in) , true);
+            // $missing[] .= $end->diff(Carbon::parse($attendance->clock_in))->format('%H:%I');
+            // } else {
+            // $missing[] .= 0;
+            // }
         }
         return $missing;
     }
