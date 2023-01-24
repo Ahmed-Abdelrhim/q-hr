@@ -82,7 +82,8 @@ class AttendanceEmployeeController extends Controller
         $missing = [];
         foreach ($attendanceEmployee as $attendance) {
             if (Carbon::parse($attendance->clock_in)->greaterThan($end)) {
-                $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in));
+                // $missing[] .= $end->diffForHumans(Carbon::parse($attendance->clock_in) , true);
+                $missing[] .= $end->diff(Carbon::parse($attendance->clock_in))->format('%H:%I');
             } else {
                 $missing[] .= 0;
             }
