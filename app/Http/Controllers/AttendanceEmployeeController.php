@@ -52,23 +52,23 @@ class AttendanceEmployeeController extends Controller
 
     function calculatePenalty($attendanceEmployee)
     {
-        $data = $attendanceEmployee[0];
-        $begin = Carbon::parse('7:00:00');
+        $begin = Carbon::parse('00:00:01');
         $end = Carbon::parse('9:35:00');
+        $quarter = Carbon::parse('10:00:00');
+        $half = Carbon::parse('10:31:00');
         $penalty = [];
         foreach ($attendanceEmployee as $attendance) {
-            if (Carbon::parse($attendance->clock_in)->greaterThanOrEqualTo($begin) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($end)) {
+            $time = $attendance->clock_in;
+            if (Carbon::parse($time)->greaterThanOrEqualTo($begin) && Carbon::parse($time)->lessThanOrEqualTo($end)) {
                 $penalty[] .= 0;
             } else {
-                $quarter = Carbon::parse('10:00:00');
-                $half = Carbon::parse('10:31:00');
-                if (Carbon::parse($attendance->clock_in)->greaterThan($end) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($quarter)) {
+                if (Carbon::parse($time)->greaterThan($end) && Carbon::parse($time)->lessThanOrEqualTo($quarter)) {
                     $penalty[] .= 0.25;
                 }
-                if (Carbon::parse($attendance->clock_in)->greaterThan($quarter) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($half)) {
+                if (Carbon::parse($time)->greaterThan($quarter) && Carbon::parse($time)->lessThanOrEqualTo($half)) {
                     $penalty[] .= 0.5;
                 }
-                if (Carbon::parse($attendance->clock_in)->greaterThan($half)) {
+                if (Carbon::parse($time)->greaterThan($half)) {
                     $penalty[] .= 1;
                 }
             }

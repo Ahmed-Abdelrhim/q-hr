@@ -66,10 +66,10 @@
             <div class="card-header card-body table-border-style">
 
                 <div class="table-responsive">
-                    <h4 class="h4" style="margin-left: 25px;margin-top: 10px;">
+                    <h4 class="h4" style="margin-left: 25px;margin-top: 15px;">
                         <div>ID : {{$employee->id}}</div>
                     </h4>
-                    <h4 class="h4" style="margin-left: 25px;margin-top: 10px;">
+                    <h4 class="h4" style="margin-left: 25px;margin-top: 15px;">
                         <div>Name : {{$employee->name}}</div>
                     </h4>
                     <table class="table" id="pc-dt-simple">
@@ -116,7 +116,7 @@
                                         }}
                                     </td>
                                     <td>{{ $attendance->late }}</td>
-                                    <td>{{ $attendance->early_leaving }}</td>
+                                    <td>{{$attendance->early_leaving }}</td>
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
                                     <td><span style="margin-left: 25px">0</span></td>
                                     <td>
