@@ -41,6 +41,7 @@ class AttendanceEmployeeController extends Controller
                 'id' => $id,
                 'employee' => $employee,
                 'penalty' => $penalty,
+                'missing' => $missing,
                 'attendanceEmployee' => $attendanceEmployee,
                 'grand_total' => $total_late_per_month,
             ]

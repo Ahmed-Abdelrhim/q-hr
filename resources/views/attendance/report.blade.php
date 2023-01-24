@@ -119,7 +119,7 @@
                                     <td>{{ $attendance->early_leaving }}</td>
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
                                     <td><span style="margin-left: 25px">0</span></td>
-                                    <td>Missing</td>
+                                    <td>{{$missing[$key]}}</td>
                                     <td>
                                         @if($penalty[$key] == 0 )
                                             0
