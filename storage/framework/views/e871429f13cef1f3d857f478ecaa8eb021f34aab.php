@@ -94,7 +94,7 @@
                         </thead>
                         <tbody>
                         <?php if(isset($attendanceEmployee)): ?>
-                            <?php $__currentLoopData = $attendanceEmployee; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attendance): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $attendanceEmployee; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $attendance): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td><?php echo e(\Carbon\Carbon::parse($attendance->date)->dayName); ?></td>
                                     
@@ -117,9 +117,22 @@
                                     <td><?php echo e($attendance->late); ?></td>
                                     <td><?php echo e($attendance->early_leaving); ?></td>
                                     
-                                    <td>Permission</td>
+                                    <td><span style="margin-left: 25px">0</span></td>
                                     <td>Missing</td>
-                                    <td>Penalty</td>
+                                    <td>
+                                        <?php if($penalty[$key] == 0 ): ?>
+                                            0
+                                        <?php endif; ?>
+                                        <?php if($penalty[$key] == 0.25 ): ?>
+                                            1/4 DAY
+                                        <?php endif; ?>
+                                        <?php if($penalty[$key] == 0.5 ): ?>
+                                            1/2 DAY
+                                        <?php endif; ?>
+                                            <?php if($penalty[$key] == 1 ): ?>
+                                                One DAY
+                                            <?php endif; ?>
+                                    </td>
 
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

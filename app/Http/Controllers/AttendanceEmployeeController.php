@@ -33,12 +33,13 @@ class AttendanceEmployeeController extends Controller
         $total_late_per_month = $this->calcTotalLate($attendanceEmployee);
 
         // TODO: implement calculations for missing and penalty
-        return $missing = $this->calculateMissingAndPenalty($attendanceEmployee);
+        $penalty = $this->calculateMissingAndPenalty($attendanceEmployee);
 
         return view('attendance.report',
             [
                 'id' => $id,
                 'employee' => $employee,
+                'penalty' => $penalty,
                 'attendanceEmployee' => $attendanceEmployee,
                 'grand_total' => $total_late_per_month,
             ]
@@ -57,7 +58,17 @@ class AttendanceEmployeeController extends Controller
             if (Carbon::parse($attendance->clock_in)->greaterThanOrEqualTo($begin) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($end)) {
                 $missing[] .= 0;
             } else {
-                $missing[] .= 0.25;
+                $quarter = Carbon::parse('10:00:00');
+                $half = Carbon::parse('10:31:00');
+                if (Carbon::parse($attendance->clock_in)->greaterThan($end) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($quarter) ) {
+                    $missing[] .= 0.25;
+                }
+                if (Carbon::parse($attendance->clock_in)->greaterThan($quarter) && Carbon::parse($attendance->clock_in)->lessThanOrEqualTo($half)) {
+                    $missing[] .= 0.5;
+                }
+                if (Carbon::parse($attendance->clock_in)->greaterThan($half)) {
+                    $missing[] .= 1;
+                }
             }
         }
         return $missing;

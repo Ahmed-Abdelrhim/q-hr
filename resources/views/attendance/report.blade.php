@@ -96,7 +96,7 @@
                         </thead>
                         <tbody>
                         @if(isset($attendanceEmployee))
-                            @foreach ($attendanceEmployee as $attendance)
+                            @foreach ($attendanceEmployee as $key => $attendance)
                                 <tr>
                                     <td>{{\Carbon\Carbon::parse($attendance->date)->dayName }}</td>
                                     {{-- @if (\Auth::user()->type != 'employee')--}}
@@ -118,9 +118,22 @@
                                     <td>{{ $attendance->late }}</td>
                                     <td>{{ $attendance->early_leaving }}</td>
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
-                                    <td>Permission</td>
+                                    <td><span style="margin-left: 25px">0</span></td>
                                     <td>Missing</td>
-                                    <td>Penalty</td>
+                                    <td>
+                                        @if($penalty[$key] == 0 )
+                                            0
+                                        @endif
+                                        @if($penalty[$key] == 0.25 )
+                                            1/4 DAY
+                                        @endif
+                                        @if($penalty[$key] == 0.5 )
+                                            1/2 DAY
+                                        @endif
+                                            @if($penalty[$key] == 1 )
+                                                One DAY
+                                            @endif
+                                    </td>
 
                                 </tr>
                             @endforeach
