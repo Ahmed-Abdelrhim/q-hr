@@ -87,6 +87,7 @@ class AttendanceEmployeeController extends Controller
                         $permission[] .= '(' . $leave->status . ') ' . $leave->leave_reason;
                     } else {
                         // Here Permission Is Accepted
+                        // I Forgot To Check For Total_Leave_Days
                         $permission[] .= 'Approved';
                     }
                 } else {
