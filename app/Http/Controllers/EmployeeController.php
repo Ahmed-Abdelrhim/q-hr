@@ -347,7 +347,6 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
-
         if (\Auth::user()->can('Show Employee')) {
             $empId = Crypt::decrypt($id);
             $documents = Document::where('created_by', \Auth::user()->creatorId())->get();

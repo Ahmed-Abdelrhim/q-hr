@@ -32,7 +32,8 @@ Route::get('/check', 'HomeController@check')->middleware(
         'XSS',
     ]
 );
-// Route::get('/password/resets/{lang?}', 'Auth\LoginController@showLinkRequestForm')->name('change.langPass');;
+// Route::get('/password/resets/{lang?}', 'Auth\LoginController@showLinkRequestForm')->name('change.langPass');
+// https://www.1steq.com/
 
 Route::get('/', 'HomeController@index')->name('home')->middleware(['XSS']);
 Route::get('/home', 'HomeController@index')->name('home')->middleware(
