@@ -27,6 +27,7 @@ class RoleController extends Controller
 
     public function create()
     {
+
         if(\Auth::user()->can('Create Role'))
         {
             $user = \Auth::user();
@@ -56,6 +57,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+
         if(\Auth::user()->can('Create Role'))
         {
             $role = Role::where('name', '=', $request->name)->first();
@@ -199,3 +201,4 @@ class RoleController extends Controller
 
     }
 }
+// 4 Emp web 1 2022-12-28 15:03:13 2022-12-28 15:03:13

@@ -301,80 +301,80 @@ if (!empty($mode_setting['theme_color'])) {
 
     <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
 
-    <?php if(\Auth::user()->type != 'super admin'): ?>
-        <script>
-            $(document).ready(function() {
-                pushNotification('<?php echo e(Auth::id()); ?>');
-            });
 
-            function pushNotification(id) {
 
-                // ajax setup form csrf token
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
 
-                // Enable pusher logging - don't include this in production
-                Pusher.logToConsole = false;
 
-                var pusher = new Pusher('<?php echo e(env('PUSHER_APP_KEY')); ?>', {
-                    cluster: '<?php echo e(env('PUSHER_APP_CLUSTER')); ?>',
-                    forceTLS: true
-                });
 
-                // Pusher Notification
-                var channel = pusher.subscribe('send_notification');
-                channel.bind('notification', function(data) {
-                    if (id == data.user_id) {
-                        $(".notification-toggle").addClass('beep');
-                        $(".notification-dropdown #notification-list").prepend(data.html);
-                    }
-                });
 
-                // Pusher Message
-                var msgChannel = pusher.subscribe('my-channel');
-                msgChannel.bind('my-chat', function(data) {
-                    console.log(data);
-                    if (id == data.to) {
-                        getChat();
-                    }
-                });
-            }
 
-            // Get chat for top ox
-            function getChat() {
-                $.ajax({
-                    
-                    
-                    type: "get",
-                    cache: false,
-                    success: function(data) {
-                        console.log(data);
-                        if (data.length != 0) {
-                            $(".message-toggle-msg").addClass('beep');
-                            $(".dropdown-list-message-msg").html(data);
-                        }
-                    }
-                })
-            }
 
-            getChat();
 
-            $(document).on("click", ".mark_all_as_read_message", function() {
-                $.ajax({
-                    url: '<?php echo e(route('message.seen')); ?>',
-                    type: "get",
-                    cache: false,
-                    success: function(data) {
-                        $('.dropdown-list-message-msg').html('');
-                        $(".message-toggle-msg").removeClass('beep');
-                    }
-                })
-            });
-        </script>
-    <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <?php if(Utility::getValByName('gdpr_cookie') == 'on'): ?>

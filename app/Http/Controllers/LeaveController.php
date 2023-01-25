@@ -85,8 +85,8 @@ class LeaveController extends Controller
             }
 
 
-            $employee = Employee::where('user_id', '=', Auth::user()->id)->first();
-            $leave_type = LeaveType::find($request->leave_type_id);
+            $employee = Employee::query()->where('user_id', '=', Auth::user()->id)->first();
+            $leave_type = LeaveType::query()->find($request->leave_type_id);
 
             $startDate = new \DateTime($request->start_date);
             $endDate = new \DateTime($request->end_date);
@@ -255,13 +255,13 @@ class LeaveController extends Controller
 
         $leave->save();
 
-         // twilio  
+         // twilio
          $setting = Utility::settings(\Auth::user()->creatorId());
          $emp = Employee::find($leave->employee_id);
          if (isset($setting['twilio_leave_approve_notification']) && $setting['twilio_leave_approve_notification'] == 1) {
            $msg = __("Your leave has been").' '.$leave->status.'.';
-            
-                    
+
+
              Utility::send_twilio_msg($emp->phone,$msg);
          }
 
@@ -270,12 +270,12 @@ class LeaveController extends Controller
         {
             $employee     = Employee::where('id', $leave->employee_id)->where('created_by', '=', \Auth::user()->creatorId())->first();
         $uArr = [
-            'leave_status_name'=>$employee->name, 
+            'leave_status_name'=>$employee->name,
             'leave_status'=> $request->status,
-            'leave_reason'=>$leave->leave_reason, 
-            'leave_start_date'=>$leave->start_date, 
-            'leave_end_date'=>$leave->end_date, 
-            'total_leave_days'=>$leave->total_leave_days, 
+            'leave_reason'=>$leave->leave_reason,
+            'leave_start_date'=>$leave->start_date,
+            'leave_end_date'=>$leave->end_date,
+            'total_leave_days'=>$leave->total_leave_days,
 
 
          ];
@@ -309,7 +309,7 @@ class LeaveController extends Controller
      public function export(Request $request)
     {
         $name = 'Leave' . date('Y-m-d i:h:s');
-        $data = Excel::download(new LeaveExport(), $name . '.xlsx'); 
+        $data = Excel::download(new LeaveExport(), $name . '.xlsx');
 
         return $data;
     }
