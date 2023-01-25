@@ -41,9 +41,11 @@ class AttendanceEmployeeController extends Controller
 
 
         // TODO::Calculate Permission Days
-         $attendance_count = count($attendanceEmployee);
-        $permission = $this->calculatePermissions($attendance_count,$id);
-        return $permission;
+        $attendance_count = count($attendanceEmployee);
+        return $permission = $this->calculatePermissions($attendanceEmployee, $id);
+        // $data = $attendanceEmployee[7];
+        // return Leave::query()->where('employee_id',$id)->where('start_date',Carbon::parse($data->date))->get();
+
 
         //                $data = $attendanceEmployee[7];
         //                $total = Carbon::parse($data->clock_out)->diff(Carbon::parse($data->clock_in))->format('%H:%i');
@@ -64,6 +66,37 @@ class AttendanceEmployeeController extends Controller
                 'grand_total' => $total_late_per_month,
             ]
         );
+    }
+
+    public function calculatePermissions($attendanceEmployee, $employee_id)
+    {
+        $attendance_count = count($attendanceEmployee);
+        $permission = [];
+        $leaves = Leave::query()->where('employee_id', $employee_id)->get();
+        if (count($leaves) <= 0) {
+            for ($i = 0; $i < $attendance_count; $i++) {
+                $permission[] .= 0;
+            }
+        } else {
+            for ($i = 0 ; $i < $attendance_count ; $i++) {
+                $attend = $attendanceEmployee[$i];
+                $date = Carbon::parse($attend->date);
+                $leave =  Leave::query()->where('employee_id', $employee_id)->where('start_date',$date)->first();
+                if ($leave) {
+                    if ($leave->status != 'Approved') {
+                        $permission[] .= '(' . $leave->status . ') ' . $leave->leave_reason;
+                    } else {
+                        // Here Permission Is Accepted
+                        $permission[] .= 'Approved';
+                    }
+                } else {
+                    $permission[] .= 0;
+                }
+
+
+            }
+        }
+        return $permission;
     }
 
     function calculatePenalty($attendanceEmployee): array
@@ -92,7 +125,8 @@ class AttendanceEmployeeController extends Controller
         return $penalty;
     }
 
-    public function calculateMissing($attendanceEmployee): array
+    public
+    function calculateMissing($attendanceEmployee): array
     {
         // $end = Carbon::parse('9:35:00');
         $time_to_stay_in_company = Carbon::parse('08:00:00');
@@ -115,39 +149,9 @@ class AttendanceEmployeeController extends Controller
         return $missing;
     }
 
-    public function calculatePermissions($attendance_count,$id)
-    {
-        $permission = [];
-        $leaves = Leave::query()->where('employee_id',$id)->get();
-        $count = count($leaves);
-        if ($count <= 0) {
-            for ($i = 0 ; $i < $attendance_count ; $i++) {
-                $permission[] .= 0;
-            }
-        } else {
-            for ($i = 0 ; $i < $attendance_count ; $i++) {
-                if ($leaves[$i]->status != 'Approved' ) {
-                    // Here The Permission Is Pending Or Rejected
-                    $permission[] .= $leaves[$i]->leave_reason;
-                } else {
-                    // Here The Permission Is Accepted
-                    $permission[] .= 0;
-                }
-            }
-            //            foreach ($leaves as $leave) {
-            //                if (!$leave->status == 'Approved' ) {
-            //                    $permission[] .= $leave->leave_reason;
-            //                } else {
-            //                    $permission[] .= 0;
-            //                }
-            //
-            //            }
 
-        }
-        return $permission;
-    }
-
-    public function calcTotalLate($attendanceEmployee): string
+    public
+    function calcTotalLate($attendanceEmployee): string
     {
         $hours_counter = 0;
         $minutes_counter = 0;
@@ -189,7 +193,8 @@ class AttendanceEmployeeController extends Controller
     }
 
 
-    public function filterEmployeeReport(Request $request, $id)
+    public
+    function filterEmployeeReport(Request $request, $id)
     {
         $id = Crypt::decrypt($id);
         $employee = Employee::query()->find($id);
@@ -225,7 +230,8 @@ class AttendanceEmployeeController extends Controller
     }
 
 
-    public function index(Request $request)
+    public
+    function index(Request $request)
     {
         // return $request;
         if (Auth::user()->can('Manage Attendance')) {
@@ -326,7 +332,8 @@ class AttendanceEmployeeController extends Controller
     }
 
 
-    public function create()
+    public
+    function create()
     {
         if (Auth::user()->can('Create Attendance')) {
             $employees = User::query()->where('created_by', '=', Auth::user()->creatorId())->where('type', '=', "employee")->get()->pluck('name', 'id');
@@ -339,7 +346,8 @@ class AttendanceEmployeeController extends Controller
 
     }
 
-    public function store(Request $request)
+    public
+    function store(Request $request)
     {
         if (Auth::user()->can('Create Attendance')) {
             $validator = \Validator::make(
@@ -410,12 +418,14 @@ class AttendanceEmployeeController extends Controller
         }
     }
 
-    public function show(Request $request)
+    public
+    function show(Request $request)
     {
         return redirect()->route('attendance.index');
     }
 
-    public function edit($id)
+    public
+    function edit($id)
     {
         if (\Auth::user()->can('Edit Attendance')) {
             $attendanceEmployee = AttendanceEmployee::where('id', $id)->first();
@@ -427,7 +437,8 @@ class AttendanceEmployeeController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         $employeeId = !empty(\Auth::user()->employee) ? \Auth::user()->employee->id : 0;
         $todayAttendance = AttendanceEmployee::where('employee_id', '=', $employeeId)->where('date', date('Y-m-d'))->first();
@@ -512,7 +523,8 @@ class AttendanceEmployeeController extends Controller
         }
     }
 
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         if (\Auth::user()->can('Delete Attendance')) {
             $attendance = AttendanceEmployee::where('id', $id)->first();
@@ -525,7 +537,8 @@ class AttendanceEmployeeController extends Controller
         }
     }
 
-    public function attendance(Request $request)
+    public
+    function attendance(Request $request)
     {
         $settings = Utility::settings();
 
@@ -607,7 +620,8 @@ class AttendanceEmployeeController extends Controller
         }
     }
 
-    public function bulkAttendance(Request $request)
+    public
+    function bulkAttendance(Request $request)
     {
         if (\Auth::user()->can('Create Attendance')) {
 
@@ -631,7 +645,8 @@ class AttendanceEmployeeController extends Controller
         }
     }
 
-    public function bulkAttendanceData(Request $request)
+    public
+    function bulkAttendanceData(Request $request)
     {
 
         if (\Auth::user()->can('Create Attendance')) {
@@ -734,3 +749,34 @@ class AttendanceEmployeeController extends Controller
 
 }
 // $2y$10$8V8/SeL6/5Zo2b1L9O/gCe1DQbGj/B0tmiz09nRzP9a/EC4q.dAnO
+//        $permission = [];
+//        $leaves = Leave::query()->where('employee_id',$id)->get();
+//        $count = count($leaves);
+//        if ($count <= 0) {
+//            for ($i = 0 ; $i < $attendance_count ; $i++) {
+//                $permission[] .= 0;
+//            }
+//        } else {
+//            foreach ($leaves as $leave) {
+//                if ($leave->status != 'Approved' ) {
+//                    // Here The Permission Is Pending Or Rejected
+//                    $permission[] .= $leave->leave_reason;
+//                } else {
+//                    // Here The Permission Is Accepted
+//                    $permission[] .= 'Accepted';
+//                }
+//            }
+//
+//            for ($i = 0 ; $i < $attendance_count ; $i++) {
+//                if ($leaves[$i]->status != 'Approved' ) {
+//                    // Here The Permission Is Pending Or Rejected
+//                    $permission[] .= $leaves[$i]->leave_reason;
+//                } else {
+//                    // Here The Permission Is Accepted
+//                    $permission[] .= 'Accepted';
+//                }
+//            }
+//
+//
+//        }
+//        return $permission;
