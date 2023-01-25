@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-@php
+<?php
     // $logos = asset(Storage::url('uploads/logo/'));
     $logos=\App\Models\Utility::get_file('uploads/logo/');
 
@@ -17,15 +17,16 @@
         $color = $mode_setting['theme_color'];
     }
 
-@endphp
+?>
 
 <html lang="en">
-<html dir="{{ env('SITE_RTL') == 'on' ? 'rtl' : '' }}">
+<html dir="<?php echo e(env('SITE_RTL') == 'on' ? 'rtl' : ''); ?>">
 
 <head>
-    {{-- <title>{{ __('HRMGO') }}</title> --}}
+    
     <title>
-        {{ App\Models\Utility::getValByName('title_text') ? App\Models\Utility::getValByName('title_text') : config('app.name', 'HRMGO ') }}
+        <?php echo e(App\Models\Utility::getValByName('title_text') ? App\Models\Utility::getValByName('title_text') : config('app.name', 'HRMGO ')); ?>
+
     </title>
 
     <!-- Meta -->
@@ -37,43 +38,42 @@
     <meta name="author" content="Rajodiya Infotech"/>
 
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset(Storage::url('uploads/logo')) . '/favicon.png' }}" type="image/x-icon"/>
+    <link rel="icon" href="<?php echo e(asset(Storage::url('uploads/logo')) . '/favicon.png'); ?>" type="image/x-icon"/>
 
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.min.css') }}"/>
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/plugins/animate.min.css')); ?>"/>
     <!-- font css -->
-    <link rel="stylesheet" href="{{ asset('assets/fonts/tabler-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/feather.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/tabler-icons.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/feather.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/fontawesome.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/fonts/material.css')); ?>">
 
     <!-- vendor css -->
 
-    <link rel="stylesheet" href="{{ asset('assets/css/customizer.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/landing.css') }}"/>
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/customizer.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/landing.css')); ?>"/>
 
 
-    @if (env('SITE_RTL') == 'on')
-        <link rel="stylesheet" href="{{ asset('assets/css/style-rtl.css') }}">
-    @endif
-    @if (isset($mode_setting['dark_mode']) && $mode_setting['dark_mode'] == 'on')
-        <link rel="stylesheet" href="{{ asset('assets/css/style-dark.css') }}">
-    @else
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    @endif
+    <?php if(env('SITE_RTL') == 'on'): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('assets/css/style-rtl.css')); ?>">
+    <?php endif; ?>
+    <?php if(isset($mode_setting['dark_mode']) && $mode_setting['dark_mode'] == 'on'): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('assets/css/style-dark.css')); ?>">
+    <?php else: ?>
+        <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">
+    <?php endif; ?>
 
 
 </head>
 
-<body class="{{ $color }}">
+<body class="<?php echo e($color); ?>">
 <!-- [ Nav ] start -->
 <nav class="navbar navbar-expand-md navbar-dark default top-nav-collapse">
     <div class="container">
         <a class="navbar-brand bg-transparent" href="#">
-            {{-- <img src="{{$logo}}" style="width: 30% !important;" alt="logo" /> --}}
-            {{-- <img src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'light_logo.png') }}"
-                style="width: 30% !important;" alt="{{ config('app.name', 'HRMGO') }}" alt="logo"> --}}
-            {{-- <img src="{{ $logos . '/' . 'light_logo.png' }}" style="width: 30% !important;" alt="logo" />--}}
-            <img src="{{ asset('storage/uploads/logo') . '/' . 'light_logo.png' }}" style="width: 30% !important;" alt="logo"/>
+            
+            
+            
+            <img src="<?php echo e(asset('storage/uploads/logo') . '/' . 'light_logo.png'); ?>" style="width: 30% !important;" alt="logo"/>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
                 aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,7 +100,7 @@
                     <a class="nav-link" href="#faq">Faq</a>
                 </li>-->
                 <li class="nav-item">
-                    <a class="btn btn-light ms-2 me-1" href="{{ route('login') }}">Login</a>
+                    <a class="btn btn-light ms-2 me-1" href="<?php echo e(route('login')); ?>">Login</a>
                 </li>
             </ul>
         </div>
@@ -113,7 +113,8 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-sm-5">
                 <h1 class="text-white mb-sm-4 wow animate__fadeInLeft" data-wow-delay="0.2s">
-                    {{ __('Q-HRM') }}
+                    <?php echo e(__('Q-HRM')); ?>
+
                 </h1>
                 <h2 class="text-white mb-sm-4 wow animate__fadeInLeft" data-wow-delay="0.4s">
                     HRM and Payroll Tool
@@ -123,7 +124,7 @@
                     project for free.
                 </p>
                 <!--<div class="my-4 wow animate__fadeInLeft" data-wow-delay="0.8s">
-                        <a href="{{ route('login') }}" class="btn btn-light me-2"><i class="far fa-eye me-2"></i>Live
+                        <a href="<?php echo e(route('login')); ?>" class="btn btn-light me-2"><i class="far fa-eye me-2"></i>Live
                             Demo</a>
                         <a href="https://codecanyon.net/item/hrmgo-hrm-and-payroll-tool/25982864"
                             class="btn btn-outline-light" target="_blank"><i class="fas fa-shopping-cart me-2"></i>Buy
@@ -131,7 +132,7 @@
                     </div>-->
             </div>
             <div class="col-sm-5">
-                <img src="{{ asset('assets/images/front/header-mokeup.svg') }}" alt="Datta Able Admin Template"
+                <img src="<?php echo e(asset('assets/images/front/header-mokeup.svg')); ?>" alt="Datta Able Admin Template"
                      class="img-fluid header-img wow animate__fadeInRight" data-wow-delay="0.2s"/>
             </div>
         </div>
@@ -148,51 +149,45 @@
         </div>
         <div class="row align-items-center justify-content-center mb-5 mobile-screen">
             <div class="col-auto">
-                {{-- <div class="wow animate__fadeInRight mobile-widget" data-wow-delay="0.2s">
-                    <img src="{{ asset(Storage::url('uploads/logo/dark_logo.png')) }}" alt="" class="img-fluid" />
-                </div> --}}
+                
                 <img
-                    src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png') }}"
+                    src="<?php echo e($logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png')); ?>"
                     alt="" class="img-fluid"/>
             </div>
             <div class="col-auto">
                 <div class="wow animate__fadeInRight mobile-widget" data-wow-delay="0.4s">
-                    {{-- <img src="{{ asset(Storage::url('uploads/logo/dark_logo.png')) }}" alt=""
-                        class="img-fluid" /> --}}
+                    
                     <img
-                        src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png') }}"
+                        src="<?php echo e($logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png')); ?>"
                         alt="" class="img-fluid"/>
                 </div>
             </div>
             <div class="col-auto">
                 <div class="wow animate__fadeInRight mobile-widget" data-wow-delay="0.6s">
-                    {{-- <img src="{{ asset(Storage::url('uploads/logo/dark_logo.png')) }}" alt=""
-                        class="img-fluid" /> --}}
+                    
                     <img
-                        src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png') }}"
+                        src="<?php echo e($logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png')); ?>"
                         alt="" class="img-fluid"/>
                 </div>
             </div>
             <div class="col-auto">
                 <div class="wow animate__fadeInRight mobile-widget" data-wow-delay="0.8s">
-                    {{-- <img src="{{ asset(Storage::url('uploads/logo/dark_logo.png')) }}" alt=""
-                        class="img-fluid" /> --}}
+                    
                     <img
-                        src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png') }}"
+                        src="<?php echo e($logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png')); ?>"
                         alt="" class="img-fluid"/>
                 </div>
             </div>
             <div class="col-auto">
                 <div class="wow animate__fadeInRight mobile-widget" data-wow-delay="1s">
-                    {{-- <img src="{{ asset(Storage::url('uploads/logo/dark_logo.png')) }}" alt=""
-                        class="img-fluid" /> --}}
+                    
                     <img
-                        src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png') }}"
+                        src="<?php echo e($logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png')); ?>"
                         alt="" class="img-fluid"/>
                 </div>
             </div>
         </div>
-        <img src="{{ asset('landing/hrmgo-pic-1.png') }}" alt=""
+        <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>" alt=""
              class="img-fluid img-dashboard wow animate__fadeInUp" data-wow-delay="0.2s"
              style="border-radius: 15px;"/>
     </div>
@@ -219,13 +214,13 @@
                 </div>-->
             </div>
             <div class="col-sm-6">
-                <img src="{{ asset('landing/hrmgo-pic-1.png') }}" alt="Datta Able Admin Template"
+                <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>" alt="Datta Able Admin Template"
                      class="img-fluid header-img wow animate__fadeInRight" data-wow-delay="0.2s"/>
             </div>
         </div>
         <div class="row align-items-center justify-content-start">
             <div class="col-sm-6">
-                <img src="{{ asset('landing/hrmgo-pic-1.png') }}" alt="Datta Able Admin Template"
+                <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>" alt="Datta Able Admin Template"
                      class="img-fluid header-img wow animate__fadeInLeft" data-wow-delay="0.2s"/>
             </div>
             <div class="col-sm-4">
@@ -371,13 +366,13 @@
                 </div>-->
             </div>
             <div class="col-sm-6">
-                <img src="{{ asset('landing/hrmgo-pic-1.png') }}" alt="Datta Able Admin Template"
+                <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>" alt="Datta Able Admin Template"
                      class="img-fluid header-img wow animate__fadeInRight" data-wow-delay="0.2s"/>
             </div>
         </div>
         <div class="row align-items-center justify-content-start">
             <div class="col-sm-6">
-                <img src="{{ asset('landing/hrmgo-pic-1.png') }}" alt="Datta Able Admin Template"
+                <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>" alt="Datta Able Admin Template"
                      class="img-fluid header-img wow animate__fadeInLeft" data-wow-delay="0.2s"/>
             </div>
             <div class="col-sm-4">
@@ -401,164 +396,7 @@
 </section>
 <!-- [ dashboard ] End -->
 <!-- [ price ] start -->
-{{-- <section id="price" class="price-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-6 col-md-9 title">
-                <h2>
-                    <span class="d-block mb-3">Price</span> All in one place CRM
-                    system
-                </h2>
-                <p class="m-0">
-                    Use these awesome forms to login or create new account in your
-                    project for free.
-                </p>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6">
-                <div class="card price-card price-1 wow animate__fadeInUp" data-wow-delay="0.2s" style="
-            visibility: visible;
-            animation-delay: 0.2s;
-            animation-name: fadeInUp;
-          ">
-                    <div class="card-body">
-                        <span class="price-badge bg-primary">STARTER</span>
-                        <span class="mb-4 f-w-600 p-price">$59<small class="text-sm">/month</small></span>
-                        <p class="mb-0">
-                            You have Free Unlimited Updates and <br />
-                            Premium Support on each package.
-                        </p>
-                        <ul class="list-unstyled my-5">
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                2 team members
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                20GB Cloud storage
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                Integration help
-                            </li>
-                        </ul>
-                        <div class="d-grid text-center">
-                            <button
-                                class="btn mb-3 btn-primary d-flex justify-content-center align-items-center mx-sm-5">
-                                Start with Standard plan
-                                <i class="ti ti-chevron-right ms-2"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card price-card price-2 bg-primary wow animate__fadeInUp" data-wow-delay="0.4s" style="
-            visibility: visible;
-            animation-delay: 0.2s;
-            animation-name: fadeInUp;
-          ">
-                    <div class="card-body">
-                        <span class="price-badge">STARTER</span>
-                        <span class="mb-4 f-w-600 p-price">$59<small class="text-sm">/month</small></span>
-                        <p class="mb-0">
-                            You have Free Unlimited Updates and <br />
-                            Premium Support on each package.
-                        </p>
-                        <ul class="list-unstyled my-5">
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                2 team members
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                20GB Cloud storage
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                Integration help
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                Sketch Files
-                            </li>
-                        </ul>
-                        <div class="d-grid text-center">
-                            <button
-                                class="btn mb-3 btn-light d-flex justify-content-center align-items-center mx-sm-5">
-                                Start with Standard plan
-                                <i class="ti ti-chevron-right ms-2"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card price-card price-3 wow animate__fadeInUp" data-wow-delay="0.6s" style="
-            visibility: visible;
-            animation-delay: 0.2s;
-            animation-name: fadeInUp;
-          ">
-                    <div class="card-body">
-                        <span class="price-badge bg-primary">STARTER</span>
-                        <span class="mb-4 f-w-600 p-price">$119<small class="text-sm">/month</small></span>
-                        <p class="mb-0">
-                            You have Free Unlimited Updates and <br />
-                            Premium Support on each package.
-                        </p>
-                        <ul class="list-unstyled my-5">
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                2 team members
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                20GB Cloud storage
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                Integration help
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                2 team members
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                20GB Cloud storage
-                            </li>
-                            <li>
-                                <span class="theme-avtar">
-                                    <i class="text-primary ti ti-circle-plus"></i></span>
-                                Integration help
-                            </li>
-                        </ul>
-                        <div class="d-grid text-center">
-                            <button
-                                class="btn mb-3 btn-primary d-flex justify-content-center align-items-center mx-sm-5">
-                                Start with Standard plan
-                                <i class="ti ti-chevron-right ms-2"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
+
 <!-- [ price ] End -->
 <!-- [ faq ] start -->
 <section class="faq">
@@ -679,42 +517,42 @@
             <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
                 <div class="row feature-img-row m-auto">
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-1.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.2s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-1.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-1.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.4s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-4.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-4.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.6s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-3.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-3.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.8s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-7.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-7.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.3s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-12.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-12.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.5s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-8.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-8.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.7s"
                              alt="Admin"/>
                     </div>
                     <div class="col-lg-3 col-sm-6">
-                        <img src="{{ asset('landing/hrmgo-pic-13.png') }}"
+                        <img src="<?php echo e(asset('landing/hrmgo-pic-13.png')); ?>"
                              class="img-fluid header-img wow animate__fadeInRight mt-5" data-wow-delay="0.9s"
                              alt="Admin"/>
                     </div>
@@ -731,19 +569,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-sm-12">
-                {{-- <img src="{{ asset(Storage::url('uploads/logo/dark_logo.png')) }}" alt="logo" /> --}}
+                
                 <img
-                    src="{{ $logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png') }}"
+                    src="<?php echo e($logos . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'dark_logo.png')); ?>"
                     alt="" class="img-fluid"/>
             </div>
             <div class="col-lg-6 col-sm-12 text-end">
 
-                {{-- <p class="text-body"> {{ __('Copyright') }} &copy;
-                    {{ Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'LeadGo') }}
-                    {{ date('Y') }} </p> --}}
-                <p class="text-body"> {{ __('Copyright') }}
-                    {{ Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'Q-HRM SaaS') }}
-                    {{ date('Y') }} | Design By Q-HRM </p>
+                
+                <p class="text-body"> <?php echo e(__('Copyright')); ?>
+
+                    <?php echo e(Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'Q-HRM SaaS')); ?>
+
+                    <?php echo e(date('Y')); ?> | Design By Q-HRM </p>
             </div>
         </div>
     </div>
@@ -751,9 +589,9 @@
 </section>
 <!-- [ dashboard ] End -->
 <!-- Required Js -->
-<script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
-<script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/pages/wow.min.js') }}"></script>
+<script src="<?php echo e(asset('assets/js/plugins/popper.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/js/plugins/bootstrap.min.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/js/pages/wow.min.js')); ?>"></script>
 <script>
     // Start [ Menu hide/show on scroll ]
     let ost = 0;
@@ -784,3 +622,4 @@
 </body>
 
 </html>
+<?php /**PATH D:\q-sale xampp\htdocs\hr\resources\views/layouts/landing.blade.php ENDPATH**/ ?>
