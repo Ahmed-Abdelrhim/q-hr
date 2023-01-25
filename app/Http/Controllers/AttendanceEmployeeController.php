@@ -42,7 +42,7 @@ class AttendanceEmployeeController extends Controller
 
         // TODO::Calculate Permission Days
         $attendance_count = count($attendanceEmployee);
-        return $permission = $this->calculatePermissions($attendanceEmployee, $id);
+        $permission = $this->calculatePermissions($attendanceEmployee, $id);
         // $data = $attendanceEmployee[7];
         // return Leave::query()->where('employee_id',$id)->where('start_date',Carbon::parse($data->date))->get();
 
@@ -68,7 +68,7 @@ class AttendanceEmployeeController extends Controller
         );
     }
 
-    public function calculatePermissions($attendanceEmployee, $employee_id)
+    public function calculatePermissions($attendanceEmployee, $employee_id): array
     {
         $attendance_count = count($attendanceEmployee);
         $permission = [];
@@ -213,6 +213,8 @@ class AttendanceEmployeeController extends Controller
 
         $penalty = $this->calculatePenalty($attendanceEmployee);
         $missing = $this->calculateMissing($attendanceEmployee);
+        $permission = $this->calculatePermissions($attendanceEmployee, $id);
+
         // dd($total_late_per_month);
         // return $total_late_per_month;
 
@@ -222,6 +224,7 @@ class AttendanceEmployeeController extends Controller
                 'employee' => $employee,
                 'penalty' => $penalty,
                 'missing' => $missing,
+                'permission' => $permission,
                 'attendanceEmployee' => $attendanceEmployee,
                 'grand_total' => $total_late_per_month
             ]
