@@ -7,6 +7,7 @@ use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\IpRestrict;
+use App\Models\Leave;
 use App\Models\User;
 use App\Models\Utility;
 use Illuminate\Http\Request;
@@ -39,14 +40,17 @@ class AttendanceEmployeeController extends Controller
         $missing = $this->calculateMissing($attendanceEmployee);
 
 
-//                $data = $attendanceEmployee[7];
-//                $total = Carbon::parse($data->clock_out)->diff(Carbon::parse($data->clock_in))->format('%H:%i');
-//                $stay = Carbon::parse('08:00:00');
-//                if (Carbon::parse($total)->lessThanOrEqualTo($stay))
-//                    return Carbon::parse($total)->diff($stay)->format('%H:%i');
-//                return 'Ok';
+        // TODO::Calculate Permission Days
+         $attendance_count = count($attendanceEmployee);
+        $permission = $this->calculatePermissions($attendance_count,$id);
+        return $permission;
 
-
+        //                $data = $attendanceEmployee[7];
+        //                $total = Carbon::parse($data->clock_out)->diff(Carbon::parse($data->clock_in))->format('%H:%i');
+        //                $stay = Carbon::parse('08:00:00');
+        //                if (Carbon::parse($total)->lessThanOrEqualTo($stay))
+        //                    return Carbon::parse($total)->diff($stay)->format('%H:%i');
+        //                return 'Ok';
         // return $attendanceEmployee;
 
         return view('attendance.report',
@@ -55,13 +59,14 @@ class AttendanceEmployeeController extends Controller
                 'employee' => $employee,
                 'penalty' => $penalty,
                 'missing' => $missing,
+                'permission' => $permission,
                 'attendanceEmployee' => $attendanceEmployee,
                 'grand_total' => $total_late_per_month,
             ]
         );
     }
 
-    function calculatePenalty($attendanceEmployee)
+    function calculatePenalty($attendanceEmployee): array
     {
         $begin = Carbon::parse('00:00:01');
         $end = Carbon::parse('9:35:00');
@@ -87,7 +92,7 @@ class AttendanceEmployeeController extends Controller
         return $penalty;
     }
 
-    public function calculateMissing($attendanceEmployee)
+    public function calculateMissing($attendanceEmployee): array
     {
         // $end = Carbon::parse('9:35:00');
         $time_to_stay_in_company = Carbon::parse('08:00:00');
@@ -110,7 +115,39 @@ class AttendanceEmployeeController extends Controller
         return $missing;
     }
 
-    public function calcTotalLate($attendanceEmployee)
+    public function calculatePermissions($attendance_count,$id)
+    {
+        $permission = [];
+        $leaves = Leave::query()->where('employee_id',$id)->get();
+        $count = count($leaves);
+        if ($count <= 0) {
+            for ($i = 0 ; $i < $attendance_count ; $i++) {
+                $permission[] .= 0;
+            }
+        } else {
+            for ($i = 0 ; $i < $attendance_count ; $i++) {
+                if ($leaves[$i]->status != 'Approved' ) {
+                    // Here The Permission Is Pending Or Rejected
+                    $permission[] .= $leaves[$i]->leave_reason;
+                } else {
+                    // Here The Permission Is Accepted
+                    $permission[] .= 0;
+                }
+            }
+            //            foreach ($leaves as $leave) {
+            //                if (!$leave->status == 'Approved' ) {
+            //                    $permission[] .= $leave->leave_reason;
+            //                } else {
+            //                    $permission[] .= 0;
+            //                }
+            //
+            //            }
+
+        }
+        return $permission;
+    }
+
+    public function calcTotalLate($attendanceEmployee): string
     {
         $hours_counter = 0;
         $minutes_counter = 0;

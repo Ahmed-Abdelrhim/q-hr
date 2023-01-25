@@ -121,7 +121,9 @@
                                     <td>{{ $attendance->late }}</td>
                                     <td>{{$attendance->early_leaving }}</td>
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
-                                    <td><span style="margin-left: 25px">0</span></td>
+                                    <td><span style="margin-left: 25px">
+
+                                        </span></td>
                                     <td>
                                         {{$missing[$key]}}
                                         {{-- @if(Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in)) )--}}
