@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Job Application Details') }}
 @endsection
@@ -144,7 +144,7 @@
 
             </div>
             <div class="card-body">
-                
+
                 <h5 class="h4">
                     <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right"
                         data-title="2 hrs ago" data-original-title="" title="">
@@ -200,7 +200,7 @@
                              <i class="ti ti-plus "></i>{{ __('Add to Job OnBoard') }}</a>
                         </div>
                     </div>
-                 </div>   
+                 </div>
             </div>
             <div class="card-header" style="height: 400px">
                  <dl class="row">
@@ -259,7 +259,7 @@
                         @else
                             -
                         @endif
-                       
+
                     </dd>
                    <dt class="col-sm-3"><span class="h6 text-sm mb-0">{{ __('Cover Letter') }}:</span></dt>
                     <dd class="col-sm-9"><span class="text-sm">{{ $jobApplication->cover_letter }}</span>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Resignation') }}
@@ -10,7 +10,7 @@
 @endsection
 
 @section('action-button')
-   
+
 
     @can('Create Resignation')
         <a href="#" data-url="{{ route('resignation.create') }}" data-ajax-popup="true" data-size="lg"
@@ -42,7 +42,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+
 
                             @foreach ($resignations as $resignation)
                                 <tr>

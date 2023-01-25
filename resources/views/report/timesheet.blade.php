@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Manage Timesheet Report') }}
 @endsection
@@ -157,19 +157,19 @@
         </div>
         <div class=" row ">
             @foreach ($timesheetFilters as $timesheetFilter)
-               
+
                     <div class="col-3">
                         <div class="card p-4 mb-4 timesheet-card">
-                          
+
                             <h6 class="report-text mb-0">{{ $timesheetFilter->name }} </h6>
                             <small class="report-text text-muted ">{{ __('Total Working Hours') }} : {{ $timesheetFilter->total }}
                             </small>
                         </div>
-                    </div>                 
-                
+                    </div>
+
             @endforeach
             </div>
-       
+
     </div>
 
 

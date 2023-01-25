@@ -1,6 +1,6 @@
 
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Loan Option') }}

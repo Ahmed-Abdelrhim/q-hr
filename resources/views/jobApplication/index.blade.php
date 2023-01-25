@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Manage Job Application') }}
 @endsection
@@ -372,7 +372,7 @@
                                                     </div>
                                                 </div>
 
-                                            </div> --> 
+                                            </div> -->
 
 
                                             <div class="card-header-right">
@@ -401,7 +401,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="card-body">
@@ -436,7 +436,7 @@
                                                 @endphp
                                                 <div class="avatar-group hover-avatar-ungroup">
                                                     <a href="#" class="user-group">
-                                                        
+
                                                             <img src="{{ !empty($application->profile) ?$profile . ($application->profile) : $logo."avatar.png" }}"
                                                             class="hweb " style="width: 28px">
                                                     </a>

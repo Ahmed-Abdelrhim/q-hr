@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Manage Job') }}
 @endsection
@@ -26,7 +26,7 @@
     </script>
 @endpush
 @section('action-button')
-   
+
     @can('Create Job')
         <a href="{{ route('job.create') }}"  data-ajax-popup="true" data-size="md"
             data-title="{{ __('Create New Job') }}" data-bs-toggle="tooltip" title="" class="btn btn-sm btn-primary"
@@ -36,7 +36,7 @@
     @endcan
 @endsection
 @section('content')
-    
+
     <div class="col-lg-4 col-md-6">
         <div class="card">
             <div class="card-body">
@@ -196,8 +196,8 @@
                                 <td>{{ \Auth::user()->dateFormat($job->created_at) }}</td>
                                 <td class="Action">
                                     @if (Gate::check('Edit Job') || Gate::check('Delete Job') || Gate::check('Show Job'))
-                                    <span>  
-                                         
+                                    <span>
+
                                         @can('Show Job')
                                         <div class="action-btn bg-warning ms-2">
                                             <a href="{{ route('job.show', $job->id) }}"

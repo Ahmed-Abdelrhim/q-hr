@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Monthly Attendance') }}
@@ -92,7 +92,7 @@
                                 data-bs-toggle="tooltip" title="" data-bs-original-title="Reset">
                                 <span class="btn-inner--icon"><i class="ti ti-trash-off text-white-off "></i></span>
                             </a>
-                           
+
                         </div>
 
                     </div>

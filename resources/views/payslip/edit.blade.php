@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('content')
     <div class="main-content">
         <section class="section">

@@ -1,5 +1,5 @@
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
  {{ __("Manage Payment Type") }}
@@ -76,4 +76,3 @@
     </div>
         </div>
 @endsection
-    

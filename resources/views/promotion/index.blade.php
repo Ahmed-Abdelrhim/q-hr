@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Promotion') }}
@@ -41,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
 
 
                             @foreach ($promotions as $promotion)

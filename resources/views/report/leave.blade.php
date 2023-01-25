@@ -1,5 +1,5 @@
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Manage Leave Report') }}
 @endsection
@@ -8,7 +8,7 @@
     <li class="breadcrumb-item">{{ __('Leave Report') }}</li>
 @endsection
 @push('script-page')
-    
+
     <script type="text/javascript" src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
     <script>
         var filename = $('#filename').val();
@@ -35,7 +35,7 @@
             html2pdf().set(opt).from(element).save();
 
         }
-        
+
     </script>
     <script>
         $('input[name="type"]:radio').on('change', function(e) {
@@ -100,7 +100,7 @@
                             </div>
                         </div>
 
-                        
+
 
                         <div class="col-xl-2 col-lg-3 col-md-6 col-sm-12 col-12 mx-2 year d-none">
                             <div class="btn-box">
@@ -116,7 +116,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
 
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mx-2">
                             <div class="btn-box">
@@ -303,7 +303,7 @@
 
     </div>
 
-   
+
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header card-body table-border-style">

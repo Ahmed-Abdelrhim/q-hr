@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Job Details') }}
 @endsection
@@ -20,7 +20,7 @@
 
 @section('content')
 
-        
+
 
             <div class="col-md-12">
                 <div class="card ">

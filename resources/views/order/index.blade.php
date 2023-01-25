@@ -1,6 +1,6 @@
 
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     <h4 class="m-b-10">{{ __("Manage Plan Order") }}</h4>

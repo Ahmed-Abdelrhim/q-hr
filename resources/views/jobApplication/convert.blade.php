@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Convert To Employee') }}
 @endsection
@@ -56,7 +56,7 @@
                                         {{ !empty($jobOnBoard->applications) && $jobOnBoard->applications->gender == 'Female' ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="g_female">{{ __('Female') }}</label>
                                 </div>
-                            </div> --}} 
+                            </div> --}}
 
                             <div class="d-flex radio-check">
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -106,7 +106,7 @@
                     <div class="form-group col-md-6">
                         {{ Form::label('branch_id', __('Branch'), ['class' => 'col-form-label']) }}
                         {{ Form::select('branch_id', $branches, !empty($jobOnBoard->applications) ? (!empty($jobOnBoard->applications->jobs) ? $jobOnBoard->applications->jobs->branch : '') : '', ['class' => 'form-control ', 'required' => 'required']) }}
-                    </div>  
+                    </div>
 
                     <div class="form-group col-md-6">
                         {{ Form::label('department_id', __('Department'), ['class' => 'col-form-label']) }}
@@ -123,14 +123,14 @@
                     <div class="form-group ">
                         {!! Form::label('company_doj', __('Company Date Of Joining'), ['class' => 'col-form-label']) !!}
                         {!! Form::date('company_doj', $jobOnBoard->joining_date, ['class' => 'form-control ', 'required' => 'required']) !!}
-                    </div>  
+                    </div>
 
                     {{-- <div class="form-group col-md-6">
                         {!! Form::label('termination_date', __('Termination Date'), ['class' => 'col-form-label']) !!}
                         {!! Form::date('termination_date', old('termination_date'), ['class' => 'form-control ', 'required' => 'required']) !!}
                     </div> --}}
-                   
-                   
+
+
                 </div>
             </div>
         </div>

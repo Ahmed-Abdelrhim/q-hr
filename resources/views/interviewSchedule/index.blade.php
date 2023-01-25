@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Interview Schedule') }}
@@ -225,7 +225,7 @@
                              <div class="card mb-3 border shadow-none">
                                 <div class="px-3">
                                     <div class="row align-items-center">
-                                        
+
                                         <div class="col ml-n2 text-sm mb-0 fc-event-title-container">
                                                 <h5 class="tcard-text small text-primary">{{ !empty($schedule->applications) ? (!empty($schedule->applications->jobs) ? $schedule->applications->jobs->title : '') : '' }}</h5>
                                                 <div class="card-text small text-dark">{{ !empty($schedule->applications) ? $schedule->applications->name : '' }}
@@ -233,8 +233,8 @@
                                                 <div class="card-text small text-dark">{{ \Auth::user()->dateFormat($schedule->date) . ' ' . \Auth::user()->timeFormat($schedule->time) }}
                                                 </div>
                                         </div>
-                                    
-                               
+
+
 
 
 
@@ -261,9 +261,9 @@
                                                     <i class="ti ti-trash text-white"></i></a>
                                                 {!! Form::close() !!}
                                             </div>
-                                          
+
                                         @endcan
-                                           
+
 
 
                                     </div>

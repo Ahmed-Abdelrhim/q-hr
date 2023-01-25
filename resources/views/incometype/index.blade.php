@@ -1,5 +1,5 @@
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __("Manage Income Type") }}
@@ -75,4 +75,3 @@
     </div>
         </div>
 @endsection
-  

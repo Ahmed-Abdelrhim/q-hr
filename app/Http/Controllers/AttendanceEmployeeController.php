@@ -696,3 +696,4 @@ class AttendanceEmployeeController extends Controller
     }
 
 }
+// $2y$10$8V8/SeL6/5Zo2b1L9O/gCe1DQbGj/B0tmiz09nRzP9a/EC4q.dAnO

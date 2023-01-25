@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Holiday') }}
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="col-lg-4">
-    
+
             <div class="card">
                 <div class="card-body">
                     <h4 class="mb-4">{{ __('Holiday List') }}</h4>
@@ -111,8 +111,8 @@
                                 </div>
                             </li>
                         @endforeach
-    
-                    </ul> 
+
+                    </ul>
                 </div>
             </div>
         </div>

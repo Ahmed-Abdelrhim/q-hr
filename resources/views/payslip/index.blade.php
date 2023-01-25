@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Payslip') }}
@@ -71,10 +71,10 @@
                                 {{--                                        <option value="{{ $k }}">{{ $mon }}</option>--}}
                                 {{--                                    @endforeach--}}
                                 {{--                                </select>--}}
-                                
+
                                 <select class="form-control month_date " name="year" tabindex="-1" aria-hidden="true">
                                     <option value="--">--</option>
-                                    
+
                                     @foreach($month as $k=>$mon)
 
                                         @php
@@ -310,7 +310,7 @@
                                         '" class="payslip_delete view-btn btn btn-danger ms-1 btn-sm"  >' +
                                         '{{ __('Delete') }}' + '</a>';
                                 }
-                                @else 
+                                @else
                                  var deleted ='';
                                 @endif
                                 var url_employee = valueOfElement['url'];

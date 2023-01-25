@@ -182,7 +182,7 @@
     </div>
 @endsection --}}
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 @push('css-page')
 @endpush
 @push('script-page')

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 @section('page-title')
     {{ __('Manage Archive Application') }}
 @endsection
@@ -64,8 +64,8 @@
                                         @else
                                             -
                                         @endif
-                                        
-                                           
+
+
                                     </td>
                                     <td>
                                         {{-- @can('Show Job Application')

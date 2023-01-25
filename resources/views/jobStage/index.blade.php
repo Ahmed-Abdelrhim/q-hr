@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Job Stage') }}
@@ -60,7 +60,7 @@
 
                 <small class="text-muted"> {{ __('Note') }} :{{ __('You can easily order change of job stage using drag & drop.') }}</small>
             </div>
-           
+
         </div>
         </div>
 @endsection

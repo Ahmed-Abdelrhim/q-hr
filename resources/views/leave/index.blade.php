@@ -1,5 +1,5 @@
 
-@extends('layouts.admin')
+@extends('layouts.custom')
 
 @section('page-title')
     {{ __('Manage Leave') }}
@@ -60,7 +60,7 @@
                                     <td>{{ \Auth::user()->dateFormat($leave->applied_on) }}</td>
                                     <td>{{ \Auth::user()->dateFormat($leave->start_date) }}</td>
                                     <td>{{ \Auth::user()->dateFormat($leave->end_date) }}</td>
-                                   
+
                                     <td>{{ $leave->total_leave_days }}</td>
                                     <td>{{ $leave->leave_reason }}</td>
                                     <td>
