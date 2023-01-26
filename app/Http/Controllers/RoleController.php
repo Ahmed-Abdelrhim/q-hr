@@ -104,7 +104,6 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-
         if(\Auth::user()->can('Edit Role'))
         {
 
