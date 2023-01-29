@@ -78,17 +78,34 @@ class AttendanceEmployeeController extends Controller
                 $permission[] .= 0;
             }
         } else {
-            for ($i = 0 ; $i < $attendance_count ; $i++) {
+            for ($i = 0; $i < $attendance_count; $i++) {
                 $attend = $attendanceEmployee[$i];
                 $date = Carbon::parse($attend->date);
-                $leave =  Leave::query()->where('employee_id', $employee_id)->where('start_date',$date)->first();
+                $leave = Leave::query()->where('employee_id', $employee_id)->where('start_date', $date)->first();
                 if ($leave) {
                     if ($leave->status != 'Approved') {
-                        $permission[] .= '(' . $leave->status . ') ' . $leave->leave_reason;
+                        if ($leave->total_leave_days > 1) {
+                            $days_count = $leave->total_leave_days;
+                            for ($j = 0; $j < $days_count; $j++) {
+                                $permission[] .= '(' . $leave->status . ') ' . $leave->leave_reason;
+                            }
+                            $i += $days_count -1;
+                        } else {
+                            $permission[] .= '(' . $leave->status . ') ' . $leave->leave_reason;
+                        } // End Of Else status is not approved
+
                     } else {
                         // Here Permission Is Accepted
                         // I Forgot To Check For Total_Leave_Days
-                        $permission[] .= 'Approved';
+                        if ($leave->total_leave_days > 1) {
+                            $days_count = $leave->total_leave_days;
+                            for ($j = 0; $j < $days_count; $j++) {
+                                $permission[] .= 'Approved';
+                            }
+                            $i += $days_count -1;
+                        } else {
+                            $permission[] .= 'Approved';
+                        }
                     }
                 } else {
                     $permission[] .= 0;

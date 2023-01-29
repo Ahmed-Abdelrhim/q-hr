@@ -122,21 +122,38 @@
                                     <td>{{$attendance->early_leaving }}</td>
                                     {{-- <td>{{ $attendance->overtime }}</td>--}}
                                     <td><span style="margin-left: 25px">
-                                            {{$permission[$key]}}
+                                            @if(isset($permission[$key]))
+                                                {{$permission[$key]}}
+                                            @else
+                                                0
+                                            @endif
                                         </span></td>
                                     <td>
-                                        @if($permission[$key] == 'Approved')
-                                            0
+                                        @if(isset($permission[$key]))
+                                            @if($permission[$key] == 'Approved')
+                                                0
+                                            @endif
                                         @else
                                             {{$missing[$key]}}
                                         @endif
+                                        <!-- View Missing Based On Permission -->
+                                        {{--                                        @if($permission[$key] == 'Approved')--}}
+                                        {{--                                            0--}}
+                                        {{--                                        @else--}}
+                                        {{--                                            {{$missing[$key]}}--}}
+                                        {{--                                        @endif--}}
+
+                                        <!-- View Missing Based On Permission -->
+
                                         {{-- @if(Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in)) )--}}
                                         {{-- {{  str_replace('before' , '' , $missing[$key]) }}--}}
                                         {{-- @endif--}}
                                     </td>
                                     <td>
-                                        @if($permission[$key] == 'Approved')
-                                            0
+                                        @if(isset($permission[$key]))
+                                            @if($permission[$key] == 'Approved')
+                                                0
+                                            @endif
                                         @else
                                             @if($penalty[$key] == 0 )
                                                 0
@@ -151,6 +168,24 @@
                                                 1 DAY
                                             @endif
                                         @endif
+
+
+                                        {{--                                        @if($permission[$key] == 'Approved')--}}
+                                        {{--                                            0--}}
+                                        {{--                                        @else--}}
+                                        {{--                                            @if($penalty[$key] == 0 )--}}
+                                        {{--                                                0--}}
+                                        {{--                                            @endif--}}
+                                        {{--                                            @if($penalty[$key] == 0.25 )--}}
+                                        {{--                                                ¼  DAY--}}
+                                        {{--                                            @endif--}}
+                                        {{--                                            @if($penalty[$key] == 0.5 )--}}
+                                        {{--                                                ½ DAY--}}
+                                        {{--                                            @endif--}}
+                                        {{--                                            @if($penalty[$key] == 1 )--}}
+                                        {{--                                                1 DAY--}}
+                                        {{--                                            @endif--}}
+                                        {{--                                        @endif--}}
                                     </td>
 
                                 </tr>
