@@ -87,6 +87,7 @@ class AttendanceEmployeeController extends Controller
                         if ($leave->total_leave_days > 1) {
                             $days_count = $leave->total_leave_days;
                             for ($j = 0; $j < $days_count; $j++) {
+                                // Need To Check If He Came Or Not
                                 $permission[] .= '(' . $leave->status . ') ' . $leave->leave_reason;
                             }
                             $i += $days_count -1;
