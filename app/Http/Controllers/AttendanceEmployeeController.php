@@ -152,7 +152,7 @@ class AttendanceEmployeeController extends Controller
         foreach ($attendanceEmployee as $attendance) {
             $today_total_working_hours = Carbon::parse($attendance->clock_out)->diff(Carbon::parse($attendance->clock_in))->format('%H:%i');
             if (Carbon::parse($today_total_working_hours)->lessThan($time_to_stay_in_company)) {
-                $missing[] .= Carbon::parse($today_total_working_hours)->diff($time_to_stay_in_company)->format('%H:%i');
+                $missing[] .= Carbon::parse($time_to_stay_in_company)->diff($today_total_working_hours)->format('%H:%I');
             } else {
                 $missing[] .= 0;
             }
