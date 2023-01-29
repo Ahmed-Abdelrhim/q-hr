@@ -134,6 +134,9 @@
                                         <?php if(isset($permission[$key])): ?>
                                             <?php if($permission[$key] == 'Approved'): ?>
                                                 0
+                                            <?php else: ?>
+                                                <?php echo e($missing[$key]); ?>
+
                                             <?php endif; ?>
                                         <?php else: ?>
                                             <?php echo e($missing[$key]); ?>
@@ -156,7 +159,21 @@
                                         <?php if(isset($permission[$key])): ?>
                                             <?php if($permission[$key] == 'Approved'): ?>
                                                 0
+                                            <?php else: ?>
+                                                <?php if($penalty[$key] == 0 ): ?>
+                                                    0
+                                                <?php endif; ?>
+                                                <?php if($penalty[$key] == 0.25 ): ?>
+                                                    ¼  DAY
+                                                <?php endif; ?>
+                                                <?php if($penalty[$key] == 0.5 ): ?>
+                                                    ½ DAY
+                                                <?php endif; ?>
+                                                <?php if($penalty[$key] == 1 ): ?>
+                                                    1 DAY
+                                                <?php endif; ?>
                                             <?php endif; ?>
+
                                         <?php else: ?>
                                             <?php if($penalty[$key] == 0 ): ?>
                                                 0

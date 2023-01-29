@@ -132,6 +132,8 @@
                                         @if(isset($permission[$key]))
                                             @if($permission[$key] == 'Approved')
                                                 0
+                                            @else
+                                                {{$missing[$key]}}
                                             @endif
                                         @else
                                             {{$missing[$key]}}
@@ -153,7 +155,21 @@
                                         @if(isset($permission[$key]))
                                             @if($permission[$key] == 'Approved')
                                                 0
+                                            @else
+                                                @if($penalty[$key] == 0 )
+                                                    0
+                                                @endif
+                                                @if($penalty[$key] == 0.25 )
+                                                    ¼  DAY
+                                                @endif
+                                                @if($penalty[$key] == 0.5 )
+                                                    ½ DAY
+                                                @endif
+                                                @if($penalty[$key] == 1 )
+                                                    1 DAY
+                                                @endif
                                             @endif
+
                                         @else
                                             @if($penalty[$key] == 0 )
                                                 0
