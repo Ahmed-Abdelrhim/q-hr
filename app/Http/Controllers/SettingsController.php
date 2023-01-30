@@ -55,20 +55,20 @@ class SettingsController extends Controller
             //offer letter
             $Offerletter=GenerateOfferLetter::all();
             $currOfferletterLang = GenerateOfferLetter::where('created_by',  \Auth::user()->id)->where('lang', $offerlang)->first();
-        
+
             //joining letter
             $Joiningletter=JoiningLetter::all();
             $currjoiningletterLang = JoiningLetter::where('created_by',  \Auth::user()->id)->where('lang', $joininglang)->first();
-          
+
             //Experience Certificate
             $experience_certificate=ExperienceCertificate::all();
             $curr_exp_cetificate_Lang = ExperienceCertificate::where('created_by',  \Auth::user()->id)->where('lang', $explang)->first();
-        
+
             //NOC
             $noc_certificate=NOC::all();
             $currnocLang = NOC::where('created_by',  \Auth::user()->id)->where('lang', $noclang)->first();
 
-          
+
 
             return view('setting.company_settings', compact('settings', 'timezones', 'ips','EmailTemplates','currOfferletterLang','Offerletter','offerlang','Joiningletter','currjoiningletterLang','joininglang','experience_certificate','curr_exp_cetificate_Lang','explang','noc_certificate','currnocLang','noclang'));
         } else {
@@ -85,7 +85,7 @@ class SettingsController extends Controller
             $user = \Auth::user();
             if ($request->company_logo) {
 
-                
+
                 $request->validate(
                     [
                         'company_logo' => 'image|mimes:png|max:20480',
@@ -103,9 +103,9 @@ class SettingsController extends Controller
                     $url = $path['url'];
                 }else{
                     return redirect()->back()->with('error', __($path['msg']));
-                } 
-                
-                
+                }
+
+
                 $company_logo = !empty($request->company_logo) ? $logoName : 'logo-dark.png';
 
 
@@ -117,19 +117,19 @@ class SettingsController extends Controller
                         \Auth::user()->creatorId(),
                     ]
                 );
-                
+
             }
 
 
             if ($request->company_logo_light) {
-                
+
                 $request->validate(
                     [
                         'company_logo_light' => 'image|mimes:png|max:20480',
                     ]
                 );
                 $logoName = 'light_logo.png';
-                
+
                 $dir = 'uploads/logo/';
                 $validation =[
                     'mimes:'.'png',
@@ -140,8 +140,8 @@ class SettingsController extends Controller
                     $url = $path['url'];
                 }else{
                     return redirect()->back()->with('error', __($path['msg']));
-                } 
-                
+                }
+
                 $company_logo_light = !empty($request->company_logo_light) ? $logoName : 'logo-light.png';
 
 
@@ -156,15 +156,15 @@ class SettingsController extends Controller
             }
 
             if ($request->company_favicon) {
-           
+
                 $request->validate(
                     [
                         'company_favicon' => 'image|mimes:png|max:20480',
                         ]
                     );
                     $favicon =  'favicon.png';
-                    
-                
+
+
                 $dir = 'uploads/logo/';
                 $validation =[
                     'mimes:'.'png',
@@ -175,8 +175,8 @@ class SettingsController extends Controller
                     $url = $path['url'];
                 }else{
                     return redirect()->back()->with('error', __($path['msg']));
-                } 
-                
+                }
+
                 $company_favicon = !empty($request->company_favicon) ? $favicon : 'favicon.png';
 
                 \DB::insert(
@@ -188,11 +188,11 @@ class SettingsController extends Controller
                     ]
                 );
             }
-            
+
 
             $arrEnv = [
                 'SITE_RTL' => !isset($request->SITE_RTL) ? 'off' : 'on',
-            
+
             ];
             Utility::setEnvironmentValue($arrEnv);
 
@@ -218,7 +218,7 @@ class SettingsController extends Controller
                 }
 
                 unset($post['_token'], $post['company_logo'], $post['company_small_logo'], $post['company_logo_light'], $post['company_favicon']);
-                
+
                 $settings = Utility::settings();
                 // dd($settings);
                 foreach ($post as $key => $data) {
@@ -240,7 +240,7 @@ class SettingsController extends Controller
             return redirect()->back()->with('error', 'Permission denied.');
         }
     }
-    
+
 
     public function saveEmailSettings(Request $request)
     {
@@ -505,7 +505,7 @@ class SettingsController extends Controller
             $data['mail_encryption']   = $request->mail_encryption;
             $data['mail_from_address'] = $request->mail_from_address;
             $data['mail_from_name']    = $request->mail_from_name;
-            
+
             return view('setting.test_mail', compact('data'));
         // return view('setting.test_mail');
     }
@@ -545,7 +545,7 @@ class SettingsController extends Controller
             if($validator->fails())
             {
                 $messages = $validator->getMessageBag();
-                
+
                 return response()->json(
                     [
                         'is_success' => false,
@@ -553,7 +553,7 @@ class SettingsController extends Controller
                     ]
                 );
             }
-            
+
             try
         {
             config(
@@ -579,10 +579,10 @@ class SettingsController extends Controller
                         ]
                     );
                 }
-                
+
                 return response()->json(
                     [
-                
+
                 'is_success' => true,
                 'message' => __('Email send Successfully'),
             ]
@@ -648,10 +648,10 @@ class SettingsController extends Controller
     public function recaptchaSettingStore(Request $request)
     {
         //return redirect()->back()->with('error', __('This operation is not perform due to demo mode.'));
-        
+
         $user = \Auth::user();
         $rules = [];
-      
+
         if($request->recaptcha_module == 'yes')
         {
             $rules['google_recaptcha_key'] = 'required|string|max:50';
@@ -835,7 +835,7 @@ class SettingsController extends Controller
     }
     public function offerletterupdate($lang, Request $request)
     {
-      
+
         $user = GenerateOfferLetter::updateOrCreate(['lang' =>   $lang,'created_by' =>  \Auth::user()->id],['content' => $request->content]);
 
         return redirect()->back()->with('success', __('Offer Letter successfully saved.'));
@@ -843,7 +843,7 @@ class SettingsController extends Controller
     }
     public function joiningletterupdate($lang, Request $request)
     {
-      
+
         $user = JoiningLetter::updateOrCreate(['lang' =>   $lang,'created_by' =>  \Auth::user()->id],['content' => $request->content]);
 
         return redirect()->back()->with('success', __('Joing Letter successfully saved.'));
@@ -868,25 +868,25 @@ class SettingsController extends Controller
 
     public function storageSettingStore(Request $request)
     {
-        
+
         if(isset($request->storage_setting) && $request->storage_setting == 'local')
         {
-            
+
             $request->validate(
                 [
-                   
+
                     'local_storage_validation' => 'required',
                     'local_storage_max_upload_size' => 'required',
                 ]
             );
-            
+
             $post['storage_setting'] = $request->storage_setting;
             $local_storage_validation = implode(',', $request->local_storage_validation);
             $post['local_storage_validation'] = $local_storage_validation;
             $post['local_storage_max_upload_size'] = $request->local_storage_max_upload_size;
-            
+
         }
-        
+
         if(isset($request->storage_setting) && $request->storage_setting == 's3')
         {
             $request->validate(
@@ -912,7 +912,7 @@ class SettingsController extends Controller
             $s3_storage_validation              = implode(',', $request->s3_storage_validation);
             $post['s3_storage_validation']      = $s3_storage_validation;
         }
-        
+
         if(isset($request->storage_setting) && $request->storage_setting == 'wasabi')
         {
             $request->validate(
@@ -938,7 +938,7 @@ class SettingsController extends Controller
             $wasabi_storage_validation          = implode(',', $request->wasabi_storage_validation);
             $post['wasabi_storage_validation']  = $wasabi_storage_validation;
         }
-        
+
         foreach($post as $key => $data)
         {
 
@@ -947,13 +947,13 @@ class SettingsController extends Controller
                 $key,
                 \Auth::user()->id,
             ];
-            
+
             \DB::insert(
                 'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ', $arr
             );
         }
-        
+
         return redirect()->back()->with('success', 'Storage setting successfully updated.');
-        
+
     }
 }

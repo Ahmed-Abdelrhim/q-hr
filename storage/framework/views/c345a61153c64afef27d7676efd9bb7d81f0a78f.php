@@ -14,7 +14,7 @@
         <div class="me-auto dash-mob-drp">
             <ul class="list-unstyled">
                 <li class="dash-h-item mob-hamburger">
-                    <a href="#!" class="dash-head-link" id="mobile-collapse">
+                    <a href="#" class="dash-head-link" id="mobile-collapse">
                         <div class="hamburger hamburger--arrowturn">
                             <div class="hamburger-box">
                                 <div class="hamburger-inner"></div>
@@ -126,7 +126,6 @@
                         <?php endif; ?>
                     </div>
                 </li>
-
             </ul>
         </div>
     </div>
