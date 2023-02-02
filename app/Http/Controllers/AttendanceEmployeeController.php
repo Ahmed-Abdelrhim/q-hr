@@ -258,7 +258,7 @@ class AttendanceEmployeeController extends Controller
         // return $request;
         if (Auth::user()->can('Manage Attendance')) {
             $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
-            // $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');
+            // $branch = Branch::query()->where('created_by', Auth::user()->creatorId())->get()->pluck('name', 'id');;
             // $branch->prepend('All', '');
 
             $department = Department::query()->where('created_by', Auth::user()->creatorId())->get(['id', 'name']);
