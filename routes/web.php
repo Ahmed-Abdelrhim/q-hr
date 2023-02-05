@@ -1190,7 +1190,7 @@ Route::post('/getemployee', 'AppraisalController@getemployee')->name('getemploye
 //storage Setting
 Route::post('storage-settings','SettingsController@storageSettingStore')->name('storage.setting.store')->middleware(['auth','XSS']);
 
-
+Route::get('Get/Applied/Leaves/{emp_email}',[\App\Http\Controllers\LeaveController::class,'getEmployeeAppliedLeaves']);
 
 Route::get('hash',function(){})->name('message.data');
 

@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Leave;
 use App\Models\LeaveType;
 use App\Mail\LeaveActionSend;
+use App\Models\User;
 use App\Models\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -312,5 +313,16 @@ class LeaveController extends Controller
         $data = Excel::download(new LeaveExport(), $name . '.xlsx');
 
         return $data;
+    }
+
+    public function getEmployeeAppliedLeaves($emp_email)
+    {
+        $user = User::query()->where('email',$emp_email)->first();
+        $emp = Employee::query()->where('email',$emp_email)->first();
+        if (!$emp) {
+            return view('errors.404');
+        }
+
+        $leaves = Leave::query()->where('employee_id',$emp->id)->get();
     }
 }
