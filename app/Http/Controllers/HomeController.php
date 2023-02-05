@@ -40,7 +40,6 @@ class HomeController extends Controller
             $user = Auth::user();
             if($user->type == 'employee')
             {
-
                 $emp = Employee::where('user_id', '=', $user->id)->first();
 
                 $announcements = Announcement::orderBy('announcements.id', 'desc')->take(5)->leftjoin('announcement_employees', 'announcements.id', '=', 'announcement_employees.announcement_id')->where('announcement_employees.employee_id', '=', $emp->id)->orWhere(

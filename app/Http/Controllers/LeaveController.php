@@ -20,16 +20,16 @@ class LeaveController extends Controller
 
         if(\Auth::user()->can('Manage Leave'))
         {
-            $leaves = Leave::where('created_by', '=', \Auth::user()->creatorId())->get();
+            $leaves = Leave::query()->where('created_by', '=', \Auth::user()->creatorId())->get();
             if(\Auth::user()->type == 'employee')
             {
                 $user     = \Auth::user();
-                $employee = Employee::where('user_id', '=', $user->id)->first();
-                $leaves   = Leave::where('employee_id', '=', $employee->id)->get();
+                $employee = Employee::query()->where('user_id', '=', $user->id)->first();
+                $leaves   = Leave::query()->where('employee_id', '=', $employee->id)->get();
             }
             else
             {
-                $leaves = Leave::where('created_by', '=', \Auth::user()->creatorId())->get();
+                $leaves = Leave::query()->where('created_by', '=', \Auth::user()->creatorId())->get();
             }
 
             return view('leave.index', compact('leaves'));
